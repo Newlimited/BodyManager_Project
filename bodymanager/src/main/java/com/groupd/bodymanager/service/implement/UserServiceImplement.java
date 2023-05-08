@@ -11,11 +11,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.groupd.bodymanager.common.CustomResponse;
-import com.groupd.bodymanager.dto.request.auth.SignInRequestDto;
-import com.groupd.bodymanager.dto.request.auth.SignUpRequestDto;
+import com.groupd.bodymanager.dto.request.user.SignInRequestDto;
+import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
-import com.groupd.bodymanager.dto.response.auth.GetAuthResponseDto;
-
+import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
 import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.provider.JwtProvider;
 import com.groupd.bodymanager.repository.UserRepository;
