@@ -6,10 +6,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
-import com.groupd.bodymanager.dto.request.auth.SignUpRequestDto;
 import com.groupd.bodymanager.dto.request.user.PostUserRequestDto;
-import com.groupd.bodymanager.dto.response.auth.GetAuthResponseDto;
+import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
+import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -3,11 +3,11 @@ package com.groupd.bodymanager.service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.groupd.bodymanager.dto.request.auth.SignInRequestDto;
-import com.groupd.bodymanager.dto.request.auth.SignUpRequestDto;
 import com.groupd.bodymanager.dto.request.user.PostUserRequestDto;
+import com.groupd.bodymanager.dto.request.user.SignInRequestDto;
+import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
-import com.groupd.bodymanager.dto.response.auth.GetAuthResponseDto;
+import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
 
 public interface UserService {
     

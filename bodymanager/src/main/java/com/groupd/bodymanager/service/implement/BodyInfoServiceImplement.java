@@ -1,4 +1,4 @@
-package main.java.com.groupd.bodymanager.service.implement;
+package com.groupd.bodymanager.service.implement;
 
 public class BodyInfoServiceImplement {
     

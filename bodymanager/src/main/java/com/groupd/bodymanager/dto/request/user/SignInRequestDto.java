@@ -1,4 +1,4 @@
-package com.groupd.bodymanager.dto.request.auth;
+package com.groupd.bodymanager.dto.request.user;
 
 
 import javax.validation.constraints.Email;
