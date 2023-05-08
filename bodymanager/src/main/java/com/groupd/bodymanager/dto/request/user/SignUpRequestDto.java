@@ -23,8 +23,7 @@ public class SignUpRequestDto {
     @Max(6)
     private String userNickname;
     @NotBlank
-    @Min(10)
-    @Max(11)
+    @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$") 
     private String userPhoneNumber;
     private String userAddress;
     private String userGender;
