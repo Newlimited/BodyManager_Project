@@ -1,4 +1,4 @@
-package main.java.com.groupd.bodymanager.entity;
+package com.groupd.bodymanager.entity;
 
 public class DietEntity {
     

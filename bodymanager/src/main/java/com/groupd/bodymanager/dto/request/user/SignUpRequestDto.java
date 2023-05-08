@@ -1,9 +1,10 @@
-package com.groupd.bodymanager.dto.request.auth;
+package com.groupd.bodymanager.dto.request.user;
 
 import javax.persistence.Id;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

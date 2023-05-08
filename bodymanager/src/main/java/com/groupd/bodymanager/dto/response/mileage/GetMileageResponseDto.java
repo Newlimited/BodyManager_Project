@@ -1,4 +1,4 @@
-package main.java.com.groupd.bodymanager.dto.response.mileage;
+package com.groupd.bodymanager.dto.response.mileage;
 
 public class GetMileageResponseDto {
     

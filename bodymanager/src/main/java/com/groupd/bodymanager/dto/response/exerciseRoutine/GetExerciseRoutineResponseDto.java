@@ -1,4 +1,4 @@
-package main.java.com.groupd.bodymanager.dto.response.exerciseRoutine;
+package com.groupd.bodymanager.dto.response.exerciseRoutine;
 
 public class GetExerciseRoutineResponseDto {
     

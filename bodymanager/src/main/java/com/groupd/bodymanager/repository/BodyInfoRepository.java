@@ -1,4 +1,4 @@
-package main.java.com.groupd.bodymanager.repository;
+package com.groupd.bodymanager.repository;
 
 public interface BodyInfoRepository {
     

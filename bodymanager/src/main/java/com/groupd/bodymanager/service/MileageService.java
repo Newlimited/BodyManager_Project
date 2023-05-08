@@ -1,4 +1,4 @@
-package main.java.com.groupd.bodymanager.service;
+package com.groupd.bodymanager.service;
 
 public interface MileageService {
     

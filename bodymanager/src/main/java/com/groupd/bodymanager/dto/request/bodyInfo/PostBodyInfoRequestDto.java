@@ -1,4 +1,4 @@
-package main.java.com.groupd.bodymanager.dto.request.bodyInfo;
+package com.groupd.bodymanager.dto.request.bodyInfo;
 
 public class PostBodyInfoRequestDto {
     

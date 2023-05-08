@@ -1,4 +1,4 @@
-package com.yuhan.board.entity.resultSet;
+package com.groupd.bodymanager.entity.resultSet;
 
 public interface BoardListResultSet {
     

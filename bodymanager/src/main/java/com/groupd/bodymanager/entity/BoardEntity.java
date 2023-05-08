@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.groupd.bodymanager.dto.request.board.PostBoardRequestDto;
+import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
