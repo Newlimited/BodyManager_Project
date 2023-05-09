@@ -5,6 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+<<<<<<< HEAD
+
+import com.groupd.bodymanager.dto.request.user.SignInRequestDto;
+=======
+>>>>>>> d83a2670bbe1c12246507be600697ad0b7f9d70e
 import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
 import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
 
@@ -21,6 +26,8 @@ import lombok.NoArgsConstructor;
 public class UserEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int userCode;
     private String userEmail;
     private String userPassword;
     private String userNickname;
@@ -28,10 +35,11 @@ public class UserEntity {
     private String userAddress;
     private String userGender;
     private Integer userAge;
-    private int userCode;
+    
 
        public UserEntity(SignUpRequestDto dto, int userCode) {
         
+        this.userCode = userCode;
         this.userEmail = dto.getUserEmail();
         this.userPassword = dto.getUserPassword();
         this.userNickname = dto.getUserNickname();
@@ -39,7 +47,7 @@ public class UserEntity {
         this.userGender = dto.getUserGender();
         this.userAge = dto.getUserAge();
         this.userAddress = dto.getUserAddress();
-        this.userCode = userCode;
+        
     }
     
 }
