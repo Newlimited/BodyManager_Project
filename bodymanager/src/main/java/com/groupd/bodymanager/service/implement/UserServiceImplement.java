@@ -11,10 +11,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.groupd.bodymanager.common.CustomResponse;
+import com.groupd.bodymanager.dto.request.user.PatchUserRequestDto;
 import com.groupd.bodymanager.dto.request.user.SignInRequestDto;
 import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
+import com.groupd.bodymanager.dto.response.user.GetUserResponseDto;
 import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.provider.JwtProvider;
 import com.groupd.bodymanager.repository.UserRepository;
@@ -108,5 +110,23 @@ public class UserServiceImplement implements UserService {
             return CustomResponse.databaseError();
         }
         return ResponseEntity.status(HttpStatus.OK).body(body);
+    }
+
+    @Override
+    public ResponseEntity<? super GetUserResponseDto> getUser(Integer userCode) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getUser'");
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> patchUser(PatchUserRequestDto dto) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'patchUser'");
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> deletdUser(String userEmail, Integer userCode) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deletdUser'");
     }
 }
