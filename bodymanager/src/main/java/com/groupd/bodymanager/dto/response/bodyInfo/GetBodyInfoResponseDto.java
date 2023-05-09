@@ -1,5 +1,8 @@
 package com.groupd.bodymanager.dto.response.bodyInfo;
 
-public class GetBodyInfoResponseDto {
+import com.groupd.bodymanager.dto.response.ResponseDto;
+
+public class GetBodyInfoResponseDto extends ResponseDto{
+
     
 }  
