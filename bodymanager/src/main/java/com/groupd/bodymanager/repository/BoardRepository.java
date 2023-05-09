@@ -21,7 +21,7 @@ public interface BoardRepository extends JpaRepository<BoardEntity, String>{
     from board B, user U where B.board_writer_nickname = U.user_nickname
     GROUP BY B.board_number
     ORDER BY B.board_write_datetime DESC;
-        
+           
     )
     public List<BoardListResultSet> getList();
 }@Query(
