@@ -1,5 +1,7 @@
 package com.groupd.bodymanager.dto.response.dietRoutine;
 
-public class GetDietRoutineResponseDto {
+import com.groupd.bodymanager.dto.response.ResponseDto;
+
+public class GetDietRoutineResponseDto extends ResponseDto{
     
 }
