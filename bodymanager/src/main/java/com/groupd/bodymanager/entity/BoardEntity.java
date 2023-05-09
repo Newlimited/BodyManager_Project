@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.groupd.bodymanager.dto.request.board.PostBoardRequestDto;
-import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,7 +29,7 @@ public class BoardEntity {
     private String boardWriternickname;
     private String boardTitle;
     private String boardContent;
-    private String BoardImageUrl;
+    private String boardImageUrl;
     private String boradWriteDatetime;
     private int viewCount;
     
@@ -42,7 +42,7 @@ public class BoardEntity {
         this.boardWriternickname = dto.getBoardWriterNickname();
         this.boardTitle = dto.getBoardTitle();
         this.boardContent = dto.getBoardContent();
-        this.BoardImageUrl = dto.getBoardImageUrl();
+        this.boardImageUrl = dto.getBoardImageUrl();
         this.boradWriteDatetime = writeDateTime;
         this.viewCount = 0;
 

@@ -5,8 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+<<<<<<< HEAD
 
 import com.groupd.bodymanager.dto.request.user.SignInRequestDto;
+=======
+>>>>>>> d83a2670bbe1c12246507be600697ad0b7f9d70e
 import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
 import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
 
