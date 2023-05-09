@@ -1,13 +1,16 @@
 package com.groupd.bodymanager.dto.response.user;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+
 
 import com.groupd.bodymanager.dto.response.ResponseDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+<<<<<<< HEAD
+
+=======
+>>>>>>> d83a2670bbe1c12246507be600697ad0b7f9d70e
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,6 +20,10 @@ public class GetAuthResponseDto extends ResponseDto {
     private String token;
     private int expirationDate;  
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> d83a2670bbe1c12246507be600697ad0b7f9d70e
     public GetAuthResponseDto(int userCode){ //회원가입
         super("SU", "Sucess");
         this.userCode = userCode;

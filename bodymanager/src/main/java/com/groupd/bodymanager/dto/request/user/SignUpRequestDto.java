@@ -1,6 +1,7 @@
 package com.groupd.bodymanager.dto.request.user;
 
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -12,10 +13,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class SignUpRequestDto {
-    @Id
+    
     @NotBlank
+    @Email
     private String userEmail;
     @NotBlank
     @Min(8)
