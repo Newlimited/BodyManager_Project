@@ -19,7 +19,11 @@ public class GetDietRoutineResponseDto extends ResponseDto{
     private List<Diet> dietList;
     private List<DietDetail> dietDetailList;
 
-    public GetDietRoutineResponseDto() {
+    public GetDietRoutineResponseDto(
+        MenuEntity menuEntity,List<DietEntity> dietEntities,List<DietDetailEntity> dietDetailEntities
+        ) {
+
+            // this.userCode = menuEntity.ge
 
 
     }
