@@ -1,5 +1,6 @@
 package com.groupd.bodymanager.dto.response.dietRoutine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.groupd.bodymanager.dto.response.ResponseDto;
@@ -18,9 +19,15 @@ public class GetDietRoutineResponseDto extends ResponseDto{
     private List<Diet> dietList;
     private List<DietDetail> dietDetailList;
 
+    public GetDietRoutineResponseDto() {
+
+
+    }
+
+
+
 }
 
-// 유저가 아니라 우리가 불러오는것
 
 
 
@@ -36,7 +43,11 @@ class Diet {
     }
 
 
-}
+    }
+
+
+
+
 
 
 class DietDetail {
@@ -47,12 +58,14 @@ class DietDetail {
     private int dietDetailNumber;
 
     DietDetail(DietDetailEntity dietDetailEntity) {
-        this.time = dietDetailEntity.getItem();
+        this.time = dietDetailEntity.getTime();
         this.item = dietDetailEntity.getItem();
         this.dietDetailNumber = dietDetailEntity.getDietDetailNumber();
 
 
     }
+
+    
 
 
 

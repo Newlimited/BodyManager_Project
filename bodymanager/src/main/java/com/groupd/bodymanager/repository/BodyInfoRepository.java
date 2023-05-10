@@ -6,4 +6,5 @@ import com.groupd.bodymanager.entity.BodyInfoEntity;
 
 public interface BodyInfoRepository extends JpaRepository<BodyInfoEntity,Integer>{
     
+    
 }

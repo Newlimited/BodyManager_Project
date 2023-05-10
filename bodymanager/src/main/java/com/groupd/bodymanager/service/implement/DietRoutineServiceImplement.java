@@ -1,5 +1,8 @@
 package com.groupd.bodymanager.service.implement;
 
-public class DietRoutineServiceImplement {
+import com.groupd.bodymanager.service.DietRoutineService;
+
+public class DietRoutineServiceImplement implements DietRoutineService{
+    
     
 }
