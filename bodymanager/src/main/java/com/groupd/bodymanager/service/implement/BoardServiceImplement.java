@@ -46,19 +46,17 @@ public class BoardServiceImplement implements BoardService{
             ResponseDto errorbody = new ResponseDto("DE", "Database Error");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorbody);
         }
-
         // TODO: 성공반환
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
-
-    
+        
     @Override
-    public ResponseEntity<? super GetBoardResponseDto> getBoard(Integer boardNumber) {
+    public ResponseEntity<? super GetBoardResponseDto> getBoard(Integer boardNumber) { // 특정게시물 보기
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getBoard'");
     }
     @Override
-    public ResponseEntity<? super GetBoardListResponseDto> getBoardList() {
+    public ResponseEntity<? super GetBoardListResponseDto> getBoardList() { //게시물 목록 보기
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getBoardList'");
     }
