@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.groupd.bodymanager.dto.request.user.PatchUserRequestDto;
+import com.groupd.bodymanager.dto.request.user.PostManagerRequestDto;
 import com.groupd.bodymanager.dto.request.user.SignInRequestDto;
 import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
@@ -21,18 +22,25 @@ import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetUserResponseDto;
 import com.groupd.bodymanager.service.UserService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/api/v1/user")
+@RequiredArgsConstructor
 public class UserController{
     
-    private UserService userService;
-
-    @Autowired
-    public UserController(UserService userService){
-        this.userService = userService;
+    private final UserService userService;
+    
+    @PostMapping("add-manager")
+    public ResponseEntity<GetUserResponseDto> addManager(
+        @Valid @RequestBody PostManagerRequestDto requestBody
+    ){
+        ResponseEntity<GetUserResponseDto> response = userService.addManager(requestBody);
+        return response;
     }
 
-    @PostMapping("sign-up")
+
+     @PostMapping("sign-up")
     public ResponseEntity<? super GetAuthResponseDto> signUp(
         @Valid @RequestBody SignUpRequestDto requestBody
     ){
