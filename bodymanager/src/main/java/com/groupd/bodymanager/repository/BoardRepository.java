@@ -14,26 +14,21 @@ public interface BoardRepository extends JpaRepository<BoardEntity, String>{
     public BoardEntity findByBoardNumber(int boardNumber); 
 
     @Query(
-        Select B.board_number As boardNumber, B.board_title As boardTitle,
-    B.board_content AS boardContent, B.board_image_url As boardImageUrl,
-    B.board_write_datetime As boardWriteDatetime, U.user_email As boardWriterNickname
-    
-    from board B, user U where B.board_writer_nickname = U.user_nickname
-    GROUP BY B.board_number
-    ORDER BY B.board_write_datetime DESC;
-           
+        value = 
+        "Select "
+        + "B.board_number As boardNumber, "
+        + "B.board_title As boardTitle, "
+        + "B.board_content AS boardContent, "
+        + "B.board_image_url As boardImageUrl, "
+        + "B.board_write_datetime As boardWriteDatetime, "
+        + "U.user_nickname As boardWriterNickname "
+        + "U.user_email As boardWriterEmail "
+        + "B.view_count As viewCount " 
+        + "from board B, user U "
+        + "where B.board_writer_nickname = U.user_nickname "
+        + "GROUP BY B.board_number "
+        + "ORDER BY B.board_write_datetime DESC; ",
+         nativeQuery = true  
     )
     public List<BoardListResultSet> getList();
-}@Query(
-    Select B.board_number As boardNumber, B.board_title As boardTitle,
-B.board_content AS boardContent, B.board_image_url As boardImageUrl,
-B.board_write_datetime As boardWriteDatetime, U.user_email As boardWriterNickname
-
-from board B, user U where B.board_writer_nickname = U.user_nickname
-GROUP BY B.board_number
-ORDER BY B.board_write_datetime DESC;
-LIMIT = 5
-
-)
-public List<BoardListResultSet> getListTop5();
 }
