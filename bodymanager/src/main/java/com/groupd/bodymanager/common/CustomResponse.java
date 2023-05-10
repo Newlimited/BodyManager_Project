@@ -12,7 +12,7 @@ public class CustomResponse {
         ResponseDto errorBody = new ResponseDto("SU" , "Sucess");
         return ResponseEntity.status(HttpStatus.OK).body(errorBody);
     } 
-
+   
     public static ResponseEntity<? super GetUserResponseDto> databaseError2(){
         ResponseDto errorBody = new ResponseDto("DE","Database Error");
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorBody);
