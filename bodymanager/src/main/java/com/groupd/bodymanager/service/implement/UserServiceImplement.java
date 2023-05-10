@@ -92,7 +92,7 @@ public class UserServiceImplement implements UserService {
     @Override
     public ResponseEntity<? super GetAuthResponseDto> signIn(SignInRequestDto dto) {
         GetAuthResponseDto body = null;
-        
+
         String userEmail = dto.getUserEmail();
         String userPassword = dto.getUserPassword();
 
@@ -137,7 +137,7 @@ public class UserServiceImplement implements UserService {
             }
             ManagerEntity managerEntity = new ManagerEntity(addEmail);
             managerRepository.save(managerEntity);
-            
+
         } catch (Exception exception) {
             exception.printStackTrace();
             return CustomResponse.databaseError2();
@@ -145,11 +145,13 @@ public class UserServiceImplement implements UserService {
 
         return CustomResponse.successs();
     }
+
     @Override
     public ResponseEntity<? super GetUserResponseDto> getUser(Integer userCode) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getUser'");
     }
+
     @Override
     public ResponseEntity<ResponseDto> patchUser(PatchUserRequestDto dto) {
 
@@ -172,44 +174,51 @@ public class UserServiceImplement implements UserService {
         String userAddress = dto.getUserAddress();
         String userGender = dto.getUserGender();
         int userAge = dto.getUserAge();
-        
-        try{
-          
-    
-            if (!passwordEncoder.matches(dto.getUserPassword(), userPassword)) { // TODO 기존 비밀번호 불일치
+
+        try {
+            boolean isRightPassword = passwordEncoder.matches(dto.getUserPassword(), userPassword);
+            if (!isRightPassword) { // TODO 기존 비밀번호 불일치
                 return CustomResponse.noPermission();
             }
-    
-            if (!userNewPassword.equals(userNewPasswordCheck)) { // TODO 새로운 비밀번호와 비밀번호 확인간의 불일치
+            boolean isMatchedPassword = userNewPassword.equals(userNewPasswordCheck);
+            if (!isMatchedPassword) { // TODO 새로운 비밀번호와 비밀번호 확인간의 불일치
                 return CustomResponse.noneMatchedPassword();
             }
-    
-            if (userRepository.existsByNickname(dto.getUserNickname())) { // TODO 존재하는 유저 닉네임
+            boolean isExistNickname = userRepository.existsByNickname(dto.getUserNickname());
+            if (isExistNickname) { // TODO 존재하는 유저 닉네임
                 return CustomResponse.existUserNickname();
             }
-    
-            if (userRepository.existsByPhoneNumber(dto.getUserPhoneNumber())) { // TODO 존재하는 유저 휴대전화 번호
+            boolean isExistPhoneNumber = userRepository.existsByPhoneNumber(dto.getUserPhoneNumber());
+            if (!isExistPhoneNumber) { // TODO 존재하는 유저 휴대전화 번호
                 return CustomResponse.existUserPhoneNumber();
             }
-            if (userNewPassword != null && !userNewPassword.isEmpty()) {
+            boolean changePassword = userNewPassword.isBlank();
+            if (!changePassword) {
                 userPassword = passwordEncoder.encode(userNewPassword);
                 userEntity.setUserPassword(userPassword); // 비밀번호 변경
             }
-    
-            userEntity.setUserNickname(userNickname); // 닉네임 변경
-            userEntity.setUserPhoneNumber(userPhoneNumber); // 휴대전화번호 변경
+            boolean changeNickname = userNickname.isBlank();
+            if (!changeNickname) {
+                userEntity.setUserNickname(userNickname); // 닉네임 변경
+            }
+            boolean changePhoneNumber = userPhoneNumber.isBlank();
+            if (!changePhoneNumber) {
+                userEntity.setUserPhoneNumber(userPhoneNumber); // 휴대전화번호 변경
+            }
+            // 나머지는 변경된 사항 저장
             userEntity.setUserAddress(userAddress);
             userEntity.setUserGender(userGender);
             userEntity.setUserAge(userAge);
-    
+
             userRepository.save(userEntity); // 변경된 유저 정보 저장
-    
+
             return CustomResponse.successs();
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ResponseDto("DE", "Database Error"));
         }
     }
+
     @Override
     public ResponseEntity<ResponseDto> deletdUser(String userEmail, Integer userCode) {
         // TODO Auto-generated method stub
