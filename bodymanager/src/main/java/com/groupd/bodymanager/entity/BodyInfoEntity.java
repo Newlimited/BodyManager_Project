@@ -3,9 +3,13 @@ package com.groupd.bodymanager.entity;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "BodyInfo")
 @Entity(name = "BodyInfo")
 public class BodyInfoEntity {
@@ -16,7 +20,7 @@ public class BodyInfoEntity {
     private double fateRate;
     private String recordDate;
     private double bmiIndex;
-    private double bmiResult;
+    private String bmiResult;
 
     
 }
