@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.groupd.bodymanager.common.CustomResponse;
 import com.groupd.bodymanager.dto.request.user.PatchUserRequestDto;
+import com.groupd.bodymanager.dto.request.user.PostManagerRequestDto;
 import com.groupd.bodymanager.dto.request.user.SignInRequestDto;
 import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
@@ -19,12 +20,16 @@ import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetUserResponseDto;
 import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.provider.JwtProvider;
+import com.groupd.bodymanager.repository.ManagerRepository;
 import com.groupd.bodymanager.repository.UserRepository;
 import com.groupd.bodymanager.service.UserService;
+
+import net.bytebuddy.asm.Advice.Return;
 
 @Service
 public class UserServiceImplement implements UserService {
     private UserRepository userRepository;
+    private ManagerRepository managerRepository;
     private JwtProvider jwtProvider;
     private PasswordEncoder passwordEncoder;
 
@@ -111,6 +116,32 @@ public class UserServiceImplement implements UserService {
         }
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
+    @Override
+    public ResponseEntity<? super GetUserResponseDto> addManager(PostManagerRequestDto dto) {
+       GetUserResponseDto body = null;
+       String addEmail = dto.getEmail();
+       
+       try{
+        //TODO 이메일 일치 확인 - 유저이메일에서 확인하는거고...
+        boolean isExistEmail = userRepository.existsByEmail(addEmail);
+        if(!isExistEmail){
+            return CustomResponse.notExistUserEmail();
+        }  //오류 반환 <이메일 없숨!>
+        //TODO 이메일 중복 확인 - 매니저이메일 리스트 안에서 확인하는것..
+         boolean isAlreadyAdded = managerRepository.existsByEmail(addEmail);
+         if(isAlreadyAdded) {
+            return CustomResponse.existUserEmail() ;//오류반환 <이메일 중복>
+        }
+                 
+       }catch(Exception exception){
+        exception.printStackTrace();
+
+        return CustomResponse.databaseError2();
+       }
+       
+       return ResponseEntity.status(HttpStatus.OK).body(body);
+
+    }
 
     @Override
     public ResponseEntity<? super GetUserResponseDto> getUser(Integer userCode) {
@@ -129,4 +160,6 @@ public class UserServiceImplement implements UserService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deletdUser'");
     }
-}
+
+ 
+    }

@@ -5,14 +5,19 @@ import org.springframework.http.ResponseEntity;
 
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
+import com.groupd.bodymanager.dto.response.user.GetUserResponseDto;
 
 public class CustomResponse {
     public static ResponseEntity<ResponseDto> successs(){
         ResponseDto errorBody = new ResponseDto("SU" , "Sucess");
         return ResponseEntity.status(HttpStatus.OK).body(errorBody);
     } 
-
-    public static ResponseEntity<ResponseDto> databaseError(){
+   
+    public static ResponseEntity<? super GetUserResponseDto> databaseError2(){
+        ResponseDto errorBody = new ResponseDto("DE","Database Error");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorBody);
+    }
+    public static ResponseEntity<? super GetAuthResponseDto> databaseError(){
         ResponseDto errorBody = new ResponseDto("DE","Database Error");
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorBody);
     } 

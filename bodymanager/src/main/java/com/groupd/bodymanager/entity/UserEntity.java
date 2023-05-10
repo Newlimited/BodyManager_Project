@@ -1,5 +1,8 @@
 package com.groupd.bodymanager.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,6 +35,8 @@ public class UserEntity {
     private String userAddress;
     private String userGender;
     private Integer userAge;
+    private String managerEmail;
+    private List<ManagerEntity> managerlist;
     
 
        public UserEntity(SignUpRequestDto dto, int userCode) {
@@ -47,4 +52,5 @@ public class UserEntity {
         
     }
     
-}
+
+}    
