@@ -18,6 +18,7 @@ import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetUserResponseDto;
+import com.groupd.bodymanager.entity.ManagerEntity;
 import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.provider.JwtProvider;
 import com.groupd.bodymanager.repository.ManagerRepository;
@@ -91,6 +92,7 @@ public class UserServiceImplement implements UserService {
     @Override
     public ResponseEntity<? super GetAuthResponseDto> signIn(SignInRequestDto dto) {
         GetAuthResponseDto body = null;
+        
         String userEmail = dto.getUserEmail();
         String userPassword = dto.getUserPassword();
 
@@ -106,60 +108,112 @@ public class UserServiceImplement implements UserService {
             ;
             if (!equaledPassword)
                 return CustomResponse.signInFailed();
+
             String jwt = jwtProvider.create(userEmail);
 
-            body = new GetAuthResponseDto(jwt, userEntity.getUserCode());
-
+            body = new GetAuthResponseDto(jwt, userCode);
         } catch (Exception exception) {
             exception.printStackTrace();
             return CustomResponse.databaseError();
         }
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
+
     @Override
     public ResponseEntity<? super GetUserResponseDto> addManager(PostManagerRequestDto dto) {
-       GetUserResponseDto body = null;
-       String addEmail = dto.getEmail();
-       
-       try{
-        //TODO 이메일 일치 확인 - 유저이메일에서 확인하는거고...
-        boolean isExistEmail = userRepository.existsByEmail(addEmail);
-        if(!isExistEmail){
-            return CustomResponse.notExistUserEmail();
-        }  //오류 반환 <이메일 없숨!>
-        //TODO 이메일 중복 확인 - 매니저이메일 리스트 안에서 확인하는것..
-         boolean isAlreadyAdded = managerRepository.existsByEmail(addEmail);
-         if(isAlreadyAdded) {
-            return CustomResponse.existUserEmail() ;//오류반환 <이메일 중복>
+        GetUserResponseDto body = null;
+        String addEmail = dto.getUserEmail();
+
+        try {
+            // TODO 이메일 일치 확인 - 유저이메일에서 확인하는거고...
+            boolean isExistEmail = userRepository.existsByEmail(addEmail);
+            if (!isExistEmail) {
+                return CustomResponse.notExistUserEmail();
+            } // 오류 반환 <이메일 없숨!>
+              // TODO 이메일 중복 확인 - 매니저이메일 리스트 안에서 확인하는것..
+            boolean isAlreadyAdded = managerRepository.existsByEmail(addEmail);
+            if (isAlreadyAdded) {
+                return CustomResponse.existUserEmail();// 오류반환 <이메일 중복>
+            }
+            ManagerEntity managerEntity = new ManagerEntity(addEmail);
+            managerRepository.save(managerEntity);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return CustomResponse.databaseError2();
         }
-                 
-       }catch(Exception exception){
-        exception.printStackTrace();
 
-        return CustomResponse.databaseError2();
-       }
-       
-       return ResponseEntity.status(HttpStatus.OK).body(body);
-
+        return CustomResponse.successs();
     }
-
     @Override
     public ResponseEntity<? super GetUserResponseDto> getUser(Integer userCode) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getUser'");
     }
-
     @Override
     public ResponseEntity<ResponseDto> patchUser(PatchUserRequestDto dto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'patchUser'");
-    }
 
+        ResponseDto responseBody = null;
+        // String userEmail = dto.getUserEmail();
+        // String userPassword = dto.getUserPassword();
+        // String userNickname = dto.getUserNickname();
+        // String userPhoneNumber = dto.getUserPhoneNumber();
+        // String userNewPassword = dto.getUserNewPassword();
+        // String userNewPasswordCheck = dto.getUserNewPasswordCheck();
+        // String userAddress = dto.getUserAddress();
+        // String userGender = dto.getUserGender();
+        // int userAge = dto.getUserAge();
+        UserEntity userEntity = userRepository.findByEmail(dto.getUserEmail());
+        String userPassword = userEntity.getUserPassword();
+        String userNewPassword = dto.getUserNewPassword();
+        String userNewPasswordCheck = dto.getUserNewPasswordCheck();
+        String userNickname = dto.getUserNickname();
+        String userPhoneNumber = dto.getUserPhoneNumber();
+        String userAddress = dto.getUserAddress();
+        String userGender = dto.getUserGender();
+        int userAge = dto.getUserAge();
+        
+        try{
+          
+    
+            if (!passwordEncoder.matches(dto.getUserPassword(), userPassword)) { // TODO 기존 비밀번호 불일치
+                return CustomResponse.noPermission();
+            }
+    
+            if (!userNewPassword.equals(userNewPasswordCheck)) { // TODO 새로운 비밀번호와 비밀번호 확인간의 불일치
+                return CustomResponse.noneMatchedPassword();
+            }
+    
+            if (userRepository.existsByNickname(dto.getUserNickname())) { // TODO 존재하는 유저 닉네임
+                return CustomResponse.existUserNickname();
+            }
+    
+            if (userRepository.existsByPhoneNumber(dto.getUserPhoneNumber())) { // TODO 존재하는 유저 휴대전화 번호
+                return CustomResponse.existUserPhoneNumber();
+            }
+            if (userNewPassword != null && !userNewPassword.isEmpty()) {
+                userPassword = passwordEncoder.encode(userNewPassword);
+                userEntity.setUserPassword(userPassword); // 비밀번호 변경
+            }
+    
+            userEntity.setUserNickname(userNickname); // 닉네임 변경
+            userEntity.setUserPhoneNumber(userPhoneNumber); // 휴대전화번호 변경
+            userEntity.setUserAddress(userAddress);
+            userEntity.setUserGender(userGender);
+            userEntity.setUserAge(userAge);
+    
+            userRepository.save(userEntity); // 변경된 유저 정보 저장
+    
+            return CustomResponse.successs();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ResponseDto("DE", "Database Error"));
+        }
+    }
     @Override
     public ResponseEntity<ResponseDto> deletdUser(String userEmail, Integer userCode) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deletdUser'");
     }
 
- 
-    }
+}

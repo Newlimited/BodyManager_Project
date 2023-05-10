@@ -17,7 +17,7 @@ public interface UserService {
     public ResponseEntity<? super GetAuthResponseDto> signIn(SignInRequestDto dto);
     public ResponseEntity<? super GetAuthResponseDto> signUp(SignUpRequestDto dto);
     public ResponseEntity<? super GetUserResponseDto> getUser(Integer userCode);
-    public ResponseEntity<GetUserResponseDto> addManager(PostManagerRequestDto dto);
+    public ResponseEntity<? super GetUserResponseDto> addManager(PostManagerRequestDto dto);
     public ResponseEntity<ResponseDto> patchUser(PatchUserRequestDto dto);
     public ResponseEntity<ResponseDto> deletdUser(String userEmail, Integer userCode);
 }
