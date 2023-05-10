@@ -21,6 +21,7 @@ public class PatchUserRequestDto {
     @NotBlank
     @Min(8)
     private String userNewPassword;
+    private String userNewPasswordCheck;
     @NotBlank
     @Max(6)
     private String userNickname;
