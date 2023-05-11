@@ -17,8 +17,13 @@ public class CustomResponse {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorBody);
     }
 
-    public static ResponseEntity<ResponseDto> vaildationFaild() {
+    public static ResponseEntity<ResponseDto> validationFaild() {
         ResponseDto errorBody = new ResponseDto("VF", "Request Parameter Validation Failed");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
+    }
+
+    public static ResponseEntity<ResponseDto> notExistUserCode() {
+        ResponseDto errorBody = new ResponseDto("NC", "Non-Existent User Code");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
     }
 

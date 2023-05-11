@@ -30,7 +30,7 @@ public class ExerciseRoutineServiceImplement implements ExerciseRoutineService {
         try {
 
             if (routineNumber == null) {
-                return CustomResponse.vaildationFaild();
+                return CustomResponse.validationFaild();
             }
 
             //존재하지 않는 루틴 번호 반환
