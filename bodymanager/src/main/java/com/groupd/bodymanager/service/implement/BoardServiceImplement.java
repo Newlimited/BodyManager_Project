@@ -147,6 +147,4 @@ public class BoardServiceImplement implements BoardService {
         boardRepository.delete(boardEntity);
         return CustomResponse.successs();
     }
-
-
 }
