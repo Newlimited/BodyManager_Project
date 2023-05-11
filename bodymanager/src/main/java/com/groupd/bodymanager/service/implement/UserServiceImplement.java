@@ -237,7 +237,7 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    public ResponseEntity<? super DeleteUserResponseDto> deleteUser(DeleteUserRequestDto dto) {
+    public ResponseEntity<? super DeleteUserResponseDto> deletdUser(DeleteUserRequestDto dto) {
         
         GetAuthResponseDto body = null;
 
@@ -250,7 +250,7 @@ public class UserServiceImplement implements UserService {
             if (userEmail == null)
                 return CustomResponse.signInFailed();
 
-            // TODO 로그인 실패 (패스워드 x)
+            // 로그인 실패 (패스워드 x)
             String encordedPassword = userEntity.getUserPassword();
             boolean equaledPassword = passwordEncoder.matches(userPassword, encordedPassword);
             ;
@@ -261,6 +261,8 @@ public class UserServiceImplement implements UserService {
 
             //body = new GetAuthResponseDto(jwt, userCode);
             
+            UserRepository.delete(userEntity);
+
         } catch (Exception exception) {
             exception.printStackTrace();
             return CustomResponse.databaseError();
