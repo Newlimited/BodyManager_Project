@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 @Table(name = "Manager")
 @Data
 @NoArgsConstructor
-
 public class ManagerEntity{
         int managerCode;
          String userPassword;
