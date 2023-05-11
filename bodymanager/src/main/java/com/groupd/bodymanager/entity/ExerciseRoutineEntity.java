@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "Exersicse")
-@Table(name = "Exersicse")
+@Entity(name = "Exercise")
+@Table(name = "Exercise")
 public class ExerciseRoutineEntity {
     
     @Id
