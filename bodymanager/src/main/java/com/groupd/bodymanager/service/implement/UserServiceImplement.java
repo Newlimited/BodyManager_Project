@@ -19,6 +19,7 @@ import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetUserResponseDto;
+import com.groupd.bodymanager.dto.response.user.DeleteUserResponseDto;
 import com.groupd.bodymanager.entity.ManagerEntity;
 import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.provider.JwtProvider;
@@ -236,7 +237,7 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    public ResponseEntity<? super GetAuthResponseDto> deletdUser(DeleteUserRequestDto dto) {
+    public ResponseEntity<? super DeleteUserResponseDto> deletdUser(DeleteUserRequestDto dto) {
         
         GetAuthResponseDto body = null;
 
