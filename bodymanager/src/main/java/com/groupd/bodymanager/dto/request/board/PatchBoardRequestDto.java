@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PatchBoardRequestDto {
     @Email
-    @NotNull
-    private String boardWriterEmail;
-    @NotNull
+    @NotBlank
+    private String manageEmail;
+    @NotBlank
     private Integer boardNumber;
-    @NotNull
+    @NotBlank
     private String boardTitle;
     @NotBlank
     private String boardContent;
