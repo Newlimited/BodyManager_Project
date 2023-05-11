@@ -8,10 +8,10 @@ import com.groupd.bodymanager.entity.MenuEntity;
 import com.groupd.bodymanager.entity.UserEntity;
 
 
+
 @Repository
 public interface MenuRepository extends JpaRepository<MenuEntity,String> {
     public boolean existedByMenuCode(String menuCode);
-    
-
+    public UserEntity findByUserCode(int userCode);
     
 }

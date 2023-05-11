@@ -19,14 +19,11 @@ import com.groupd.bodymanager.service.DietRoutineService;
 
 @Service
 public class DietRoutineServiceImplement implements DietRoutineService{
-
     
-
     private MenuRepository menuRepository;
     private DietRepository dietRepository;
     private DietDetailRepository dietDetailRepository;
     private UserRepository userRepository;
-
     @Autowired
     DietRoutineServiceImplement(
         MenuRepository menuRepository,UserRepository userRepository,DietRepository dietRepository,DietDetailRepository dietDetailRepository
@@ -36,28 +33,35 @@ public class DietRoutineServiceImplement implements DietRoutineService{
         this.dietRepository = dietRepository;
         this.dietDetailRepository = dietDetailRepository;
     }
-
     @Override
     public ResponseEntity<ResponseDto> postDietRoutine(PostDietRoutineRequestDto dto) {
         ResponseDto body = null;
         String menuCode = dto.getMenuCode();
-        int userCode = dto.getUserCode();
-
         try {
-            if(menuCode == null ) return CustomResponse.vaildationFaild();
+            if(menuCode == null ) return CustomResponse.validationFaild();
             //*존재하지 않는 메뉴코드 반환 */
             boolean existedByMenuCode = menuRepository.existedByMenuCode(menuCode);
-
-
             if(!existedByMenuCode) {
                 ResponseDto errorBody = new ResponseDto("NMC", "Non-Existent Menu Code");
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
             }
-
-            MenuEntity entity = new MenuEntity(dto);
+            MenuEntity menuEntity = new MenuEntity(dto);
+            menuRepository.save(menuEntity);
             
+        } catch (Exception exceptione) {
+            exceptione.printStackTrace();
+            //*데이터베이스 오류 */
+            return CustomResponse.databaseError();
+        }
+        //*성공 반환 */
+        return CustomResponse.successs();
+    }
+    
+    @Override
+    public ResponseEntity<? super GetDietRoutineResponseDto> getDietRoutine(String menuCode) {
+        GetDietRoutineResponseDto body = null;
 
-            
+        try {
             
         } catch (Exception exceptione) {
             exceptione.printStackTrace();
@@ -65,22 +69,16 @@ public class DietRoutineServiceImplement implements DietRoutineService{
             return CustomResponse.databaseError();
         }
 
-        //*성공 반환 */
-
-        return CustomResponse.successs();
-
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getDietRoutine'");
     }
 
     @Override
     public ResponseEntity<ResponseDto> patchDietRoutine(PatchDietRoutineRequestDto dto) {
+
+
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'patchDietRoutine'");
-    }
-
-    @Override
-    public ResponseEntity<? super GetDietRoutineResponseDto> getDietRoutine() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDietRoutine'");
     }
 
     
