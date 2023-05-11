@@ -21,5 +21,5 @@ public interface UserService {
     public ResponseEntity<? super GetUserResponseDto> getUser(Integer userCode);
     public ResponseEntity<? super GetUserResponseDto> addManager(PostManagerRequestDto email);
     public ResponseEntity<ResponseDto> patchUser(PatchUserRequestDto dto);
-    public ResponseEntity<? super DeleteUserResponseDto> deleteUser(DeleteUserRequestDto dto);
+    public ResponseEntity<? super DeleteUserResponseDto> deleteUser(String userEmail, DeleteUserRequestDto dto);
 }
