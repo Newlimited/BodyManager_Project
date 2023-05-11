@@ -123,7 +123,6 @@ public class UserServiceImplement implements UserService {
     public ResponseEntity<? super GetUserResponseDto> addManager(PostManagerRequestDto dto) {
         GetUserResponseDto body = null;
         String addEmail = dto.getUserEmail();
-
         try {
             // TODO 이메일 일치 확인 - 유저이메일에서 확인하는거고...
             boolean isExistEmail = userRepository.existsByEmail(addEmail);
@@ -156,15 +155,6 @@ public class UserServiceImplement implements UserService {
     public ResponseEntity<ResponseDto> patchUser(PatchUserRequestDto dto) {
 
         ResponseDto responseBody = null;
-        // String userEmail = dto.getUserEmail();
-        // String userPassword = dto.getUserPassword();
-        // String userNickname = dto.getUserNickname();
-        // String userPhoneNumber = dto.getUserPhoneNumber();
-        // String userNewPassword = dto.getUserNewPassword();
-        // String userNewPasswordCheck = dto.getUserNewPasswordCheck();
-        // String userAddress = dto.getUserAddress();
-        // String userGender = dto.getUserGender();
-        // int userAge = dto.getUserAge();
         UserEntity userEntity = userRepository.findByEmail(dto.getUserEmail());
         String userPassword = userEntity.getUserPassword();
         String userNewPassword = dto.getUserNewPassword();

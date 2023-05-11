@@ -111,11 +111,13 @@ public class BoardServiceImplement implements BoardService {
             if(boardEntity == null){
                 return CustomResponse.notExistBoardNumber();
             }
-            UserEntity userEntity = userRepository.findByEmail(boardWriterEmail);
-            
+            // TODO : 존재하지 않는 매니저 이메일 (존재하는 매니저의 이메일 이필요함)
+            Boolean existedUserEmail = userRepository.existsByEmail(userEmail);
+            if (!existedUserEmail){
+                return CustomResponse.notExistUserEmail();
+            }
+          
 
-              // TODO : 존재하지 않는 유저 이메일 (존재하는 유저의 이메일 이필요함)
-               // TODO : 권한 없음
 
             
         }
