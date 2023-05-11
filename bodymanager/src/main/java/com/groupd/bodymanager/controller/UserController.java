@@ -77,7 +77,7 @@ public class UserController{
         return response;
     }
 
-    @DeleteMapping("/{userEmail}/{userCode}")
+    @PostMapping("secession")
     public ResponseEntity<? super DeleteUserResponseDto> deleteUser(
         @AuthenticationPrincipal String email,
         @Valid @RequestBody DeleteUserRequestDto requestBody
