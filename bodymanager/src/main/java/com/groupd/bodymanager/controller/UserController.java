@@ -32,10 +32,10 @@ public class UserController{
     private final UserService userService;
     
     @PostMapping("add-manager")
-    public ResponseEntity<GetUserResponseDto> addManager(
+    public ResponseEntity<? super GetUserResponseDto> addManager(
         @Valid @RequestBody PostManagerRequestDto requestBody
     ){
-        ResponseEntity<GetUserResponseDto> response = userService.addManager(requestBody);
+        ResponseEntity<? super GetUserResponseDto> response = userService.addManager(requestBody);
         return response;
     }
 

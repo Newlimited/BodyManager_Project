@@ -123,7 +123,6 @@ public class UserServiceImplement implements UserService {
     public ResponseEntity<? super GetUserResponseDto> addManager(PostManagerRequestDto dto) {
         GetUserResponseDto body = null;
         String addEmail = dto.getUserEmail();
-
         try {
             // TODO 이메일 일치 확인 - 유저이메일에서 확인하는거고...
             boolean isExistEmail = userRepository.existsByEmail(addEmail);
@@ -140,7 +139,7 @@ public class UserServiceImplement implements UserService {
 
         } catch (Exception exception) {
             exception.printStackTrace();
-            return CustomResponse.databaseError2();
+            return CustomResponse.databaseError();
         }
 
         return CustomResponse.successs();
@@ -156,15 +155,6 @@ public class UserServiceImplement implements UserService {
     public ResponseEntity<ResponseDto> patchUser(PatchUserRequestDto dto) {
 
         ResponseDto responseBody = null;
-        // String userEmail = dto.getUserEmail();
-        // String userPassword = dto.getUserPassword();
-        // String userNickname = dto.getUserNickname();
-        // String userPhoneNumber = dto.getUserPhoneNumber();
-        // String userNewPassword = dto.getUserNewPassword();
-        // String userNewPasswordCheck = dto.getUserNewPasswordCheck();
-        // String userAddress = dto.getUserAddress();
-        // String userGender = dto.getUserGender();
-        // int userAge = dto.getUserAge();
         UserEntity userEntity = userRepository.findByEmail(dto.getUserEmail());
         String userPassword = userEntity.getUserPassword();
         String userNewPassword = dto.getUserNewPassword();
@@ -215,7 +205,8 @@ public class UserServiceImplement implements UserService {
             return CustomResponse.successs();
         } catch (Exception exception) {
             exception.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ResponseDto("DE", "Database Error"));
+            responseBody = new ResponseDto("DE", "DatabaseError");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(responseBody);
         }
     }
 

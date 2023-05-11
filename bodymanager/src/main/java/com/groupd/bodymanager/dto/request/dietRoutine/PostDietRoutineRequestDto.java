@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 public class PostDietRoutineRequestDto {
     private int userCode;
     private String menuCode;
+    private String menuName;
 
-    
 }

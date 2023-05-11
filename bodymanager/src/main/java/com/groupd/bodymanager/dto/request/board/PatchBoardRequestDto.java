@@ -1,5 +1,6 @@
 package com.groupd.bodymanager.dto.request.board;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -9,15 +10,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class PatchBoardRequestDto {
-    @NotNull
+    @Email
+    @NotBlank
+    private String manageEmail;
+    @NotBlank
     private Integer boardNumber;
-    @NotNull
+    @NotBlank
     private String boardTitle;
     @NotBlank
     private String boardContent;
     private String boardImageurl;
-
-    public PatchBoardRequestDto(PatchBoardRequestDto dto){
-        
-    }
 }
