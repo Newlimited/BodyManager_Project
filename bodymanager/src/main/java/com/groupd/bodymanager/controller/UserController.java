@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -78,10 +79,11 @@ public class UserController{
 
     @DeleteMapping("/{userEmail}/{userCode}")
     public ResponseEntity<? super DeleteUserResponseDto> deleteUser(
+        @AuthenticationPrincipal String email,
         @Valid @RequestBody DeleteUserRequestDto requestBody
     ){
         ResponseEntity<?super DeleteUserResponseDto> response =
-            userService.deleteUser(requestBody);
+            userService.deleteUser(email, requestBody);
         return response;
     }
 

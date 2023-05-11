@@ -12,7 +12,7 @@ public class DeleteUserRequestDto {
     
     @NotBlank
     @Email
-    private String userEmail;
+    private String userEmailCheck;
     @NotBlank
     private String userPassword;
     
