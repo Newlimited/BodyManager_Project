@@ -8,6 +8,7 @@ import org.springframework.http.StreamingHttpOutputMessage.Body;
 import org.springframework.stereotype.Service;
 
 import com.groupd.bodymanager.common.CustomResponse;
+import com.groupd.bodymanager.dto.request.board.DeleteBoardRequestDto;
 import com.groupd.bodymanager.dto.request.board.PatchBoardRequestDto;
 import com.groupd.bodymanager.dto.request.board.PostBoardRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
@@ -17,6 +18,7 @@ import com.groupd.bodymanager.entity.BoardEntity;
 import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.entity.resultSet.BoardListResultSet;
 import com.groupd.bodymanager.repository.BoardRepository;
+import com.groupd.bodymanager.repository.ManagerRepository;
 import com.groupd.bodymanager.repository.UserRepository;
 import com.groupd.bodymanager.service.BoardService;
 
@@ -28,7 +30,7 @@ public class BoardServiceImplement implements BoardService {
 
     private final UserRepository userRepository;
     private final BoardRepository boardRepository;
-
+    private final ManagerRepository managerRepository;
     public ResponseEntity<ResponseDto> postBoard(PostBoardRequestDto dto) {
 
         // 게시물 작성
@@ -82,7 +84,6 @@ public class BoardServiceImplement implements BoardService {
     @Override
     public ResponseEntity<? super GetBoardListResponseDto> getBoardList() { // 게시물 목록 보기
         GetBoardListResponseDto body = null;
-
         try {
             List<BoardListResultSet> resultSet = boardRepository.getList();
             System.out.println(resultSet.size());
@@ -98,35 +99,54 @@ public class BoardServiceImplement implements BoardService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> patchBoard(String userEmail, PatchBoardRequestDto dto) {
+    public ResponseEntity<ResponseDto> patchBoard(String managerEmail, PatchBoardRequestDto dto) {
         int boardNumber = dto.getBoardNumber();
-        String boardWriterEmail = dto.getBoardWriterEmail();
+        String manageEmail = dto.getManageEmail();
         String boardTitle = dto.getBoardTitle();
-        String boardContetn = dto.getBoardContent();
+        String boardContent = dto.getBoardContent();
         String boardImageUrl = dto.getBoardImageurl();
-
+       
         try{
             BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
             // TODO : 존재하지 않는 게시물 번호 반환 boardNumber가 필요함
             if(boardEntity == null){
                 return CustomResponse.notExistBoardNumber();
             }
-            // TODO : 존재하지 않는 매니저 이메일 (존재하는 매니저의 이메일 이필요함)
-            Boolean existedUserEmail = userRepository.existsByEmail(userEmail);
-            if (!existedUserEmail){
-                return CustomResponse.notExistUserEmail();
+            // TODO : 관리자 목록에 존재하지 않는 이메일 (존재하는 매니저의 이메일 이필요함)
+            Boolean isExistManageEmail = managerRepository.existsByEmail(manageEmail);
+            if (!isExistManageEmail){
+                return CustomResponse.noPermission();
             }
-          
+            boardEntity.setBoardTitle(boardTitle);
+            boardEntity.setBoardContent(boardContent);
+            boardEntity.setBoardImageUrl(boardImageUrl);
 
-
-            
+            boardRepository.save(boardEntity);
+        } catch(Exception exception){
+            exception.printStackTrace();
+            return CustomResponse.databaseError();
         }
+        return CustomResponse.successs();
     }
 
     @Override
-    public ResponseEntity<ResponseDto> deleteBoard(String userEmail, Integer boardNumber) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteBoard'");
+    public ResponseEntity<ResponseDto> deleteBoard(DeleteBoardRequestDto dto) {
+            int boardNumber = dto.getBoardNumber();
+            String managerEmail = dto.getManagerEmail();
+
+        // TODO : 존재하지 않는 게시물 번호 반환 boardNumber가 필요함
+        BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+        if(boardEntity == null){
+            return CustomResponse.notExistBoardNumber();
+        }
+        // TODO : 관리자 목록에 존재하지 이메일 (존재하는 매니저의 이메일 이필요함)
+        Boolean isExistManageEmail = managerRepository.existsByEmail(managerEmail);
+        if (!isExistManageEmail){
+            return CustomResponse.noPermission();
+        }
+        boardRepository.delete(boardEntity);
+        return CustomResponse.successs();
     }
+
 
 }

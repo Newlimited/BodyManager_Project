@@ -12,15 +12,14 @@ import com.groupd.bodymanager.entity.ExerciseRoutineEntity;
 import com.groupd.bodymanager.repository.ExerciseRoutineRepository;
 import com.groupd.bodymanager.service.ExerciseRoutineService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class ExerciseRoutineServiceImplement implements ExerciseRoutineService {
     
-    private ExerciseRoutineRepository exerciseRoutineRepository;
+    private final ExerciseRoutineRepository exerciseRoutineRepository;
 
-    @Autowired
-    public ExerciseRoutineServiceImplement(ExerciseRoutineRepository exerciseRoutineRepository){
-        this.exerciseRoutineRepository = exerciseRoutineRepository;
-    }
 
     @Override
     public ResponseEntity<? super GetExerciseRoutineResponseDto> getRoutin(Integer routineNumber) {
