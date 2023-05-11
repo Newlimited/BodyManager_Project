@@ -247,6 +247,8 @@ public class UserServiceImplement implements UserService {
         try {
             // todo 로그인 상태에서 로그인된 이메일을 어떻게 가져오는지 
             UserEntity userEntity = userRepository.findByEmail(userEmail);
+
+            String currentEmail = 
             if (userEmail == null)
                 return CustomResponse.signInFailed();
 
