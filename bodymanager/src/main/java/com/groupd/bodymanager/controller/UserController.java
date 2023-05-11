@@ -78,11 +78,11 @@ public class UserController{
     }
 
     @PostMapping("secession")
-    public ResponseEntity<? super DeleteUserResponseDto> deleteUser(
+    public ResponseEntity<ResponseDto> deleteUser(
         @AuthenticationPrincipal String email,
         @Valid @RequestBody DeleteUserRequestDto requestBody
     ){
-        ResponseEntity<?super DeleteUserResponseDto> response =
+        ResponseEntity<ResponseDto> response =
             userService.deleteUser(email, requestBody);
         return response;
     }

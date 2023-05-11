@@ -237,7 +237,7 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    public ResponseEntity<? super DeleteUserResponseDto> deleteUser(String userEmail, DeleteUserRequestDto dto) {
+    public ResponseEntity<ResponseDto> deleteUser(String userEmail, DeleteUserRequestDto dto) {
         
         GetAuthResponseDto body = null;
 
