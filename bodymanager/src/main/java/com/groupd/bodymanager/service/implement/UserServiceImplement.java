@@ -140,7 +140,7 @@ public class UserServiceImplement implements UserService {
 
         } catch (Exception exception) {
             exception.printStackTrace();
-            return CustomResponse.databaseError2();
+            return CustomResponse.databaseError();
         }
 
         return CustomResponse.successs();
@@ -215,7 +215,8 @@ public class UserServiceImplement implements UserService {
             return CustomResponse.successs();
         } catch (Exception exception) {
             exception.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ResponseDto("DE", "Database Error"));
+            responseBody = new ResponseDto("DE", "DatabaseError");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(responseBody);
         }
     }
 
