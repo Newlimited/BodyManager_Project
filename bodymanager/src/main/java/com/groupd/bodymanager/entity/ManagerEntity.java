@@ -3,15 +3,18 @@ package com.groupd.bodymanager.entity;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.groupd.bodymanager.dto.request.user.PostManagerRequestDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Entity(name = "Manager")
 @Table(name = "Manager")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+
 public class ManagerEntity{
         int managerCode;
          String userPassword;
@@ -31,5 +34,8 @@ public class ManagerEntity{
             this.userGender = dto.getUserGender();
             this.userPassword = dto.getUserPassword();
             this.userAge = dto.getUserAge();
+        }
+        public ManagerEntity(String email){
+            this.managerEmail = email;
         }
 }
