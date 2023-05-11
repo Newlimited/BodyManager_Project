@@ -42,10 +42,11 @@ public class UserServiceImplement implements UserService {
     @Autowired
     public UserServiceImplement(
             UserRepository userRepository,
-            JwtProvider jwtProvider) {
+            JwtProvider jwtProvider, ManagerRepository managerRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = new BCryptPasswordEncoder();
         this.jwtProvider = jwtProvider;
+        this.managerRepository = managerRepository;
     }
 
     // 회원가입
@@ -122,9 +123,14 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    public ResponseEntity<? super GetUserResponseDto> addManager(PostManagerRequestDto dto) {
+   public ResponseEntity<? super GetUserResponseDto> addManager(PostManagerRequestDto dto) {
         GetUserResponseDto body = null;
+<<<<<<< HEAD
+        String addEmail = dto.getManagerEmail();
+
+=======
         String addEmail = dto.getUserEmail();
+>>>>>>> 41d5430d6d66f25b56793764b70c594dc8400886
         try {
             // TODO 이메일 일치 확인 - 유저이메일에서 확인하는거고...
             boolean isExistEmail = userRepository.existsByEmail(addEmail);
@@ -142,6 +148,8 @@ public class UserServiceImplement implements UserService {
         } catch (Exception exception) {
             exception.printStackTrace();
             return CustomResponse.databaseError();
+<<<<<<< HEAD
+=======
         }
 
         return CustomResponse.successs();
@@ -170,6 +178,7 @@ public class UserServiceImplement implements UserService {
         } catch (Exception exception) {
             exception.printStackTrace();
             return CustomResponse.databaseError();
+>>>>>>> 41d5430d6d66f25b56793764b70c594dc8400886
         }
 
         return CustomResponse.successs();
@@ -270,4 +279,8 @@ public class UserServiceImplement implements UserService {
         }
         return CustomResponse.successs();
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 41d5430d6d66f25b56793764b70c594dc8400886

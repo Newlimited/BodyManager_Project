@@ -38,7 +38,11 @@ public class UserController{
     public ResponseEntity<? super GetUserResponseDto> addManager(
         @Valid @RequestBody PostManagerRequestDto requestBody
     ){
+<<<<<<< HEAD
+        ResponseEntity<GetUserResponseDto> response = (ResponseEntity<GetUserResponseDto>) userService.addManager(requestBody);
+=======
         ResponseEntity<? super GetUserResponseDto> response = userService.addManager(requestBody);
+>>>>>>> 41d5430d6d66f25b56793764b70c594dc8400886
         return response;
     }
 
