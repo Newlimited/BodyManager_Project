@@ -98,7 +98,7 @@ public class BoardServiceImplement implements BoardService {
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
-    @Override
+    @Override //게시물 수정
     public ResponseEntity<ResponseDto> patchBoard(String managerEmail, PatchBoardRequestDto dto) {
         int boardNumber = dto.getBoardNumber();
         String manageEmail = dto.getManageEmail();

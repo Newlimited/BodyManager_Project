@@ -12,14 +12,13 @@ import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetUserResponseDto;
-import com.groupd.bodymanager.dto.response.user.DeleteUserResponseDto;
 
 public interface UserService {
     
     public ResponseEntity<? super GetAuthResponseDto> signIn(SignInRequestDto dto);
     public ResponseEntity<? super GetAuthResponseDto> signUp(SignUpRequestDto dto);
     public ResponseEntity<? super GetUserResponseDto> getUser(Integer userCode);
-    public ResponseEntity<? super GetUserResponseDto> addManager(PostManagerRequestDto email);
+    public ResponseEntity<? super GetUserResponseDto> addManager(PostManagerRequestDto dto);
     public ResponseEntity<ResponseDto> patchUser(PatchUserRequestDto dto);
     public ResponseEntity<ResponseDto> deleteUser(String userEmail, DeleteUserRequestDto dto);
 }
