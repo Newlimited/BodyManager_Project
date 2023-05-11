@@ -17,39 +17,40 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ExerciseRoutineServiceImplement implements ExerciseRoutineService {
-    
     private final ExerciseRoutineRepository exerciseRoutineRepository;
-
 
     @Override
     public ResponseEntity<? super GetExerciseRoutineResponseDto> getRoutin(Integer routineNumber) {
-            
-            GetExerciseRoutineResponseDto body = null;
-
+        GetExerciseRoutineResponseDto body = null;
         try {
 
             if (routineNumber == null) {
-                return CustomResponse.vaildationFaild();
+                return CustomResponse.validationFaild();
             }
 
-            //존재하지 않는 루틴 번호 반환
+            // 존재하지 않는 루틴 번호 반환
             ExerciseRoutineEntity exerciseRoutineEntity = exerciseRoutineRepository.findByRoutinNumber(routineNumber);
-            if(exerciseRoutineEntity == null) return CustomResponse.notExistRoutineNumber();
+            if (exerciseRoutineEntity == null)
+                return CustomResponse.notExistRoutineNumber();
+            // 이미지 가져오기
+            String routineImageUrl1 = exerciseRoutineEntity.getRoutineImageUrl1();
+            String routineImageUrl2 = exerciseRoutineEntity.getRoutineImageUrl2();
+            String routineImageUrl3 = exerciseRoutineEntity.getRoutineImageUrl3();
 
-            //이미지 가져오기
-            String routineImageUrl = exerciseRoutineEntity.getRoutineImageUrl();
-
+            
+            exerciseRoutineEntity.setRoutineImageUrl1(routineImageUrl1);
+            exerciseRoutineEntity.setRoutineImageUrl2(routineImageUrl2);
+            exerciseRoutineEntity.setRoutineImageUrl3(routineImageUrl3);
+            exerciseRoutineRepository.save(exerciseRoutineEntity);
             body = new GetExerciseRoutineResponseDto(exerciseRoutineEntity);
-            body.setRoutineImageUrl(routineImageUrl);
-
+            
         } catch (Exception exception) {
             exception.printStackTrace();
             ResponseDto errorbody = new ResponseDto("DE", "Database Error");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorbody);
         }
 
-        return CustomResponse.successs();
+        return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
-    
 }
