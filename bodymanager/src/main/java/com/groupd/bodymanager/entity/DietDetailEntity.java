@@ -14,6 +14,9 @@ import lombok.NoArgsConstructor;
 @Entity(name = "DietDetail")
 public class DietDetailEntity {
     private int dietDetailNumber;
+    private int dietNumber;
+    private String menuCode;
+    private int userCode;
     private String item;
     private String time;
     

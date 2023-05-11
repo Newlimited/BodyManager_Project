@@ -11,9 +11,10 @@ import com.groupd.bodymanager.entity.MenuEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 public class GetDietRoutineResponseDto extends ResponseDto{
-    private String userCode;
+    private int userCode;
     private String menuCode;
     private String menuName;
     private List<Diet> dietList;
@@ -22,24 +23,22 @@ public class GetDietRoutineResponseDto extends ResponseDto{
     public GetDietRoutineResponseDto(
         MenuEntity menuEntity,List<DietEntity> dietEntities,List<DietDetailEntity> dietDetailEntities
         ) {
-
-            // this.userCode = menuEntity.ge
-
+            this.userCode = menuEntity.getUserCode();
+            this.menuCode = menuEntity.getMenuCode();
+            this.menuName = menuEntity.getMenuName();
 
     }
 
-
-
 }
 
-
-
-
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 class Diet {
 
     private int dietNumber;
     private String day;
-
 
     Diet(DietEntity dietEntity) {
         this.dietNumber = dietEntity.getDietNumber();
@@ -47,9 +46,7 @@ class Diet {
     }
 
 
-    }
-
-
+}
 
 
 
