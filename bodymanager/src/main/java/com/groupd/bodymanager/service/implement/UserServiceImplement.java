@@ -256,9 +256,10 @@ public class UserServiceImplement implements UserService {
             if (!equaledPassword)
                 return CustomResponse.signInFailed();
 
-            String jwt = jwtProvider.create(userEmail);
+            //String jwt = jwtProvider.create(userEmail);
 
-            body = new GetAuthResponseDto(jwt, userCode);
+            //body = new GetAuthResponseDto(jwt, userCode);
+            
         } catch (Exception exception) {
             exception.printStackTrace();
             return CustomResponse.databaseError();
