@@ -12,10 +12,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class GetExerciseRoutineResponseDto extends ResponseDto{
     
-    private String routineImageUrl;
+    
+    private String routineImageUrl1;
+    private String routineImageUrl2;
+    private String routineImageUrl3;
 
     public GetExerciseRoutineResponseDto(ExerciseRoutineEntity exerciseRoutineEntity){
         super("SU","Success");
-        this.routineImageUrl = exerciseRoutineEntity.getRoutineImageUrl();
+        this.routineImageUrl1 = exerciseRoutineEntity.getRoutineImageUrl1();
+        this.routineImageUrl2 = exerciseRoutineEntity.getRoutineImageUrl2();
+        this.routineImageUrl3 = exerciseRoutineEntity.getRoutineImageUrl3();
     }
 }
