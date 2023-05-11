@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.groupd.bodymanager.dto.request.user.DeleteUserRequestDto;
 import com.groupd.bodymanager.dto.request.user.PatchUserRequestDto;
 import com.groupd.bodymanager.dto.request.user.PostManagerRequestDto;
 import com.groupd.bodymanager.dto.request.user.SignInRequestDto;
@@ -20,6 +21,7 @@ import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetUserResponseDto;
+import com.groupd.bodymanager.dto.response.user.DeleteUserResponseDto;
 import com.groupd.bodymanager.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -75,12 +77,11 @@ public class UserController{
     }
 
     @DeleteMapping("/{userEmail}/{userCode}")
-    public ResponseEntity<ResponseDto> deleteUser(
-        @PathVariable("userEmail") String userEmail,
-        @PathVariable("userCode") Integer userCode
+    public ResponseEntity<? super DeleteUserResponseDto> deleteUser(
+        @Valid @RequestBody DeleteUserRequestDto requestBody
     ){
-        ResponseEntity<ResponseDto> response =
-            userService.deletdUser(userEmail, userCode);
+        ResponseEntity<?super DeleteUserResponseDto> response =
+            userService.deleteUser(requestBody);
         return response;
     }
 
