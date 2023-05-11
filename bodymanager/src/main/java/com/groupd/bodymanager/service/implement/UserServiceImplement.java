@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.groupd.bodymanager.common.CustomResponse;
+import com.groupd.bodymanager.dto.request.user.DeleteUserRequestDto;
 import com.groupd.bodymanager.dto.request.user.PatchUserRequestDto;
 import com.groupd.bodymanager.dto.request.user.PostManagerRequestDto;
 import com.groupd.bodymanager.dto.request.user.SignInRequestDto;
@@ -145,10 +146,32 @@ public class UserServiceImplement implements UserService {
         return CustomResponse.successs();
     }
 
+    //사용자 조회
     @Override
     public ResponseEntity<? super GetUserResponseDto> getUser(Integer userCode) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUser'");
+        GetUserResponseDto body = null;
+
+        try {
+
+            if (userCode == null) { 
+                return CustomResponse.validationFaild();
+            }
+            //todo 존재하지 않는 회원코드
+            //유저코드 조회
+            UserEntity userEntity = userRepository.findByUserCode(userCode);
+            //존재하지 않는 유저 코드 조회시
+            if (userEntity == null) { 
+                return CustomResponse.notExistUserCode();
+            }
+
+            body = new GetUserResponseDto(userEntity);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return CustomResponse.databaseError();
+        }
+
+        return CustomResponse.successs();
     }
 
     @Override
@@ -202,18 +225,47 @@ public class UserServiceImplement implements UserService {
 
             userRepository.save(userEntity); // 변경된 유저 정보 저장
 
-            return CustomResponse.successs();
+            
         } catch (Exception exception) {
             exception.printStackTrace();
             responseBody = new ResponseDto("DE", "DatabaseError");
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(responseBody);
         }
+
+        return CustomResponse.successs();
     }
 
     @Override
-    public ResponseEntity<ResponseDto> deletdUser(String userEmail, Integer userCode) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deletdUser'");
+    public ResponseEntity<? super GetAuthResponseDto> deletdUser(DeleteUserRequestDto dto) {
+        
+        GetAuthResponseDto body = null;
+
+        String userEmail = dto.getUserEmail();
+        String userPassword = dto.getUserPassword();
+
+        try {
+            // todo 로그인 상태에서 로그인된 이메일을 어떻게 가져오는지 
+            UserEntity userEntity = userRepository.findByEmail(userEmail);
+            if (userEmail == null)
+                return CustomResponse.signInFailed();
+
+            // TODO 로그인 실패 (패스워드 x)
+            String encordedPassword = userEntity.getUserPassword();
+            boolean equaledPassword = passwordEncoder.matches(userPassword, encordedPassword);
+            ;
+            if (!equaledPassword)
+                return CustomResponse.signInFailed();
+
+            String jwt = jwtProvider.create(userEmail);
+
+            body = new GetAuthResponseDto(jwt, userCode);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return CustomResponse.databaseError();
+        }
+        return CustomResponse.successs();
     }
+
+
 
 }

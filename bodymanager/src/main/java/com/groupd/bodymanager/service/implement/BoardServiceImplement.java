@@ -61,7 +61,7 @@ public class BoardServiceImplement implements BoardService {
         GetBoardResponseDto body = null;
         try {
             if (boardNumber == null) {
-                return CustomResponse.vaildationFaild();
+                return CustomResponse.validationFaild();
             }
             BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
             if (boardEntity == null) {
