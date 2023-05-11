@@ -33,6 +33,11 @@ public class CustomResponse {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
     }
 
+    public static ResponseEntity<ResponseDto> notExistRoutineNumber() {
+        ResponseDto errorBody = new ResponseDto("NR", "Non-Existent Routine Number");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
+    }
+
     public static ResponseEntity<ResponseDto> existUserEmail() {
 
         ResponseDto errorBody = new ResponseDto("EU", "Existent User Email");
