@@ -1,19 +1,20 @@
-package com.groupd.bodymanager.dto.request.user;
+package com.groupd.bodymanager.dto.request.board;
 
-
+import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Data
 @NoArgsConstructor
-public class DeleteUserRequestDto {
-    
+public class DeleteBoardRequestDto {
+    @Id
     @NotBlank
+    int boardNumber;
     @Email
-    private String userEmailCheck;
     @NotBlank
-    private String userPassword;
-    
+    String managerEmail;
+
 }

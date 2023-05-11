@@ -4,8 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.groupd.bodymanager.dto.response.ResponseDto;
-import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
-import com.groupd.bodymanager.dto.response.user.GetUserResponseDto;
+
 
 public class CustomResponse {
     public static ResponseEntity<ResponseDto> successs() {

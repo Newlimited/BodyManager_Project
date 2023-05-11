@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.groupd.bodymanager.dto.request.user.DeleteUserRequestDto;
 import com.groupd.bodymanager.dto.request.user.PatchUserRequestDto;
 import com.groupd.bodymanager.dto.request.user.PostManagerRequestDto;
 import com.groupd.bodymanager.dto.request.user.SignInRequestDto;
@@ -20,6 +22,7 @@ import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetUserResponseDto;
+import com.groupd.bodymanager.dto.response.user.DeleteUserResponseDto;
 import com.groupd.bodymanager.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -32,10 +35,14 @@ public class UserController{
     private final UserService userService;
     
     @PostMapping("add-manager")
-    public ResponseEntity<GetUserResponseDto> addManager(
+    public ResponseEntity<? super GetUserResponseDto> addManager(
         @Valid @RequestBody PostManagerRequestDto requestBody
     ){
+<<<<<<< HEAD
         ResponseEntity<GetUserResponseDto> response = (ResponseEntity<GetUserResponseDto>) userService.addManager(requestBody);
+=======
+        ResponseEntity<? super GetUserResponseDto> response = userService.addManager(requestBody);
+>>>>>>> 41d5430d6d66f25b56793764b70c594dc8400886
         return response;
     }
 
@@ -74,13 +81,13 @@ public class UserController{
         return response;
     }
 
-    @DeleteMapping("/{userEmail}/{userCode}")
+    @PostMapping("secession")
     public ResponseEntity<ResponseDto> deleteUser(
-        @PathVariable("userEmail") String userEmail,
-        @PathVariable("userCode") Integer userCode
+        @AuthenticationPrincipal String email,
+        @Valid @RequestBody DeleteUserRequestDto requestBody
     ){
         ResponseEntity<ResponseDto> response =
-            userService.deletdUser(userEmail, userCode);
+            userService.deleteUser(email, requestBody);
         return response;
     }
 

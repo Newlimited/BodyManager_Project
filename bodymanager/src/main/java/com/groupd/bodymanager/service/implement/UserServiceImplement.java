@@ -19,6 +19,7 @@ import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetUserResponseDto;
+import com.groupd.bodymanager.dto.response.user.DeleteUserResponseDto;
 import com.groupd.bodymanager.entity.ManagerEntity;
 import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.provider.JwtProvider;
@@ -124,8 +125,12 @@ public class UserServiceImplement implements UserService {
     @Override
    public ResponseEntity<? super GetUserResponseDto> addManager(PostManagerRequestDto dto) {
         GetUserResponseDto body = null;
+<<<<<<< HEAD
         String addEmail = dto.getManagerEmail();
 
+=======
+        String addEmail = dto.getUserEmail();
+>>>>>>> 41d5430d6d66f25b56793764b70c594dc8400886
         try {
             // TODO 이메일 일치 확인 - 유저이메일에서 확인하는거고...
             boolean isExistEmail = userRepository.existsByEmail(addEmail);
@@ -143,15 +148,40 @@ public class UserServiceImplement implements UserService {
         } catch (Exception exception) {
             exception.printStackTrace();
             return CustomResponse.databaseError();
+<<<<<<< HEAD
+=======
         }
 
         return CustomResponse.successs();
     }
 
+    //사용자 조회
     @Override
     public ResponseEntity<? super GetUserResponseDto> getUser(Integer userCode) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUser'");
+        GetUserResponseDto body = null;
+
+        try {
+
+            if (userCode == null) { 
+                return CustomResponse.validationFaild();
+            }
+            //todo 존재하지 않는 회원코드
+            //유저코드 조회
+            UserEntity userEntity = userRepository.findByUserCode(userCode);
+            //존재하지 않는 유저 코드 조회시
+            if (userEntity == null) { 
+                return CustomResponse.notExistUserCode();
+            }
+
+            body = new GetUserResponseDto(userEntity);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return CustomResponse.databaseError();
+>>>>>>> 41d5430d6d66f25b56793764b70c594dc8400886
+        }
+
+        return CustomResponse.successs();
     }
 
     @Override
@@ -205,11 +235,14 @@ public class UserServiceImplement implements UserService {
 
             userRepository.save(userEntity); // 변경된 유저 정보 저장
 
-            return CustomResponse.successs();
+            
         } catch (Exception exception) {
             exception.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ResponseDto("DE", "Database Error"));
+            responseBody = new ResponseDto("DE", "DatabaseError");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(responseBody);
         }
+
+        return CustomResponse.successs();
     }
 
     @Override
@@ -246,4 +279,8 @@ public class UserServiceImplement implements UserService {
         }
         return CustomResponse.successs();
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 41d5430d6d66f25b56793764b70c594dc8400886
