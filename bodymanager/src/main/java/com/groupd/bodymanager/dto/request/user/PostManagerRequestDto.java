@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class PostManagerRequestDto {
     
-    private String userEmail;
+    private String managerEmail;
 }

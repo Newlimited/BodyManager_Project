@@ -37,7 +37,7 @@ public class ExerciseRoutineServiceImplement implements ExerciseRoutineService {
             String routineImageUrl2 = exerciseRoutineEntity.getRoutineImageUrl2();
             String routineImageUrl3 = exerciseRoutineEntity.getRoutineImageUrl3();
 
-            
+           //이미지 저장하기 
             exerciseRoutineEntity.setRoutineImageUrl1(routineImageUrl1);
             exerciseRoutineEntity.setRoutineImageUrl2(routineImageUrl2);
             exerciseRoutineEntity.setRoutineImageUrl3(routineImageUrl3);
