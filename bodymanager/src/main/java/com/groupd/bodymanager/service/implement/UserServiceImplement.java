@@ -237,7 +237,7 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    public ResponseEntity<? super DeleteUserResponseDto> deletdUser(DeleteUserRequestDto dto) {
+    public ResponseEntity<? super DeleteUserResponseDto> deleteUser(DeleteUserRequestDto dto) {
         
         GetAuthResponseDto body = null;
 
@@ -269,7 +269,4 @@ public class UserServiceImplement implements UserService {
         }
         return CustomResponse.successs();
     }
-
-
-
 }
