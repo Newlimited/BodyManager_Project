@@ -13,23 +13,28 @@ public class CustomResponse {
         return ResponseEntity.status(HttpStatus.OK).body(errorBody);
     }
 
-    public static ResponseEntity<? super GetUserResponseDto> databaseError2() {
+    public static ResponseEntity<ResponseDto> databaseError() {
         ResponseDto errorBody = new ResponseDto("DE", "Database Error");
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorBody);
     }
 
-    public static ResponseEntity<? super GetAuthResponseDto> databaseError() {
-        ResponseDto errorBody = new ResponseDto("DE", "Database Error");
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorBody);
-    }
-
-    public static ResponseEntity<ResponseDto> vaildationFaild() {
+    public static ResponseEntity<ResponseDto> validationFaild() {
         ResponseDto errorBody = new ResponseDto("VF", "Request Parameter Validation Failed");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
+    }
+
+    public static ResponseEntity<ResponseDto> notExistUserCode() {
+        ResponseDto errorBody = new ResponseDto("NC", "Non-Existent User Code");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
     }
 
     public static ResponseEntity<ResponseDto> notExistBoardNumber() {
         ResponseDto errorBody = new ResponseDto("NB", "None-existent Board Number");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
+    }
+
+    public static ResponseEntity<ResponseDto> notExistRoutineNumber() {
+        ResponseDto errorBody = new ResponseDto("NR", "Non-Existent Routine Number");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
     }
 

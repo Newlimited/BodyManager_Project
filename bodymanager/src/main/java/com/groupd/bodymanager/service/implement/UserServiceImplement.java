@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.groupd.bodymanager.common.CustomResponse;
+import com.groupd.bodymanager.dto.request.user.DeleteUserRequestDto;
 import com.groupd.bodymanager.dto.request.user.PatchUserRequestDto;
 import com.groupd.bodymanager.dto.request.user.PostManagerRequestDto;
 import com.groupd.bodymanager.dto.request.user.SignInRequestDto;
@@ -40,10 +41,11 @@ public class UserServiceImplement implements UserService {
     @Autowired
     public UserServiceImplement(
             UserRepository userRepository,
-            JwtProvider jwtProvider) {
+            JwtProvider jwtProvider, ManagerRepository managerRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = new BCryptPasswordEncoder();
         this.jwtProvider = jwtProvider;
+        this.managerRepository = managerRepository;
     }
 
     // 회원가입
@@ -120,9 +122,9 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    public ResponseEntity<? super GetUserResponseDto> addManager(PostManagerRequestDto dto) {
+   public ResponseEntity<? super GetUserResponseDto> addManager(PostManagerRequestDto dto) {
         GetUserResponseDto body = null;
-        String addEmail = dto.getUserEmail();
+        String addEmail = dto.getManagerEmail();
 
         try {
             // TODO 이메일 일치 확인 - 유저이메일에서 확인하는거고...
@@ -140,7 +142,7 @@ public class UserServiceImplement implements UserService {
 
         } catch (Exception exception) {
             exception.printStackTrace();
-            return CustomResponse.databaseError2();
+            return CustomResponse.databaseError();
         }
 
         return CustomResponse.successs();
@@ -156,15 +158,6 @@ public class UserServiceImplement implements UserService {
     public ResponseEntity<ResponseDto> patchUser(PatchUserRequestDto dto) {
 
         ResponseDto responseBody = null;
-        // String userEmail = dto.getUserEmail();
-        // String userPassword = dto.getUserPassword();
-        // String userNickname = dto.getUserNickname();
-        // String userPhoneNumber = dto.getUserPhoneNumber();
-        // String userNewPassword = dto.getUserNewPassword();
-        // String userNewPasswordCheck = dto.getUserNewPasswordCheck();
-        // String userAddress = dto.getUserAddress();
-        // String userGender = dto.getUserGender();
-        // int userAge = dto.getUserAge();
         UserEntity userEntity = userRepository.findByEmail(dto.getUserEmail());
         String userPassword = userEntity.getUserPassword();
         String userNewPassword = dto.getUserNewPassword();
@@ -220,9 +213,37 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> deletdUser(String userEmail, Integer userCode) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deletdUser'");
-    }
+    public ResponseEntity<ResponseDto> deleteUser(String userEmail, DeleteUserRequestDto dto) {
+        
+        GetAuthResponseDto body = null;
 
+        String userEmailCheck = dto.getUserEmailCheck();
+        String userPassword = dto.getUserPassword();
+
+        try {
+            // todo 로그인 상태에서 로그인된 이메일을 어떻게 가져오는지 
+            boolean matchId = userEmail.equals(userEmailCheck);
+            if (!matchId)
+                return CustomResponse.signInFailed();
+
+            // 로그인 실패 (패스워드 x)
+            String encordedPassword = dto.getUserPassword();
+            boolean equaledPassword = passwordEncoder.matches(userPassword, encordedPassword);
+            ;
+            if (!equaledPassword)
+                return CustomResponse.signInFailed();
+
+            UserEntity userEntity = userRepository.findByEmail(userEmailCheck);
+            //String jwt = jwtProvider.create(userEmail);
+
+            //body = new GetAuthResponseDto(jwt, userCode);
+            
+            userRepository.delete(userEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return CustomResponse.databaseError();
+        }
+        return CustomResponse.successs();
+    }
 }
