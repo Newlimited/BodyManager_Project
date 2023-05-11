@@ -237,7 +237,7 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    public ResponseEntity<? super DeleteUserResponseDto> deletdUser(DeleteUserRequestDto dto) {
+    public ResponseEntity<? super DeleteUserResponseDto> deleteUser(DeleteUserRequestDto dto) {
         
         GetAuthResponseDto body = null;
 
@@ -247,6 +247,8 @@ public class UserServiceImplement implements UserService {
         try {
             // todo 로그인 상태에서 로그인된 이메일을 어떻게 가져오는지 
             UserEntity userEntity = userRepository.findByEmail(userEmail);
+
+            String currentEmail = 
             if (userEmail == null)
                 return CustomResponse.signInFailed();
 
