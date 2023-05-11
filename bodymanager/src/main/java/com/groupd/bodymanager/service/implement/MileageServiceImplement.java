@@ -14,16 +14,13 @@ import com.groupd.bodymanager.repository.MileageRepository;
 import com.groupd.bodymanager.repository.UserRepository;
 import com.groupd.bodymanager.service.MileageService;
 
-@Service
-public class MileageServiceImplement implements MileageService {
-    private UserRepository userRepository;
-    private MileageRepository mileageRepository;
+import lombok.RequiredArgsConstructor;
 
-    @Autowired
-    public MileageServiceImplement(MileageRepository mileageRepository, UserRepository userRepository){
-        this.mileageRepository = mileageRepository;
-        this.userRepository = userRepository;
-    }
+@Service
+@RequiredArgsConstructor
+public class MileageServiceImplement implements MileageService {
+    private final UserRepository userRepository;
+    private final MileageRepository mileageRepository;
 
     @Override
     public ResponseEntity<ResponseDto> postMileage(PostMileageRequestDto dto) {
