@@ -237,27 +237,32 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    public ResponseEntity<? super DeleteUserResponseDto> deletdUser(DeleteUserRequestDto dto) {
+    public ResponseEntity<? super DeleteUserResponseDto> deleteUser(String userEmail, DeleteUserRequestDto dto) {
         
         GetAuthResponseDto body = null;
 
-        String userEmail = dto.getUserEmail();
+        String userEmailCheck = dto.getUserEmailCheck();
         String userPassword = dto.getUserPassword();
 
         try {
             // todo 로그인 상태에서 로그인된 이메일을 어떻게 가져오는지 
-            UserEntity userEntity = userRepository.findByEmail(userEmail);
-            if (userEmail == null)
+            boolean matchId = userEmail.equals(userEmailCheck);
+            if (!matchId)
                 return CustomResponse.signInFailed();
 
-            // TODO 로그인 실패 (패스워드 x)
-            String encordedPassword = userEntity.getUserPassword();
+            // 로그인 실패 (패스워드 x)
+            String encordedPassword = dto.getUserPassword();
             boolean equaledPassword = passwordEncoder.matches(userPassword, encordedPassword);
             ;
             if (!equaledPassword)
                 return CustomResponse.signInFailed();
 
-            String jwt = jwtProvider.create(userEmail);
+            UserEntity userEntity = userRepository.findByEmail(userEmailCheck);
+            //String jwt = jwtProvider.create(userEmail);
+
+            //body = new GetAuthResponseDto(jwt, userCode);
+            
+            userRepository.delete(userEntity);
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -265,7 +270,4 @@ public class UserServiceImplement implements UserService {
         }
         return CustomResponse.successs();
     }
-
-
-
 }

@@ -3,6 +3,7 @@ package com.groupd.bodymanager.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import com.groupd.bodymanager.dto.request.bodyInfo.PostBodyInfoRequestDto;
 
@@ -19,12 +20,19 @@ public class BodyInfoEntity {
 
     @Id
     private int userCode;
+    @NotBlank
     private double height;
+    @NotBlank
     private double weight;
+    @NotBlank
     private double muscleMass;
+    @NotBlank
     private double fateRate;
+    @NotBlank
     private String recordDate;
+    @NotBlank
     private double bmiIndex;
+    @NotBlank
     private String bmiResult;
 
     public BodyInfoEntity(PostBodyInfoRequestDto dto) {
