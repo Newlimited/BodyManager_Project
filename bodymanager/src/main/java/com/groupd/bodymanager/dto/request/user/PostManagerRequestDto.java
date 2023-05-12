@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 
 public class PostManagerRequestDto {
     
-    private String userEmail;
+    private String managerEmail;
 }

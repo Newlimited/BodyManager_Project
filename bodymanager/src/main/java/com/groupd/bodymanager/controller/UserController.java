@@ -22,7 +22,6 @@ import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetUserResponseDto;
-import com.groupd.bodymanager.dto.response.user.DeleteUserResponseDto;
 import com.groupd.bodymanager.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -77,12 +76,12 @@ public class UserController{
         return response;
     }
 
-    @DeleteMapping("/{userEmail}/{userCode}")
-    public ResponseEntity<? super DeleteUserResponseDto> deleteUser(
+    @PostMapping("secession")
+    public ResponseEntity<ResponseDto> deleteUser(
         @AuthenticationPrincipal String email,
         @Valid @RequestBody DeleteUserRequestDto requestBody
     ){
-        ResponseEntity<?super DeleteUserResponseDto> response =
+        ResponseEntity<ResponseDto> response =
             userService.deleteUser(email, requestBody);
         return response;
     }

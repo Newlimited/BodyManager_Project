@@ -42,10 +42,11 @@ public class UserServiceImplement implements UserService {
     @Autowired
     public UserServiceImplement(
             UserRepository userRepository,
-            JwtProvider jwtProvider) {
+            JwtProvider jwtProvider, ManagerRepository managerRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = new BCryptPasswordEncoder();
         this.jwtProvider = jwtProvider;
+        this.managerRepository = managerRepository;
     }
 
     // 회원가입
@@ -122,9 +123,10 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    public ResponseEntity<? super GetUserResponseDto> addManager(PostManagerRequestDto dto) {
+   public ResponseEntity<? super GetUserResponseDto> addManager(PostManagerRequestDto dto) {
         GetUserResponseDto body = null;
-        String addEmail = dto.getUserEmail();
+        String addEmail = dto.getManagerEmail();
+
         try {
             // TODO 이메일 일치 확인 - 유저이메일에서 확인하는거고...
             boolean isExistEmail = userRepository.existsByEmail(addEmail);
@@ -146,34 +148,34 @@ public class UserServiceImplement implements UserService {
 
         return CustomResponse.successs();
     }
-
-    //사용자 조회
-    @Override
-    public ResponseEntity<? super GetUserResponseDto> getUser(Integer userCode) {
-        GetUserResponseDto body = null;
-
-        try {
-
-            if (userCode == null) { 
-                return CustomResponse.validationFaild();
-            }
-            //todo 존재하지 않는 회원코드
-            //유저코드 조회
-            UserEntity userEntity = userRepository.findByUserCode(userCode);
-            //존재하지 않는 유저 코드 조회시
-            if (userEntity == null) { 
-                return CustomResponse.notExistUserCode();
-            }
-
-            body = new GetUserResponseDto(userEntity);
-            
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return CustomResponse.databaseError();
-        }
-
-        return CustomResponse.successs();
-    }
+     //사용자 조회
+     @Override
+     public ResponseEntity<? super GetUserResponseDto> getUser(Integer userCode) {
+         GetUserResponseDto body = null;
+ 
+         try {
+ 
+             if (userCode == null) { 
+                 return CustomResponse.validationFaild();
+             }
+             //todo 존재하지 않는 회원코드
+             //유저코드 조회
+             UserEntity userEntity = userRepository.findByUserCode(userCode);
+             //존재하지 않는 유저 코드 조회시
+             if (userEntity == null) { 
+                 return CustomResponse.notExistUserCode();
+             }
+ 
+             body = new GetUserResponseDto(userEntity);
+             
+         } catch (Exception exception) {
+             exception.printStackTrace();
+             return CustomResponse.databaseError();
+         }
+ 
+         return CustomResponse.successs();
+     }
+ 
 
     @Override
     public ResponseEntity<ResponseDto> patchUser(PatchUserRequestDto dto) {
@@ -237,7 +239,7 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    public ResponseEntity<? super DeleteUserResponseDto> deleteUser(String userEmail, DeleteUserRequestDto dto) {
+    public ResponseEntity<ResponseDto> deleteUser(String userEmail, DeleteUserRequestDto dto) {
         
         GetAuthResponseDto body = null;
 

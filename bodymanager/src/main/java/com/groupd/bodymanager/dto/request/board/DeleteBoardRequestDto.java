@@ -13,8 +13,6 @@ public class DeleteBoardRequestDto {
     @Id
     @NotBlank
     int boardNumber;
-    @Email
-    @NotBlank
-    String managerEmail;
+  
 
 }
