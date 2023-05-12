@@ -6,12 +6,14 @@ import org.springframework.stereotype.Repository;
 
 import com.groupd.bodymanager.entity.MenuEntity;
 import com.groupd.bodymanager.entity.UserEntity;
+import java.util.List;
+
 
 
 
 @Repository
 public interface MenuRepository extends JpaRepository<MenuEntity,String> {
     public boolean existedByMenuCode(String menuCode);
-    public UserEntity findByUserCode(int userCode);
+    public MenuEntity findByMenuCode(String menuCode);
     
 }

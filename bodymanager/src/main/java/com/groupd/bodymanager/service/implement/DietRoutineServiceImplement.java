@@ -58,7 +58,7 @@ public class DietRoutineServiceImplement implements DietRoutineService{
     }
     
     @Override
-    public ResponseEntity<? super GetDietRoutineResponseDto> getDietRoutine(String menuCode) {
+    public ResponseEntity<? super GetDietRoutineResponseDto> getDietRoutine() {
         GetDietRoutineResponseDto body = null;
 
         try {
