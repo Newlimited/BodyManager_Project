@@ -19,6 +19,10 @@ import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetUserResponseDto;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 96812873ce86c442f6c2bb740e3a560c112bca2e
 import com.groupd.bodymanager.entity.ManagerEntity;
 import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.provider.JwtProvider;
@@ -26,7 +30,7 @@ import com.groupd.bodymanager.repository.ManagerRepository;
 import com.groupd.bodymanager.repository.UserRepository;
 import com.groupd.bodymanager.service.UserService;
 
-import net.bytebuddy.asm.Advice.Return;
+
 
 @Service
 public class UserServiceImplement implements UserService {
@@ -122,7 +126,7 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-   public ResponseEntity<? super GetUserResponseDto> addManager(PostManagerRequestDto dto) {
+    public ResponseEntity<? super GetUserResponseDto> addManager(PostManagerRequestDto dto) {
         GetUserResponseDto body = null;
         String addEmail = dto.getManagerEmail();
 
@@ -147,34 +151,34 @@ public class UserServiceImplement implements UserService {
 
         return CustomResponse.successs();
     }
-     //사용자 조회
-     @Override
-     public ResponseEntity<? super GetUserResponseDto> getUser(Integer userCode) {
-         GetUserResponseDto body = null;
- 
-         try {
- 
-             if (userCode == null) { 
-                 return CustomResponse.validationFaild();
-             }
-             //todo 존재하지 않는 회원코드
-             //유저코드 조회
-             UserEntity userEntity = userRepository.findByUserCode(userCode);
-             //존재하지 않는 유저 코드 조회시
-             if (userEntity == null) { 
-                 return CustomResponse.notExistUserCode();
-             }
- 
-             body = new GetUserResponseDto(userEntity);
-             
-         } catch (Exception exception) {
-             exception.printStackTrace();
-             return CustomResponse.databaseError();
-         }
- 
-         return CustomResponse.successs();
-     }
- 
+
+    // 사용자 조회
+    @Override
+    public ResponseEntity<? super GetUserResponseDto> getUser(Integer userCode) {
+        GetUserResponseDto body = null;
+
+        try {
+
+            if (userCode == null) {
+                return CustomResponse.validationFaild();
+            }
+            // todo 존재하지 않는 회원코드
+            // 유저코드 조회
+            UserEntity userEntity = userRepository.findByUserCode(userCode);
+            // 존재하지 않는 유저 코드 조회시
+            if (userEntity == null) {
+                return CustomResponse.notExistUserCode();
+            }
+
+            body = new GetUserResponseDto(userEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return CustomResponse.databaseError();
+        }
+
+        return CustomResponse.successs();
+    }
 
     @Override
     public ResponseEntity<ResponseDto> patchUser(PatchUserRequestDto dto) {
@@ -227,7 +231,6 @@ public class UserServiceImplement implements UserService {
 
             userRepository.save(userEntity); // 변경된 유저 정보 저장
 
-            
         } catch (Exception exception) {
             exception.printStackTrace();
             responseBody = new ResponseDto("DE", "DatabaseError");
@@ -239,14 +242,14 @@ public class UserServiceImplement implements UserService {
 
     @Override
     public ResponseEntity<ResponseDto> deleteUser(String userEmail, DeleteUserRequestDto dto) {
-        
+
         GetAuthResponseDto body = null;
 
         String userEmailCheck = dto.getUserEmailCheck();
         String userPassword = dto.getUserPassword();
 
         try {
-            // todo 로그인 상태에서 로그인된 이메일을 어떻게 가져오는지 
+            // todo 로그인 상태에서 로그인된 이메일을 어떻게 가져오는지
             boolean matchId = userEmail.equals(userEmailCheck);
             if (!matchId)
                 return CustomResponse.signInFailed();
@@ -259,10 +262,10 @@ public class UserServiceImplement implements UserService {
                 return CustomResponse.signInFailed();
 
             UserEntity userEntity = userRepository.findByEmail(userEmailCheck);
-            //String jwt = jwtProvider.create(userEmail);
+            // String jwt = jwtProvider.create(userEmail);
 
-            //body = new GetAuthResponseDto(jwt, userCode);
-            
+            // body = new GetAuthResponseDto(jwt, userCode);
+
             userRepository.delete(userEntity);
 
         } catch (Exception exception) {

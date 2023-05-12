@@ -15,6 +15,8 @@ import lombok.NoArgsConstructor;
 public class DietEntity {
     private int dietNumber;
     private String day;
+    private String menuCode;
+    private int userCode;
 
     
 }
