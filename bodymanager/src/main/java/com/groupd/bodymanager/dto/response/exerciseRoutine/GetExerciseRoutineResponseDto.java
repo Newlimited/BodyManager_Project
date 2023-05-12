@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class GetExerciseRoutineResponseDto extends ResponseDto{
     
-    
     private String routineImageUrl1;
     private String routineImageUrl2;
     private String routineImageUrl3;
