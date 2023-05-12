@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BodyInfoRepository extends JpaRepository<BodyInfoEntity,Integer>{
     
+    
 }

@@ -1,13 +1,19 @@
 package com.groupd.bodymanager.dto.request.dietRoutine;
 
-import lombok.AllArgsConstructor;
+
+import javax.validation.constraints.NotBlank;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class PostDietRoutineRequestDto {
-    private String userCode;
+    @NotBlank
+    private int userCode;
+    @NotBlank
     private String menuCode;
+    @NotBlank
+    private String menuName;
+
 }

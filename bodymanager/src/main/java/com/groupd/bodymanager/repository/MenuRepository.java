@@ -1,12 +1,17 @@
 package com.groupd.bodymanager.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 
 import com.groupd.bodymanager.entity.MenuEntity;
-import org.springframework.stereotype.Repository;
-@Repository
+import com.groupd.bodymanager.entity.UserEntity;
 
-public interface MenuRepository extends JpaRepository<MenuEntity,String>{
+
+
+@Repository
+public interface MenuRepository extends JpaRepository<MenuEntity,String> {
+    public boolean existedByMenuCode(String menuCode);
+    public UserEntity findByUserCode(int userCode);
     
 }
