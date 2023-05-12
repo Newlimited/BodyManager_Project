@@ -19,10 +19,6 @@ import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetUserResponseDto;
-<<<<<<< HEAD
-=======
-
->>>>>>> 96812873ce86c442f6c2bb740e3a560c112bca2e
 import com.groupd.bodymanager.entity.ManagerEntity;
 import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.provider.JwtProvider;
