@@ -21,5 +21,5 @@ public class GetExerciseRoutineResponseDto extends ResponseDto{
         this.routineImageUrl1 = exerciseRoutineEntity.getRoutineImageUrl1();
         this.routineImageUrl2 = exerciseRoutineEntity.getRoutineImageUrl2();
         this.routineImageUrl3 = exerciseRoutineEntity.getRoutineImageUrl3();
-    }
+    }//
 }

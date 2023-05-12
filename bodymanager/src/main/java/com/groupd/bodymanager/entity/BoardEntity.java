@@ -27,7 +27,7 @@ public class BoardEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int boradNumber;
     private String boardWriterEmail;
-    private String boardWriternickname;
+    private String boardWriterNickname;
     private String boardTitle;
     private String boardContent;
     private String boardImageUrl;
@@ -40,7 +40,7 @@ public class BoardEntity {
         new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String writeDateTime = simpleDateFormat.format(now);
         this.boardWriterEmail = dto.getBoardWriterEmail();
-        this.boardWriternickname = dto.getBoardWriterNickname();
+        this.boardWriterNickname = dto.getBoardWriterNickname();
         this.boardTitle = dto.getBoardTitle();
         this.boardContent = dto.getBoardContent();
         this.boardImageUrl = dto.getBoardImageUrl();
