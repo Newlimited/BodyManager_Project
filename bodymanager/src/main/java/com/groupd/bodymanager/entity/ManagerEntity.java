@@ -16,13 +16,13 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor
 public class ManagerEntity{
         int managerCode;
-         String userPassword;
-         String userNickname;
-         String userPhoneNumber;
-         String userAddress;
-         String userGender;
-         Integer userAge;
-         String managerEmail;
+        String userPassword;
+        String userNickname;
+        String userPhoneNumber;
+        String userAddress;
+        String userGender;
+        Integer userAge;
+        String managerEmail;
     
         public ManagerEntity(UserEntity dto){
             this.managerCode = dto.getUserCode();

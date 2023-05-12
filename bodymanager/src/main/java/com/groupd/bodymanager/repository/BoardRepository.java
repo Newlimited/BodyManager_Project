@@ -28,7 +28,7 @@ public interface BoardRepository extends JpaRepository<BoardEntity, String>{
         +"WHERE B.board_writer_email = M.manager_email "
         +"AND M.manager_eamil = U.user_email "
         +"ORDER BY B.board_number DESC; ",
-         nativeQuery = true  
+        nativeQuery = true  
     )
     public List<BoardListResultSet> getList();
 }
