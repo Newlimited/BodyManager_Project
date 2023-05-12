@@ -10,8 +10,5 @@ public interface BoardListResultSet {
     public int getViewCount();
     public String getBoardWriterEmail();
     public String getBoardWriterNickname();
-    public String getBoardWriterProfileImageUrl();
-    public int getCommentCount();
-    public int getLikeCount();
-        
+    
 }
