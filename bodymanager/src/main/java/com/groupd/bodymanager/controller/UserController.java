@@ -76,7 +76,7 @@ public class UserController{
         return response;
     }
 
-    @PostMapping("secession")
+    @PostMapping("quit")
     public ResponseEntity<ResponseDto> deleteUser(
         @AuthenticationPrincipal String email,
         @Valid @RequestBody DeleteUserRequestDto requestBody
