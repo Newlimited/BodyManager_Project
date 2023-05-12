@@ -21,7 +21,7 @@ public class GetMileageResponseDto extends ResponseDto{
 
     public GetMileageResponseDto(MileageEntity mileageEntity){
         super("SU", "Success");
-        this.attendanceDate = 
+         //test/
     }
 }
 
