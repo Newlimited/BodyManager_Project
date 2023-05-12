@@ -25,5 +25,4 @@ public class ExerciseRoutineEntity {
     @NotBlank
     private String routineImageUrl3;
 
-    
 }
