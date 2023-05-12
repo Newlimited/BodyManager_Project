@@ -1,5 +1,8 @@
 package com.groupd.bodymanager.service.implement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +13,10 @@ import com.groupd.bodymanager.dto.request.dietRoutine.PatchDietRoutineRequestDto
 import com.groupd.bodymanager.dto.request.dietRoutine.PostDietRoutineRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.dietRoutine.GetDietRoutineResponseDto;
+import com.groupd.bodymanager.entity.DietDetailEntity;
+import com.groupd.bodymanager.entity.DietEntity;
 import com.groupd.bodymanager.entity.MenuEntity;
+import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.repository.DietDetailRepository;
 import com.groupd.bodymanager.repository.DietRepository;
 import com.groupd.bodymanager.repository.MenuRepository;
@@ -58,16 +64,31 @@ public class DietRoutineServiceImplement implements DietRoutineService{
     }
     
     @Override
-    public ResponseEntity<? super GetDietRoutineResponseDto> getDietRoutine(Integer userCode) {
+    public ResponseEntity<? super GetDietRoutineResponseDto> getDietRoutine(PostDietRoutineRequestDto dto) {
         GetDietRoutineResponseDto body = null;
+        String menuCode = dto.getMenuCode();
+        int userCode = dto.getUserCode();
 
         try {
-            if(userCode == null) return CustomResponse.validationFaild();
-
             MenuEntity menuEntity = menuRepository.findByUserCode(userCode);
+             //*존재하지 않는 메뉴코드 반환 */
             if(menuEntity == null ) return CustomResponse.notExistUserCode();
 
+            List<DietEntity> dietEntities = dietRepository.findByMenuCode(menuCode);
+            List<List<DietEntity>> dietDetailLists = new ArrayList<>();
+            for(DietEntity dietEntity : dietEntities) {
+                int dietNumber = dietEntity.getDietNumber();
+                
+                DietDetailEntity dietDetailEntities = dietDetailRepository.findByDietNumber(dietNumber);
+                
+            }
+
+
             
+            
+
+    
+
 
 
             

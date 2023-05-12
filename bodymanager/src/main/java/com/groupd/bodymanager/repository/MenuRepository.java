@@ -5,8 +5,6 @@ import org.springframework.stereotype.Repository;
 
 
 import com.groupd.bodymanager.entity.MenuEntity;
-import com.groupd.bodymanager.entity.UserEntity;
-import java.util.List;
 
 
 

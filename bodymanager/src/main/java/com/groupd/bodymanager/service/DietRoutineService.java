@@ -10,5 +10,5 @@ import com.groupd.bodymanager.dto.response.dietRoutine.GetDietRoutineResponseDto
 public interface DietRoutineService {
     public ResponseEntity<ResponseDto> postDietRoutine(PostDietRoutineRequestDto dto);
     public ResponseEntity<ResponseDto> patchDietRoutine(PatchDietRoutineRequestDto dto);
-    public ResponseEntity<? super GetDietRoutineResponseDto> getDietRoutine(Integer userCode);
+    public ResponseEntity<? super GetDietRoutineResponseDto> getDietRoutine(PostDietRoutineRequestDto dto);
 }

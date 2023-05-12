@@ -1,6 +1,5 @@
 package com.groupd.bodymanager.dto.response.dietRoutine;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.groupd.bodymanager.dto.response.ResponseDto;
@@ -9,10 +8,14 @@ import com.groupd.bodymanager.entity.DietEntity;
 import com.groupd.bodymanager.entity.MenuEntity;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class GetDietRoutineResponseDto extends ResponseDto{
     private int userCode;
     private String menuCode;
@@ -27,6 +30,7 @@ public class GetDietRoutineResponseDto extends ResponseDto{
             this.menuCode = menuEntity.getMenuCode();
             this.menuName = menuEntity.getMenuName();
 
+
     }
 
 }
@@ -39,6 +43,7 @@ class Diet {
 
     private int dietNumber;
     private String day;
+    private List<DietDetail> dietDetailList;
 
     Diet(DietEntity dietEntity) {
         this.dietNumber = dietEntity.getDietNumber();
@@ -46,17 +51,21 @@ class Diet {
     }
 
 
+
 }
 
 
 
-
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 class DietDetail {
 
-
+    private int dietDetailNumber;
     private String time;
     private String item;
-    private int dietDetailNumber;
+    
 
     DietDetail(DietDetailEntity dietDetailEntity) {
         this.time = dietDetailEntity.getTime();
