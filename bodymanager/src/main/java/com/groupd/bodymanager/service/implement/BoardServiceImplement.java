@@ -35,7 +35,7 @@ public class BoardServiceImplement implements BoardService {
 
         // 게시물 작성
         String boardWriterEmail = dto.getBoardWriterEmail();
-        // 의논 해야 할 것
+ 
         try {
             // TODO 존재하지 않는 유저 오류 반환
             boolean existedUserEmail = userRepository.existsByEmail(boardWriterEmail);
@@ -56,8 +56,8 @@ public class BoardServiceImplement implements BoardService {
         return CustomResponse.successs();
     }
 
-    @Override
-    public ResponseEntity<? super GetBoardResponseDto> getBoard(Integer boardNumber) { // 특정게시물 보기
+    @Override// 특정게시물 보기
+    public ResponseEntity<? super GetBoardResponseDto> getBoard(Integer boardNumber) { 
         GetBoardResponseDto body = null;
         try {
             if (boardNumber == null) {
@@ -81,8 +81,8 @@ public class BoardServiceImplement implements BoardService {
         return CustomResponse.successs();
     }
 
-    @Override
-    public ResponseEntity<? super GetBoardListResponseDto> getBoardList() { // 게시물 목록 보기
+    @Override// 게시물 목록 보기
+    public ResponseEntity<? super GetBoardListResponseDto> getBoardList() { 
         GetBoardListResponseDto body = null;
         try {
             List<BoardListResultSet> resultSet = boardRepository.getList();
@@ -101,7 +101,6 @@ public class BoardServiceImplement implements BoardService {
     @Override //게시물 수정
     public ResponseEntity<ResponseDto> patchBoard(String managerEmail, PatchBoardRequestDto dto) {
         int boardNumber = dto.getBoardNumber();
-        String manageEmail = dto.getManageEmail();
         String boardTitle = dto.getBoardTitle();
         String boardContent = dto.getBoardContent();
         String boardImageUrl = dto.getBoardImageurl();
@@ -113,7 +112,7 @@ public class BoardServiceImplement implements BoardService {
                 return CustomResponse.notExistBoardNumber();
             }
             // TODO : 관리자 목록에 존재하지 않는 이메일 (존재하는 매니저의 이메일 이필요함)
-            Boolean isExistManageEmail = managerRepository.existsByEmail(manageEmail);
+            Boolean isExistManageEmail = managerRepository.existsByEmail(managerEmail);
             if (!isExistManageEmail){
                 return CustomResponse.noPermission();
             }
@@ -129,18 +128,17 @@ public class BoardServiceImplement implements BoardService {
         return CustomResponse.successs();
     }
 
-    @Override
-    public ResponseEntity<ResponseDto> deleteBoard(DeleteBoardRequestDto dto) {
+    @Override //게시물 삭제
+    public ResponseEntity<ResponseDto> deleteBoard(String email, DeleteBoardRequestDto dto) {
             int boardNumber = dto.getBoardNumber();
-            String managerEmail = dto.getManagerEmail();
-
+            
         // TODO : 존재하지 않는 게시물 번호 반환 boardNumber가 필요함
         BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
         if(boardEntity == null){
             return CustomResponse.notExistBoardNumber();
         }
         // TODO : 관리자 목록에 존재하지 이메일 (존재하는 매니저의 이메일 이필요함)
-        Boolean isExistManageEmail = managerRepository.existsByEmail(managerEmail);
+        Boolean isExistManageEmail = managerRepository.existsByEmail(email);
         if (!isExistManageEmail){
             return CustomResponse.noPermission();
         }
