@@ -58,10 +58,18 @@ public class DietRoutineServiceImplement implements DietRoutineService{
     }
     
     @Override
-    public ResponseEntity<? super GetDietRoutineResponseDto> getDietRoutine() {
+    public ResponseEntity<? super GetDietRoutineResponseDto> getDietRoutine(Integer userCode) {
         GetDietRoutineResponseDto body = null;
 
         try {
+            if(userCode == null) return CustomResponse.validationFaild();
+
+            MenuEntity menuEntity = menuRepository.findByUserCode(userCode);
+            if(menuEntity == null ) return CustomResponse.notExistUserCode();
+
+            
+
+
             
         } catch (Exception exceptione) {
             exceptione.printStackTrace();
