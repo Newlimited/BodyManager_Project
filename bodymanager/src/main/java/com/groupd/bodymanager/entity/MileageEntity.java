@@ -1,5 +1,8 @@
 package com.groupd.bodymanager.entity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -13,12 +16,21 @@ import lombok.Data;
 @Entity(name = "Mileage")
 public class MileageEntity {
 
-    public MileageEntity(PostMileageRequestDto dto) {
-    }
     @Id
+    private int userCode;
     private boolean attendanceResult;
     private int attendanceMileage;
     private String attendanceDate;
 
-    
+    public MileageEntity(PostMileageRequestDto dto) {
+        Date now = new Date();
+        SimpleDateFormat simpleDateFormat = 
+            new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String attendanceDate = simpleDateFormat.format(now);
+
+        this.userCode = dto.getUserCode();
+        this.attendanceResult = true;
+        this.attendanceMileage = 0;
+        this.attendanceDate = attendanceDate;
+    }
 }
