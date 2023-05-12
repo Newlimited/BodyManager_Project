@@ -14,5 +14,5 @@ public interface BoardService {
     public ResponseEntity<? super GetBoardListResponseDto> getBoardList();
     
     public ResponseEntity<ResponseDto> patchBoard(String userEmail, PatchBoardRequestDto dto);
-    public ResponseEntity<ResponseDto> deleteBoard(DeleteBoardRequestDto dto);
+    public ResponseEntity<ResponseDto> deleteBoard(String email, DeleteBoardRequestDto dto);
 }
