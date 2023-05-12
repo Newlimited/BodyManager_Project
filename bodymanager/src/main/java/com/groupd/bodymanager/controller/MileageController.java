@@ -30,4 +30,6 @@ public class MileageController {
         ResponseEntity<ResponseDto> response = mileageService.postMileage(requestBody);
         return response;
     }
+
+    
 }
