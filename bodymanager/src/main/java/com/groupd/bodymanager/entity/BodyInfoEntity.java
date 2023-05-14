@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.groupd.bodymanager.dto.request.bodyInfo.PostBodyInfoRequestDto;
 
@@ -20,27 +21,28 @@ public class BodyInfoEntity {
 
     @Id
     private int userCode;
-    @NotBlank
+    @NotNull
     private double height;
-    @NotBlank
+    @NotNull
     private double weight;
-    @NotBlank
+    @NotNull
     private double muscleMass;
-    @NotBlank
-    private double fateRate;
+    @NotNull
+    private double fatRate;
     @NotBlank
     private String recordDate;
-    @NotBlank
+    @NotNull
     private double bmiIndex;
     @NotBlank
     private String bmiResult;
 
     public BodyInfoEntity(PostBodyInfoRequestDto dto) {
+        this.userCode = dto.getUserCode();
         this.height = dto.getHeight();
         this.weight = dto.getWeight();
         this.muscleMass = dto.getMuscleMass();
+        this.fatRate = dto.getFatRate();
 
-        
     }
 
     

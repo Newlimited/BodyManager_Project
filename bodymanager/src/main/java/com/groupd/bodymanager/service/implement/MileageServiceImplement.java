@@ -1,5 +1,7 @@
 package com.groupd.bodymanager.service.implement;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,13 +39,18 @@ public class MileageServiceImplement implements MileageService {
                 ResponseDto errorBody = new ResponseDto("NC", "Non-Existent User Code");
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
             }
+            // 이미 출석했는지 확인
+            LocalDate today = LocalDate.now();
+            MileageEntity alredyAttended = mileageRepository.findByAttendanceDate(userCode, today);
+            if(alredyAttended != null) {
+                ResponseDto errorBody = new ResponseDto("AT", "Already Attended Today");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
+            } 
 
-            // 출석체크를 하루에 한번만 할 수 있게 해야함.
-
-            // 마일리지 + 10
+            // 출석 및 마일리지 +10
             MileageEntity mileageEntity = new MileageEntity(dto);
-            int attendanceMileage = mileageEntity.getAttendanceMileage();
-            mileageEntity.setAttendanceMileage(attendanceMileage +10);
+            mileageEntity.setAttendanceResult(true);
+            mileageEntity.setAttendanceMileage(mileageEntity.getAttendanceMileage() + 10);
             mileageRepository.save(mileageEntity);
 
             body = new ResponseDto("SU", "Success");
@@ -74,6 +81,19 @@ public class MileageServiceImplement implements MileageService {
             ResponseDto errorBody = new ResponseDto("NC", "Non-Existent User Code");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
             }
+
+            LocalDate today = LocalDate.now();
+            MileageEntity mileageEntity = mileageRepository.findByAttendanceDate(userCode, today);
+            boolean attendanceResult = false;
+            int attendanceMileage = 0;
+            String attendanceDate = null;
+            if(mileageEntity != null){
+                attendanceResult = mileageEntity.isAttendanceResult();
+                attendanceMileage = mileageEntity.getAttendanceMileage();
+                attendanceDate = mileageEntity.getAttendanceDate().toString();
+            }
+
+            body = new GetMileageResponseDto(userCode, attendanceResult, attendanceMileage, attendanceDate);
             
 
         } catch (Exception exception) {

@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class GetBodyInfoResponseDto extends ResponseDto{
     private int userCode;
     private String userEmail;
-    private double heigth;
+    private double height;
     private double weight;
     private double muscleMass;
     private double fatRate;
@@ -23,15 +23,15 @@ public class GetBodyInfoResponseDto extends ResponseDto{
     private double bmiIndex;
     private String bmiResult;
 
-    GetBodyInfoResponseDto(BodyInfoEntity bodyInfoEntity,UserEntity userEntity) {
+    public GetBodyInfoResponseDto(BodyInfoEntity bodyInfoEntity,UserEntity userEntity) {
         super("SU", "Success");
 
         this.userCode = bodyInfoEntity.getUserCode();
         this.userEmail = userEntity.getUserEmail();
-        this.heigth = bodyInfoEntity.getHeight();
+        this.height = bodyInfoEntity.getHeight();
         this.weight = bodyInfoEntity.getWeight();
         this.muscleMass = bodyInfoEntity.getMuscleMass();
-        this.fatRate = bodyInfoEntity.getFateRate();
+        this.fatRate = bodyInfoEntity.getFatRate();
         this.recordDate = bodyInfoEntity.getRecordDate();
         this.bmiIndex = bodyInfoEntity.getBmiIndex();
         this.bmiResult = bodyInfoEntity.getBmiResult();
