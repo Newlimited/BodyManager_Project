@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.groupd.bodymanager.entity.DietEntity;
+import com.groupd.bodymanager.entity.UserMenuSelect;
 import org.springframework.stereotype.Repository;
 
 

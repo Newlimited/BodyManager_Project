@@ -11,15 +11,15 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Diet")
-@Entity(name = "Diet")
-public class DietEntity {
-
-    @Id
-    private int dietNumber;
-    private String day;
-    private String menuCode;
-    private int userCode;
-
+@Table(name = "UserMenuSelect")
+@Entity(name = "UserMenuSelect")
+public class UserMenuSelect {
     
+    private String menuCode;
+    @Id
+    private int userCode;
+    UserMenuSelect(UserEntity userEntity, MenuEntity menuEntity){
+        this.menuCode = menuEntity.getMenuCode();
+        this.userCode = userEntity.getUserCode();
+    }   
 }
