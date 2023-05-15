@@ -8,6 +8,6 @@ import com.groupd.bodymanager.entity.MenuDetailEntity;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DietDetailRepository extends JpaRepository<DietDetailEntity,Integer>{
+public interface MenuDetailRepository extends JpaRepository<MenuDetailEntity,Integer>{
     
 }

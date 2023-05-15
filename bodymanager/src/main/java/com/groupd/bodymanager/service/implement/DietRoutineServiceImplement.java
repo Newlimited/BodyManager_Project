@@ -13,12 +13,10 @@ import com.groupd.bodymanager.dto.request.dietRoutine.PatchDietRoutineRequestDto
 import com.groupd.bodymanager.dto.request.dietRoutine.PostDietRoutineRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.dietRoutine.GetDietRoutineResponseDto;
-import com.groupd.bodymanager.entity.DietDetailEntity;
-import com.groupd.bodymanager.entity.DietEntity;
+import com.groupd.bodymanager.entity.MenuDetailEntity;
 import com.groupd.bodymanager.entity.MenuEntity;
 import com.groupd.bodymanager.entity.UserEntity;
-import com.groupd.bodymanager.repository.DietDetailRepository;
-import com.groupd.bodymanager.repository.DietRepository;
+import com.groupd.bodymanager.repository.MenuDetailRepository;
 import com.groupd.bodymanager.repository.MenuRepository;
 import com.groupd.bodymanager.repository.UserRepository;
 import com.groupd.bodymanager.service.DietRoutineService;
@@ -27,17 +25,16 @@ import com.groupd.bodymanager.service.DietRoutineService;
 public class DietRoutineServiceImplement implements DietRoutineService{
     
     private MenuRepository menuRepository;
-    private DietRepository dietRepository;
-    private DietDetailRepository dietDetailRepository;
+    private MenuDetailRepository menuDetailRepository;
     private UserRepository userRepository;
     @Autowired
     DietRoutineServiceImplement(
-        MenuRepository menuRepository,UserRepository userRepository,DietRepository dietRepository,DietDetailRepository dietDetailRepository
+        MenuRepository menuRepository,UserRepository userRepository, MenuDetailRepository menuDetailRepository;
     ) {
         this.menuRepository = menuRepository;
         this.userRepository = userRepository;
-        this.dietRepository = dietRepository;
-        this.dietDetailRepository = dietDetailRepository;
+        this.menuDetailRepository = dietRepository;
+
     }
     @Override
     public ResponseEntity<ResponseDto> postDietRoutine(PostDietRoutineRequestDto dto) {
