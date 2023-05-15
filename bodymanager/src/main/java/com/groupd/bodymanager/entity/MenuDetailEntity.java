@@ -1,6 +1,8 @@
 package com.groupd.bodymanager.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,6 +16,7 @@ import lombok.NoArgsConstructor;
 @Table(name= "DietDetail")
 @Entity(name = "DietDetail")
 public class MenuDetailEntity {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int menuIndex;
     private String menuCode;
