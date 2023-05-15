@@ -74,8 +74,11 @@ public class DietRoutineServiceImplement implements DietRoutineService{
              //*존재하지 않는 메뉴코드 반환 */
             if(menuEntity == null ) return CustomResponse.notExistUserCode();
 
-            List<DietEntity> dietEntities = dietRepository.findByMenuCode(menuCode);
-            List<List<DietEntity>> dietDetailLists = new ArrayList<>();
+            DietEntity dietEntities = dietRepository.findByMenuCodeAndOUserCode(menuCode,userCode);
+            List<DietDetailEntity> dietDetailEntities = dietDetailRepository.find
+
+
+            
             for(DietEntity dietEntity : dietEntities) {
                 int dietNumber = dietEntity.getDietNumber();
                 

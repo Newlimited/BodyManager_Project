@@ -11,5 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface DietDetailRepository extends JpaRepository<DietDetailEntity,Integer>{
 
     DietDetailEntity findByDietNumber(int dietNumber);
+    List<DietDetailEntity> findBy
     
 }

@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DietRepository extends JpaRepository<DietEntity,Integer>{
 
-    List<DietEntity> findByMenuCode(String menuCode);
+    DietEntity findByMenuCodeAndOUserCode(String menuCode, int userCode);
 }
