@@ -1,5 +1,7 @@
 package com.groupd.bodymanager.service.implement;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.groupd.bodymanager.common.CustomResponse;
 import com.groupd.bodymanager.dto.request.mileage.PostMileageRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
+import com.groupd.bodymanager.dto.response.mileage.GetMileageResponseDto;
 import com.groupd.bodymanager.entity.MileageEntity;
 import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.repository.MileageRepository;
@@ -19,8 +22,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class MileageServiceImplement implements MileageService {
-    private final UserRepository userRepository;
-    private final MileageRepository mileageRepository;
+    private  UserRepository userRepository;
+    private  MileageRepository mileageRepository;
 
     @Override
     public ResponseEntity<ResponseDto> postMileage(PostMileageRequestDto dto) {
@@ -33,11 +36,21 @@ public class MileageServiceImplement implements MileageService {
             // 존재하지 않는 유저코드 반환
             UserEntity existeduserCode = userRepository.findByUserCode(userCode);
             if(existeduserCode == null) {
-                ResponseDto errorBody = new ResponseDto("NU", "Non-Existent User Code");
+                ResponseDto errorBody = new ResponseDto("NC", "Non-Existent User Code");
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
             }
+            // 이미 출석했는지 확인
+            LocalDate today = LocalDate.now();
+            MileageEntity alredyAttended = mileageRepository.findByAttendanceDate(userCode, today);
+            if(alredyAttended != null) {
+                ResponseDto errorBody = new ResponseDto("AT", "Already Attended Today");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
+            } 
 
+            // 출석 및 마일리지 +10
             MileageEntity mileageEntity = new MileageEntity(dto);
+            mileageEntity.setAttendanceResult(true);
+            mileageEntity.setAttendanceMileage(mileageEntity.getAttendanceMileage() + 10);
             mileageRepository.save(mileageEntity);
 
             body = new ResponseDto("SU", "Success");
@@ -52,6 +65,47 @@ public class MileageServiceImplement implements MileageService {
         // 성공반환
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
+
+    @Override
+    public ResponseEntity<? super GetMileageResponseDto> getMileage(Integer userCode) {
+       
+        GetMileageResponseDto body = null;
+        
+        try {
+
+            if(userCode == null) return CustomResponse.validationFaild();
+            
+            // 존재하지 않는 유저코드 반환
+            UserEntity existeduserCode = userRepository.findByUserCode(userCode);
+            if(existeduserCode == null) {
+            ResponseDto errorBody = new ResponseDto("NC", "Non-Existent User Code");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
+            }
+
+            LocalDate today = LocalDate.now();
+            MileageEntity mileageEntity = mileageRepository.findByAttendanceDate(userCode, today);
+            boolean attendanceResult = false;
+            int attendanceMileage = 0;
+            String attendanceDate = null;
+            if(mileageEntity != null){
+                attendanceResult = mileageEntity.isAttendanceResult();
+                attendanceMileage = mileageEntity.getAttendanceMileage();
+                attendanceDate = mileageEntity.getAttendanceDate().toString();
+            }
+
+            body = new GetMileageResponseDto(userCode, attendanceResult, attendanceMileage, attendanceDate);
+            
+
+        } catch (Exception exception) {
+            // 데이터베이스 오류 반환 //
+            exception.printStackTrace();
+            ResponseDto errorBody = new ResponseDto("DE", "Database Error");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorBody);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(body);
+    }
+
 
 
 

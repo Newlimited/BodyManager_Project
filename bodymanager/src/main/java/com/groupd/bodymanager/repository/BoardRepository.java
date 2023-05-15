@@ -15,20 +15,20 @@ public interface BoardRepository extends JpaRepository<BoardEntity, String>{
 
     @Query(
         value = 
-        "Select "
-        + "B.board_number As boardNumber, "
-        + "B.board_title As boardTitle, "
-        + "B.board_content AS boardContent, "
-        + "B.board_image_url As boardImageUrl, "
-        + "B.board_write_datetime As boardWriteDatetime, "
-        + "U.user_nickname As boardWriterNickname "
-        + "M.manager_email As boardWriterEmail "
-        + "B.view_count As viewCount " 
-        + "from board B, user U, manager M "
-        + "where B.board_writer_nickname = U.user_nickname "
-        + "GROUP BY B.board_number "
-        + "ORDER BY B.board_write_datetime DESC; ",
-         nativeQuery = true  
+        "SELECT "
+        +"B.board_number AS boardNumber, "
+        +"M.manager_email AS boardWriterEmail, "
+        +"B.board_writer_nickname AS boardWriterNickname, "
+        +"B.board_title AS title, "
+        +"B.board_content AS boardContetn, "
+        +"B.board_image_url AS boardImageUrl, "
+        +"B.view_count AS viewCount, "
+        +"B.board_write_datetime AS boardWriteDatetime "
+        +"From board B, manager M, user U "
+        +"WHERE B.board_writer_email = M.manager_email "
+        +"AND M.manager_eamil = U.user_email "
+        +"ORDER BY B.board_number DESC; ",
+        nativeQuery = true  
     )
     public List<BoardListResultSet> getList();
 }

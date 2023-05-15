@@ -1,7 +1,6 @@
 package com.groupd.bodymanager.dto.request.board;
 
 import javax.persistence.Id;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
