@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.groupd.bodymanager.common.CustomResponse;
+import com.groupd.bodymanager.dto.request.bodyInfo.PatchBodyInfoRequestDto;
 import com.groupd.bodymanager.dto.request.bodyInfo.PostBodyInfoRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.bodyInfo.GetBodyInfoResponseDto;
@@ -60,7 +61,7 @@ public class BodyInfoServiceImplement implements BodyInfoService {
             
         return ResponseEntity.status(HttpStatus.OK).body(body);
 
-        }
+    }
 
     @Override
     public ResponseEntity<? super GetBodyInfoResponseDto> getBodyInfo(Integer userCode) {
@@ -92,7 +93,44 @@ public class BodyInfoServiceImplement implements BodyInfoService {
         
         return ResponseEntity.status(HttpStatus.OK).body(body);
 
-}
+    }
+
+    public ResponseEntity<ResponseDto> patchBodyInfo(PatchBodyInfoRequestDto dto){
+        
+        ResponseDto body = null;
+        int userCode = dto.getUserCode();
+        double height = dto.getHeight();
+        double weight = dto.getWeight();
+        double muscleMass = dto.getMuscleMass();
+        double fatRate = dto.getFatRate();
+
+        try {
+
+            // UserEntity existeduserCode = userRepository.findByUserCode(userCode);
+            // if(existeduserCode == null){
+            //     ResponseDto erroBody = new ResponseDto("NC", "Non-Existent User Code");
+            //     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(erroBody);
+            // }
+
+            BodyInfoEntity bodyInfoEntity = bodyInfoRepository.findByUserCode(userCode);
+            if(bodyInfoEntity == null){
+                return CustomResponse.notExistUserCode();
+            }
+            
+            bodyInfoEntity.setHeight(height);
+            bodyInfoEntity.setWeight(weight);
+            bodyInfoEntity.setMuscleMass(muscleMass);
+            bodyInfoEntity.setFatRate(fatRate);
+            bodyInfoRepository.save(bodyInfoEntity);
+
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return CustomResponse.databaseError();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(body);
+    }
 
 }
 
