@@ -19,11 +19,11 @@ public class MenuEntity {
     @Id
     private String menuCode;
     private String menuName;
-    private int userCode;
+   
 
     public MenuEntity(PostDietRoutineRequestDto dto) {
         this.menuCode = dto.getMenuCode();
-        this.userCode = dto.getUserCode();
+       
         this.menuName = dto.getMenuName();
 
     }
