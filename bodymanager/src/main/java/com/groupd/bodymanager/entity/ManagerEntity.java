@@ -1,27 +1,29 @@
 package com.groupd.bodymanager.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
-
-import com.groupd.bodymanager.dto.request.user.PostManagerRequestDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+
 
 @Entity(name = "Manager")
 @Table(name = "Manager")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class ManagerEntity{
-        int managerCode;
+     
+    int managerCode;
         String userPassword;
         String userNickname;
         String userPhoneNumber;
         String userAddress;
         String userGender;
         Integer userAge;
+        @Id
         String managerEmail;
     
         public ManagerEntity(UserEntity dto){
