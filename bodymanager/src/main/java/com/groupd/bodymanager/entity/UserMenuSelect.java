@@ -2,7 +2,10 @@ package com.groupd.bodymanager.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
+
+import com.groupd.bodymanager.entity.primaryKey.selectPK;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,8 +16,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "UserMenuSelect")
 @Entity(name = "UserMenuSelect")
+@IdClass(selectPK.class)
 public class UserMenuSelect {
-    
+    @Id
     private String menuCode;
     @Id
     private int userCode;
