@@ -1,6 +1,5 @@
 package com.groupd.bodymanager.dto.request.user;
 
-import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
