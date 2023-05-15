@@ -35,9 +35,9 @@ public class MileageController {
     }
 
     // 출석 및 마일리지 조회
-    @GetMapping("/{usercode}")
+    @GetMapping("/{userCode}")
     public ResponseEntity<? super GetMileageResponseDto> getMileage(
-        @PathVariable("usercode") Integer usercode
+        @PathVariable("userCode") Integer usercode
     ){
         ResponseEntity<? super GetMileageResponseDto> response =
             mileageService.getMileage(usercode);
