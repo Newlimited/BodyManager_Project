@@ -7,7 +7,7 @@ import com.groupd.bodymanager.dto.request.dietRoutine.PostDietRoutineRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.dietRoutine.GetDietRoutineResponseDto;
 
-public interface DietRoutineService {
+public interface MenuService {
     public ResponseEntity<ResponseDto> postDietRoutine(PostDietRoutineRequestDto dto);
     public ResponseEntity<ResponseDto> patchDietRoutine(PatchDietRoutineRequestDto dto);
     public ResponseEntity<? super GetDietRoutineResponseDto> getDietRoutine(PostDietRoutineRequestDto dto);
