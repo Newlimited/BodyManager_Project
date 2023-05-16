@@ -73,7 +73,26 @@ public class MenuServiceImplement implements MenuService {
     
 =======
 
+<<<<<<< HEAD
 >>>>>>> 9953ebc5ea8f3bb479055cb4e54ae371bafd73e6
+=======
+    
+    @Override //메뉴코드에 맞는 식단 조회
+    public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList() {
+        GetMenuDetailListResponseDto body = null;
+
+        try {
+            List<MenuListResultSet> resultSet = menuDetailRepository.getMenuDetailList();
+            body = new GetMenuDetailListResponseDto(resultSet);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return CustomResponse.databaseError();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(body);
+    }
+    
+>>>>>>> 79863c6a078bdfe0db74a3172fc9c5522ef915f3
     @Override
     public ResponseEntity<? super GetMenuResponseDto> getMenuDetail(PostMenuRequestDto dto) {
         GetMenuResponseDto body = null;
@@ -105,6 +124,6 @@ public class MenuServiceImplement implements MenuService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'patchDietRoutine'");
     }
-  
+
 
 }
