@@ -21,7 +21,7 @@ public class GetMileageResponseDto extends ResponseDto{
     public GetMileageResponseDto(UserEntity userEntity,MileageEntity mileageEntity){
         super("SU", "Success");
         this.userCode = userEntity.getUserCode();
-        this.attendanceResult = mileageEntity.isAttendanceResult();
+        this.attendanceResult = mileageEntity.isAttendanceToday();
         this.attendanceMileage = mileageEntity.getAttendanceMileage();
         this.attendanceDate = mileageEntity.getAttendanceDate();
     }

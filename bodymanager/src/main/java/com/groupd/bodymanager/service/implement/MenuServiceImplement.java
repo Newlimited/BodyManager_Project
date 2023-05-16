@@ -66,10 +66,14 @@ public class MenuServiceImplement implements MenuService {
         // *성공 반환 */
         return CustomResponse.successs();
     }
+<<<<<<< HEAD
         }
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
     
+=======
+
+>>>>>>> 9953ebc5ea8f3bb479055cb4e54ae371bafd73e6
     @Override
     public ResponseEntity<? super GetMenuResponseDto> getMenuDetail(PostMenuRequestDto dto) {
         GetMenuResponseDto body = null;
