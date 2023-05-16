@@ -2,13 +2,14 @@ package com.groupd.bodymanager.entity.resultSet;
 
 public interface MenuListResultSet {
     
-    private String getMenuCode();
-    private String getMonday();
-    private String getTuesday();
-    private String getWednesday();
-    private String getThursady();
-    private String getFriday();
-    private String getSaturday();
-    private String getSunday();
-    private String getTime();
+    public String getMenuCode();
+    public String getTime();
+    public String getMonday();
+    public String getTuesday();
+    public String getWednesday();
+    public String getThursady();
+    public String getFriday();
+    public String getSaturday();
+    public String getSunday();
+    
 }
