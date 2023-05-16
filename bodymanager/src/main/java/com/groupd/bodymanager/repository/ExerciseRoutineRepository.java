@@ -7,5 +7,5 @@ import com.groupd.bodymanager.entity.ExerciseRoutineEntity;
 @Repository
 public interface ExerciseRoutineRepository extends JpaRepository<ExerciseRoutineEntity, Integer>{
     
-    public ExerciseRoutineEntity findByRoutinNumber(int routineNumber);
+    public ExerciseRoutineEntity findByRoutineNumber(int routineNumber);
 }

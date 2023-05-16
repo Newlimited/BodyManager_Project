@@ -27,9 +27,7 @@ public class GetMenuDetailListResponseDto extends ResponseDto {
         }
         this.menuDetailList = menuDetailList;
     }
-
 }
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

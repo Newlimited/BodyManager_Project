@@ -61,17 +61,17 @@ public class UserServiceImplement implements UserService {
         int userAge = dto.getUserAge();
 
         try { // TODO 존재하는 유저 이메일
-            boolean existedUserEmail = userRepository.existsByEmail(userEmail);
+            boolean existedUserEmail = userRepository.existsByUserEmail(userEmail);
             if (existedUserEmail)
                 return CustomResponse.existUserEmail();
 
             // TODO 존재하는 유저 닉네임
-            boolean existedUserNickname = userRepository.existsByNickname(userNickname);
+            boolean existedUserNickname = userRepository.existsByUserNickname(userNickname);
             if (existedUserNickname)
                 return CustomResponse.existUserNickname();
 
             // TODO 존재하는 유저 휴대전화 번호
-            boolean existedUserPhoneNumber = userRepository.existsByPhoneNumber(userPhoneNumber);
+            boolean existedUserPhoneNumber = userRepository.existsByUserPhoneNumber(userPhoneNumber);
             if (existedUserPhoneNumber)
                 return CustomResponse.existUserPhoneNumber();
 
@@ -100,7 +100,7 @@ public class UserServiceImplement implements UserService {
 
         try {
             // TODO 로그인 실패 (이메일 x)
-            UserEntity userEntity = userRepository.findByEmail(userEmail);
+            UserEntity userEntity = userRepository.findByUserEmail(userEmail);
             if (userEmail == null)
                 return CustomResponse.signInFailed();
 
@@ -128,12 +128,12 @@ public class UserServiceImplement implements UserService {
 
         try {
             // TODO 이메일 일치 확인 - 유저이메일에서 확인하는거고...
-            boolean isExistEmail = userRepository.existsByEmail(addEmail);
+            boolean isExistEmail = userRepository.existsByUserEmail(addEmail);
             if (!isExistEmail) {
                 return CustomResponse.notExistUserEmail();
             } // 오류 반환 <이메일 없숨!>
               // TODO 이메일 중복 확인 - 매니저이메일 리스트 안에서 확인하는것..
-            boolean isAlreadyAdded = managerRepository.existsByEmail(addEmail);
+            boolean isAlreadyAdded = managerRepository.existsByManagerEmail(addEmail);
             if (isAlreadyAdded) {
                 return CustomResponse.existUserEmail();// 오류반환 <이메일 중복>
             }
@@ -180,7 +180,7 @@ public class UserServiceImplement implements UserService {
     public ResponseEntity<ResponseDto> patchUser(PatchUserRequestDto dto) {
 
         ResponseDto responseBody = null;
-        UserEntity userEntity = userRepository.findByEmail(dto.getUserEmail());
+        UserEntity userEntity = userRepository.findByUserEmail(dto.getUserEmail());
         String userPassword = userEntity.getUserPassword();
         String userNewPassword = dto.getUserNewPassword();
         String userNewPasswordCheck = dto.getUserNewPasswordCheck();
@@ -199,11 +199,11 @@ public class UserServiceImplement implements UserService {
             if (!isMatchedPassword) { // TODO 새로운 비밀번호와 비밀번호 확인간의 불일치
                 return CustomResponse.noneMatchedPassword();
             }
-            boolean isExistNickname = userRepository.existsByNickname(dto.getUserNickname());
+            boolean isExistNickname = userRepository.existsByUserNickname(dto.getUserNickname());
             if (isExistNickname) { // TODO 존재하는 유저 닉네임
                 return CustomResponse.existUserNickname();
             }
-            boolean isExistPhoneNumber = userRepository.existsByPhoneNumber(dto.getUserPhoneNumber());
+            boolean isExistPhoneNumber = userRepository.existsByUserPhoneNumber(dto.getUserPhoneNumber());
             if (!isExistPhoneNumber) { // TODO 존재하는 유저 휴대전화 번호
                 return CustomResponse.existUserPhoneNumber();
             }
@@ -257,7 +257,7 @@ public class UserServiceImplement implements UserService {
             if (!equaledPassword)
                 return CustomResponse.signInFailed();
 
-            UserEntity userEntity = userRepository.findByEmail(userEmailCheck);
+            UserEntity userEntity = userRepository.findByUserEmail(userEmailCheck);
             // String jwt = jwtProvider.create(userEmail);
 
             // body = new GetAuthResponseDto(jwt, userCode);

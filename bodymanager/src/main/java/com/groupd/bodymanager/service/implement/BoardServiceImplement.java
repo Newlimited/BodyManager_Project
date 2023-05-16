@@ -37,7 +37,7 @@ public class BoardServiceImplement implements BoardService {
  
         try {
             // TODO 존재하지 않는 유저 오류 반환
-            boolean existedUserEmail = userRepository.existsByEmail(boardWriterEmail);
+            boolean existedUserEmail = userRepository.existsByUserEmail(boardWriterEmail);
             if (!existedUserEmail) {
                 ResponseDto errorbody = new ResponseDto("NU", "Non-Existent User Email");
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorbody);
@@ -70,7 +70,7 @@ public class BoardServiceImplement implements BoardService {
             boardEntity.setViewCount(++viewCount);
             boardRepository.save(boardEntity);
             String boardWriterEmail = boardEntity.getBoardWriterEmail();
-            UserEntity userEntity = userRepository.findByEmail(boardWriterEmail);
+            UserEntity userEntity = userRepository.findByUserEmail(boardWriterEmail);
             body = new GetBoardResponseDto(boardEntity, userEntity);
 
         } catch (Exception exception) {
@@ -111,7 +111,7 @@ public class BoardServiceImplement implements BoardService {
                 return CustomResponse.notExistBoardNumber();
             }
             // TODO : 관리자 목록에 존재하지 않는 이메일 (존재하는 매니저의 이메일 이필요함)
-            Boolean isExistManageEmail = managerRepository.existsByEmail(managerEmail);
+            Boolean isExistManageEmail = managerRepository.existsByManagerEmail(managerEmail);
             if (!isExistManageEmail){
                 return CustomResponse.noPermission();
             }
@@ -137,7 +137,7 @@ public class BoardServiceImplement implements BoardService {
             return CustomResponse.notExistBoardNumber();
         }
         // TODO : 관리자 목록에 존재하지 이메일 (존재하는 매니저의 이메일 이필요함)
-        Boolean isExistManageEmail = managerRepository.existsByEmail(email);
+        Boolean isExistManageEmail = managerRepository.existsByManagerEmail(email);
         if (!isExistManageEmail){
             return CustomResponse.noPermission();
         }

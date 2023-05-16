@@ -1,5 +1,7 @@
 package com.groupd.bodymanager.dto.request.mileage;
 
+import java.util.Date;
+
 import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
@@ -18,5 +20,5 @@ public class PostMileageRequestDto {
     @NotBlank
     private int attendanceMileage;
     @NotBlank
-    private String date;
+    private Date attendance;
 }
