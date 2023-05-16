@@ -14,7 +14,7 @@ public class PostMenuRequestDto {
     private int userCode;
     @NotBlank
     private String menuCode;
-    @NotBlank
-    private String menuName;
+  
+ 
 
 }

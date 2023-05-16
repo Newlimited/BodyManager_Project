@@ -20,17 +20,14 @@ import lombok.Setter;
 // 손좀 봐야함.
 public class GetMenuResponseDto extends ResponseDto{
     private int userCode;
-    private String menuCode;
-    private String menuName;
-    
-    
+    private String menuCode;    
 
     public GetMenuResponseDto(
         MenuEntity menuEntity,
         UserMenuSelect userMenuSelect) {
             this.userCode = userMenuSelect.getUserCode();
             this.menuCode = menuEntity.getMenuCode();
-            this.menuName = menuEntity.getMenuName();
+          
 
 
     }

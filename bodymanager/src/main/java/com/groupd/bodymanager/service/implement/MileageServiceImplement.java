@@ -1,6 +1,8 @@
 package com.groupd.bodymanager.service.implement;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +31,11 @@ public class MileageServiceImplement implements MileageService {
     public ResponseEntity<ResponseDto> postMileage(PostMileageRequestDto dto) {
 
         ResponseDto body = null;
-
+        Date now = new Date();
+        SimpleDateFormat simpleDateFormat =
+        new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String attendanceDate = simpleDateFormat.format(now);
+        
         int userCode = dto.getUserCode();
         
         try {
@@ -40,16 +46,20 @@ public class MileageServiceImplement implements MileageService {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
             }
             // 이미 출석했는지 확인
-            LocalDate today = LocalDate.now();
-            MileageEntity alredyAttended = mileageRepository.findByAttendanceDate(userCode, today);
-            if(alredyAttended != null) {
+            boolean attendanceResult = dto.isAttendanceResult();
+            boolean attendanceToday = mileageRepository.isAlreadyAttend(userCode);
+            boolean isAlreadyAttend = attendanceResult == !attendanceToday; // 둘다 T 면 T다. 
+            // 출석을 하면 T로 된다. F가 됨, = 같음 -> T가됨. ==>>> 출석한 상태
+            // F가되면 출석을 하지 않은 상태.
+            if(isAlreadyAttend) {
                 ResponseDto errorBody = new ResponseDto("AT", "Already Attended Today");
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
             } 
-
+           
+            
             // 출석 및 마일리지 +10
             MileageEntity mileageEntity = new MileageEntity(dto);
-            mileageEntity.setAttendanceResult(true);
+            mileageEntity.setAttendanceToday(true);
             mileageEntity.setAttendanceMileage(mileageEntity.getAttendanceMileage() + 10);
             mileageRepository.save(mileageEntity);
 
@@ -80,22 +90,10 @@ public class MileageServiceImplement implements MileageService {
             if(existeduserCode == null) {
             ResponseDto errorBody = new ResponseDto("NC", "Non-Existent User Code");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
-            }
-
-            LocalDate today = LocalDate.now();
-            MileageEntity mileageEntity = mileageRepository.findByAttendanceDate(userCode, today);
-            boolean attendanceResult = false;
-            int attendanceMileage = 0;
-            String attendanceDate = null;
-            if(mileageEntity != null){
-                attendanceResult = mileageEntity.isAttendanceResult();
-                attendanceMileage = mileageEntity.getAttendanceMileage();
-                attendanceDate = mileageEntity.getAttendanceDate().toString();
-            }
-
-            body = new GetMileageResponseDto(userCode, attendanceResult, attendanceMileage, attendanceDate);
+            }       
             
-
+            MileageEntity mileageEntity = mileageRepository.findByUserCodeAndAttendanceMileage(userCode);
+            
         } catch (Exception exception) {
             // 데이터베이스 오류 반환 //
             exception.printStackTrace();
