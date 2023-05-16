@@ -40,7 +40,7 @@ public class MenuServiceImplement implements MenuService {
     }
 
     @Override
-    public ResponseEntity<? super GetMenuDetailListResponseDto> postDietRoutine(PostMenuRequestDto dto) {
+    public ResponseEntity<ResponseDto> postDietRoutine(PostMenuRequestDto dto) {
         GetMenuDetailListResponseDto body = null;
         String menuCode = dto.getMenuCode();
         try {
@@ -67,6 +67,7 @@ public class MenuServiceImplement implements MenuService {
         return CustomResponse.successs();
     }
 
+
     
     @Override //메뉴코드에 맞는 식단 조회
     public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList() {
@@ -83,6 +84,7 @@ public class MenuServiceImplement implements MenuService {
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
     
+
     @Override
     public ResponseEntity<? super GetMenuResponseDto> getMenuDetail(PostMenuRequestDto dto) {
         GetMenuResponseDto body = null;
