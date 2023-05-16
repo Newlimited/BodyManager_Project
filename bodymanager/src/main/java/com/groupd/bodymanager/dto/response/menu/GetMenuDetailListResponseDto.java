@@ -10,7 +10,8 @@ import com.groupd.bodymanager.entity.resultSet.MenuListResultSet;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+@Data
+@NoArgsConstructor
 public class GetMenuDetailListResponseDto extends ResponseDto {
     private List<MenuDetail> menuDetailList;
 
