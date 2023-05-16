@@ -60,7 +60,8 @@ public class UserServiceImplement implements UserService {
         String userGender = dto.getUserGender();
         int userAge = dto.getUserAge();
 
-        try { // TODO 존재하는 유저 이메일
+        try { 
+            // TODO 존재하는 유저 이메일
             boolean existedUserEmail = userRepository.existsByUserEmail(userEmail);
             if (existedUserEmail)
                 return CustomResponse.existUserEmail();
