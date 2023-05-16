@@ -12,18 +12,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 public class GetMenuDetailListResponseDto extends ResponseDto {
-    private List<MenuDetail> menuDetail;
+    private List<MenuDetail> menuDetailList;
 
     public GetMenuDetailListResponseDto(List<MenuListResultSet> resultSet){
         super("SU","Success");
 
-        List<MenuDetail> menuDetail = new ArrayList<>();
+        List<MenuDetail> menuDetailList = new ArrayList<>();
         
         for(MenuListResultSet result : resultSet) {
             MenuDetail menuDetail = new MenuDetail(result);
-            menuDetail.add(menuDetail);
+            menuDetailList.add(menuDetail);
         }
-        this.menuDetail = menuDetail;
+        this.menuDetailList = menuDetailList;
     }
 
 }
@@ -42,7 +42,7 @@ class MenuDetail {
     private String friday;
     private String saturday;
     private String sunday;
-  
+    
     public MenuDetail(MenuListResultSet resultSet){
         this.menuCode = resultSet.getMenuCode;
         this.time = resultSet.getTime;
