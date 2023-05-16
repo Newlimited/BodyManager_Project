@@ -17,6 +17,7 @@ import com.groupd.bodymanager.dto.response.menu.GetMenuResponseDto;
 import com.groupd.bodymanager.entity.MenuDetailEntity;
 import com.groupd.bodymanager.entity.MenuEntity;
 import com.groupd.bodymanager.entity.UserEntity;
+import com.groupd.bodymanager.entity.resultSet.MenuListResultSet;
 import com.groupd.bodymanager.repository.MenuDetailRepository;
 import com.groupd.bodymanager.repository.MenuRepository;
 import com.groupd.bodymanager.repository.UserRepository;
@@ -99,6 +100,7 @@ public class MenuServiceImplement implements MenuService{
         GetMenuDetailListResponseDto body = null;
 
         try {
+            List<MenuListResultSet> resultSet = menuDetailRepository.getMenuDetailList();
             
         } catch (Exception exception) {
             exception.printStackTrace();
