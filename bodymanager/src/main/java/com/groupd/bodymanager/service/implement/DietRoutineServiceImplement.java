@@ -13,7 +13,6 @@ import com.groupd.bodymanager.dto.request.dietRoutine.PatchDietRoutineRequestDto
 import com.groupd.bodymanager.dto.request.dietRoutine.PostDietRoutineRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.dietRoutine.GetDietRoutineResponseDto;
-import com.groupd.bodymanager.entity.MenuDetailEntity;
 import com.groupd.bodymanager.entity.MenuEntity;
 import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.repository.MenuDetailRepository;
@@ -29,11 +28,11 @@ public class DietRoutineServiceImplement implements DietRoutineService{
     private UserRepository userRepository;
     @Autowired
     DietRoutineServiceImplement(
-        MenuRepository menuRepository,UserRepository userRepository, MenuDetailRepository menuDetailRepository;
+        MenuRepository menuRepository,UserRepository userRepository, MenuDetailRepository menuDetailRepository
     ) {
         this.menuRepository = menuRepository;
         this.userRepository = userRepository;
-        this.menuDetailRepository = dietRepository;
+        this.menuDetailRepository = menuDetailRepository;
 
     }
     @Override
@@ -70,18 +69,6 @@ public class DietRoutineServiceImplement implements DietRoutineService{
             MenuEntity menuEntity = menuRepository.findByUserCode(userCode);
              //*존재하지 않는 메뉴코드 반환 */
             if(menuEntity == null ) return CustomResponse.notExistUserCode();
-
-            DietEntity dietEntities = dietRepository.findByMenuCodeAndOUserCode(menuCode,userCode);
-            List<DietDetailEntity> dietDetailEntities = dietDetailRepository.find
-
-
-            
-            for(DietEntity dietEntity : dietEntities) {
-                int dietNumber = dietEntity.getDietNumber();
-                
-                DietDetailEntity dietDetailEntities = dietDetailRepository.findByDietNumber(dietNumber);
-                
-            }
 
 
             

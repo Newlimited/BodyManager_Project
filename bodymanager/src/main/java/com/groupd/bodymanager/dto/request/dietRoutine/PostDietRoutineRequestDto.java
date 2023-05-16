@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class PostDietRoutineRequestDto {
-
+    
     @NotBlank
     private int userCode;
     @NotBlank
