@@ -11,4 +11,5 @@ public interface MenuService {
     public ResponseEntity<ResponseDto> postDietRoutine(PostMenuRequestDto dto);
     public ResponseEntity<ResponseDto> patchDietRoutine(PatchMenuRequestDto dto);
     public ResponseEntity<? super GetMenuResponseDto> getDietRoutine(PostMenuRequestDto dto);
+    public ResponseEntity<? super GetMenuListResponseDto> getMenuDetailList();
 }
