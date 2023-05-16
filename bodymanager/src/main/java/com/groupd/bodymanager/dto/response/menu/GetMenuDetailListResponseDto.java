@@ -12,7 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 public class GetMenuDetailListResponseDto extends ResponseDto {
-    private List<MenuDetail> menuDetail;
+    private List<MenuDetail> menuDetail;//
 
     public GetMenuDetailListResponseDto(List<MenuListResultSet> resultSet){
         super("SU","Success");
