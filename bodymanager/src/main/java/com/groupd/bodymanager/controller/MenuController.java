@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/menu")
-public class DietController {
+public class MenuController {
     // 1. 메뉴 번호를 등록
 
 
