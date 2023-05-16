@@ -52,7 +52,6 @@ public class MenuServiceImplement implements MenuService{
             }
             MenuEntity menuEntity = new MenuEntity(dto);
             menuRepository.save(menuEntity);
-            MenuDetailEntity menuDetailEntities = menuDetailRepository.findByMenuCode(menuCode);
             
             
         } catch (Exception exceptione) {
@@ -62,6 +61,22 @@ public class MenuServiceImplement implements MenuService{
         }
         //*성공 반환 */
         return CustomResponse.successs();
+    }
+
+    
+    @Override //메뉴코드에 맞는 식단 조회
+    public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList() {
+        GetMenuDetailListResponseDto body = null;
+
+        try {
+            List<MenuListResultSet> resultSet = menuDetailRepository.getMenuDetailList();
+            body = new GetMenuDetailListResponseDto(resultSet);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return CustomResponse.databaseError();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(body);
     }
     
     @Override
@@ -74,15 +89,6 @@ public class MenuServiceImplement implements MenuService{
             MenuEntity menuEntity = menuRepository.findByUserCode(userCode);
              //*존재하지 않는 메뉴코드 반환 */
             if(menuEntity == null ) return CustomResponse.notExistUserCode();
-
-
-            
-            
-
-    
-
-
-
             
         } catch (Exception exceptione) {
             exceptione.printStackTrace();
@@ -95,21 +101,8 @@ public class MenuServiceImplement implements MenuService{
     }
 
 
-    @Override
-    public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList() {
-        GetMenuDetailListResponseDto body = null;
 
-        try {
-            List<MenuListResultSet> resultSet = menuDetailRepository.getMenuDetailList();
-            
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMenuDetailList'");
-    }
-
-    @Override
+    @Override // 유저의 식단 코드 변경
     public ResponseEntity<ResponseDto> patchDietRoutine(PatchMenuRequestDto dto) {
 
 
