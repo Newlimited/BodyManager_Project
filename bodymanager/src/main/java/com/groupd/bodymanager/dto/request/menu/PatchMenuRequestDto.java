@@ -1,11 +1,11 @@
-package com.groupd.bodymanager.dto.request.dietRoutine;
+package com.groupd.bodymanager.dto.request.menu;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class PatchDietRoutineRequestDto {
+public class PatchMenuRequestDto {
     private String userCode;
     private String menuCode;
 

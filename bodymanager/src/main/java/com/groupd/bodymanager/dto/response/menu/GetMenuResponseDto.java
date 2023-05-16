@@ -1,4 +1,4 @@
-package com.groupd.bodymanager.dto.response.dietRoutine;
+package com.groupd.bodymanager.dto.response.menu;
 
 import java.util.List;
 
@@ -18,14 +18,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 // 손좀 봐야함.
-public class GetDietRoutineResponseDto extends ResponseDto{
+public class GetMenuResponseDto extends ResponseDto{
     private int userCode;
     private String menuCode;
     private String menuName;
     
     
 
-    public GetDietRoutineResponseDto(
+    public GetMenuResponseDto(
         MenuEntity menuEntity,
         UserMenuSelect userMenuSelect) {
             this.userCode = userMenuSelect.getUserCode();

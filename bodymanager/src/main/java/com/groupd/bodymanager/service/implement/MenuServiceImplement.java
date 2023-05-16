@@ -9,10 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.groupd.bodymanager.common.CustomResponse;
-import com.groupd.bodymanager.dto.request.dietRoutine.PatchDietRoutineRequestDto;
-import com.groupd.bodymanager.dto.request.dietRoutine.PostDietRoutineRequestDto;
+import com.groupd.bodymanager.dto.request.menu.PatchMenuRequestDto;
+import com.groupd.bodymanager.dto.request.menu.PostMenuRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
-import com.groupd.bodymanager.dto.response.dietRoutine.GetDietRoutineResponseDto;
+import com.groupd.bodymanager.dto.response.menu.GetMenuResponseDto;
 import com.groupd.bodymanager.entity.MenuDetailEntity;
 import com.groupd.bodymanager.entity.MenuEntity;
 import com.groupd.bodymanager.entity.UserEntity;
@@ -37,7 +37,7 @@ public class MenuServiceImplement implements MenuService{
 
     }
     @Override
-    public ResponseEntity<ResponseDto> postDietRoutine(PostDietRoutineRequestDto dto) {
+    public ResponseEntity<ResponseDto> postDietRoutine(PostMenuRequestDto dto) {
         ResponseDto body = null;
         String menuCode = dto.getMenuCode();
         try {
@@ -63,8 +63,8 @@ public class MenuServiceImplement implements MenuService{
     }
     
     @Override
-    public ResponseEntity<? super GetDietRoutineResponseDto> getDietRoutine(PostDietRoutineRequestDto dto) {
-        GetDietRoutineResponseDto body = null;
+    public ResponseEntity<? super GetMenuResponseDto> getDietRoutine(PostMenuRequestDto dto) {
+        GetMenuResponseDto body = null;
         String menuCode = dto.getMenuCode();
         int userCode = dto.getUserCode();
 
@@ -93,7 +93,7 @@ public class MenuServiceImplement implements MenuService{
     }
 
     @Override
-    public ResponseEntity<ResponseDto> patchDietRoutine(PatchDietRoutineRequestDto dto) {
+    public ResponseEntity<ResponseDto> patchDietRoutine(PatchMenuRequestDto dto) {
 
 
         // TODO Auto-generated method stub
