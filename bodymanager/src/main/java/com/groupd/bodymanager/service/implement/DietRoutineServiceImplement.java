@@ -1,5 +1,8 @@
 package com.groupd.bodymanager.service.implement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +14,8 @@ import com.groupd.bodymanager.dto.request.dietRoutine.PostDietRoutineRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.dietRoutine.GetDietRoutineResponseDto;
 import com.groupd.bodymanager.entity.MenuEntity;
-import com.groupd.bodymanager.repository.DietDetailRepository;
-import com.groupd.bodymanager.repository.DietRepository;
+import com.groupd.bodymanager.entity.UserEntity;
+import com.groupd.bodymanager.repository.MenuDetailRepository;
 import com.groupd.bodymanager.repository.MenuRepository;
 import com.groupd.bodymanager.repository.UserRepository;
 import com.groupd.bodymanager.service.DietRoutineService;
@@ -21,17 +24,16 @@ import com.groupd.bodymanager.service.DietRoutineService;
 public class DietRoutineServiceImplement implements DietRoutineService{
     
     private MenuRepository menuRepository;
-    private DietRepository dietRepository;
-    private DietDetailRepository dietDetailRepository;
+    private MenuDetailRepository menuDetailRepository;
     private UserRepository userRepository;
     @Autowired
     DietRoutineServiceImplement(
-        MenuRepository menuRepository,UserRepository userRepository,DietRepository dietRepository,DietDetailRepository dietDetailRepository
+        MenuRepository menuRepository,UserRepository userRepository, MenuDetailRepository menuDetailRepository
     ) {
         this.menuRepository = menuRepository;
         this.userRepository = userRepository;
-        this.dietRepository = dietRepository;
-        this.dietDetailRepository = dietDetailRepository;
+        this.menuDetailRepository = menuDetailRepository;
+
     }
     @Override
     public ResponseEntity<ResponseDto> postDietRoutine(PostDietRoutineRequestDto dto) {
@@ -58,10 +60,24 @@ public class DietRoutineServiceImplement implements DietRoutineService{
     }
     
     @Override
-    public ResponseEntity<? super GetDietRoutineResponseDto> getDietRoutine(String menuCode) {
+    public ResponseEntity<? super GetDietRoutineResponseDto> getDietRoutine(PostDietRoutineRequestDto dto) {
         GetDietRoutineResponseDto body = null;
+        String menuCode = dto.getMenuCode();
+        int userCode = dto.getUserCode();
 
         try {
+            MenuEntity menuEntity = menuRepository.findByUserCode(userCode);
+             //*존재하지 않는 메뉴코드 반환 */
+            if(menuEntity == null ) return CustomResponse.notExistUserCode();
+
+
+            
+            
+
+    
+
+
+
             
         } catch (Exception exceptione) {
             exceptione.printStackTrace();
