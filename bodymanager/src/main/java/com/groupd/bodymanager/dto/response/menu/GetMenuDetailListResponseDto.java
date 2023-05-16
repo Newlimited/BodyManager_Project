@@ -48,13 +48,13 @@ class MenuDetail {
     public MenuDetail(MenuListResultSet resultSet){
         this.menuCode = resultSet.getMenuCode();
         this.time = resultSet.getTime();
-        this.monday = resultSet.getMonday;
-        this.tuesday = resultSet.getTuesday;
-        this.wednesday = resultSet.getWednesday;
-        this.thursday = resultSet.getThursday;
-        this.friday = resultSet.getFriday;
-        this.saturday = resultSet.getSaturday;
-        this.sunday = resultSet.getSunday;
+        this.monday = resultSet.getMonday();
+        this.tuesday = resultSet.getTuesday();
+        this.wednesday = resultSet.getWednesday();
+        this.thursday = resultSet.getThursady();
+        this.friday = resultSet.getFriday();
+        this.saturday = resultSet.getSaturday();
+        this.sunday = resultSet.getSunday();
     }
 
 }
