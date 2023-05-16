@@ -23,7 +23,7 @@ public class MenuEntity {
 
     public MenuEntity(PostMenuRequestDto dto) {
         this.menuCode = dto.getMenuCode();
-       
+        
         this.menuName = dto.getMenuName();
 
     }
