@@ -13,21 +13,22 @@ import com.groupd.bodymanager.dto.request.dietRoutine.PatchDietRoutineRequestDto
 import com.groupd.bodymanager.dto.request.dietRoutine.PostDietRoutineRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.dietRoutine.GetDietRoutineResponseDto;
+import com.groupd.bodymanager.entity.MenuDetailEntity;
 import com.groupd.bodymanager.entity.MenuEntity;
 import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.repository.MenuDetailRepository;
 import com.groupd.bodymanager.repository.MenuRepository;
 import com.groupd.bodymanager.repository.UserRepository;
-import com.groupd.bodymanager.service.DietRoutineService;
+import com.groupd.bodymanager.service.MenuService;
 
 @Service
-public class DietRoutineServiceImplement implements DietRoutineService{
+public class MenuServiceImplement implements MenuService{
     
     private MenuRepository menuRepository;
     private MenuDetailRepository menuDetailRepository;
     private UserRepository userRepository;
     @Autowired
-    DietRoutineServiceImplement(
+    MenuServiceImplement(
         MenuRepository menuRepository,UserRepository userRepository, MenuDetailRepository menuDetailRepository
     ) {
         this.menuRepository = menuRepository;
@@ -49,6 +50,8 @@ public class DietRoutineServiceImplement implements DietRoutineService{
             }
             MenuEntity menuEntity = new MenuEntity(dto);
             menuRepository.save(menuEntity);
+            List<MenuDetailEntity> menuDetailEntities = menuDetailRepository.findByMenuCode(menuCode);
+            
             
         } catch (Exception exceptione) {
             exceptione.printStackTrace();

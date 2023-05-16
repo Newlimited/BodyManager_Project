@@ -19,7 +19,7 @@ public class MenuEntity {
     @Id
     private String menuCode;
     private String menuName;
-   
+
 
     public MenuEntity(PostDietRoutineRequestDto dto) {
         this.menuCode = dto.getMenuCode();
