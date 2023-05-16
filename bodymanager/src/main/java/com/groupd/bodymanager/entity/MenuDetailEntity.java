@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name= "DietDetail")
-@Entity(name = "DietDetail")
+@Table(name= "MenuDetail")
+@Entity(name = "MenuDetail")
 public class MenuDetailEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
