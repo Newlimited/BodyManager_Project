@@ -66,16 +66,8 @@ public class MenuServiceImplement implements MenuService {
         // *성공 반환 */
         return CustomResponse.successs();
     }
-<<<<<<< HEAD
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(body);
-    }
-    
-=======
 
-<<<<<<< HEAD
->>>>>>> 9953ebc5ea8f3bb479055cb4e54ae371bafd73e6
-=======
+
     
     @Override //메뉴코드에 맞는 식단 조회
     public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList() {
@@ -92,7 +84,7 @@ public class MenuServiceImplement implements MenuService {
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
     
->>>>>>> 79863c6a078bdfe0db74a3172fc9c5522ef915f3
+
     @Override
     public ResponseEntity<? super GetMenuResponseDto> getMenuDetail(PostMenuRequestDto dto) {
         GetMenuResponseDto body = null;
