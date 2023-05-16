@@ -23,11 +23,11 @@ public class GetDietRoutineResponseDto extends ResponseDto{
     private String menuCode;
     private String menuName;
     
-   
+    
 
     public GetDietRoutineResponseDto(
         MenuEntity menuEntity,
-       UserMenuSelect userMenuSelect) {
+        UserMenuSelect userMenuSelect) {
             this.userCode = userMenuSelect.getUserCode();
             this.menuCode = menuEntity.getMenuCode();
             this.menuName = menuEntity.getMenuName();

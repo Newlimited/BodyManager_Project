@@ -14,7 +14,6 @@ import com.groupd.bodymanager.filter.JwtAuthenticationFilter;
 
 @EnableWebSecurity
 @Configuration
-
 public class WebSecurityConfig {
 
     private JwtAuthenticationFilter jwtAuthenticationFilter;
