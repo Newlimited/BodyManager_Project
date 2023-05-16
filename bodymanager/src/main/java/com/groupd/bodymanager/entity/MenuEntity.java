@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.groupd.bodymanager.dto.request.dietRoutine.PostDietRoutineRequestDto;
+import com.groupd.bodymanager.dto.request.menu.PostMenuRequestDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,9 +19,9 @@ public class MenuEntity {
     @Id
     private String menuCode;
     private String menuName;
-   
 
-    public MenuEntity(PostDietRoutineRequestDto dto) {
+
+    public MenuEntity(PostMenuRequestDto dto) {
         this.menuCode = dto.getMenuCode();
        
         this.menuName = dto.getMenuName();

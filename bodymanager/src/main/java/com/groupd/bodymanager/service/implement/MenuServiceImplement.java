@@ -9,25 +9,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.groupd.bodymanager.common.CustomResponse;
-import com.groupd.bodymanager.dto.request.dietRoutine.PatchDietRoutineRequestDto;
-import com.groupd.bodymanager.dto.request.dietRoutine.PostDietRoutineRequestDto;
+import com.groupd.bodymanager.dto.request.menu.PatchMenuRequestDto;
+import com.groupd.bodymanager.dto.request.menu.PostMenuRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
-import com.groupd.bodymanager.dto.response.dietRoutine.GetDietRoutineResponseDto;
+import com.groupd.bodymanager.dto.response.menu.GetMenuResponseDto;
+import com.groupd.bodymanager.entity.MenuDetailEntity;
 import com.groupd.bodymanager.entity.MenuEntity;
 import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.repository.MenuDetailRepository;
 import com.groupd.bodymanager.repository.MenuRepository;
 import com.groupd.bodymanager.repository.UserRepository;
-import com.groupd.bodymanager.service.DietRoutineService;
+import com.groupd.bodymanager.service.MenuService;
 
 @Service
-public class DietRoutineServiceImplement implements DietRoutineService{
+public class MenuServiceImplement implements MenuService{
     
     private MenuRepository menuRepository;
     private MenuDetailRepository menuDetailRepository;
     private UserRepository userRepository;
     @Autowired
-    DietRoutineServiceImplement(
+    MenuServiceImplement(
         MenuRepository menuRepository,UserRepository userRepository, MenuDetailRepository menuDetailRepository
     ) {
         this.menuRepository = menuRepository;
@@ -36,7 +37,7 @@ public class DietRoutineServiceImplement implements DietRoutineService{
 
     }
     @Override
-    public ResponseEntity<ResponseDto> postDietRoutine(PostDietRoutineRequestDto dto) {
+    public ResponseEntity<ResponseDto> postDietRoutine(PostMenuRequestDto dto) {
         ResponseDto body = null;
         String menuCode = dto.getMenuCode();
         try {
@@ -49,6 +50,8 @@ public class DietRoutineServiceImplement implements DietRoutineService{
             }
             MenuEntity menuEntity = new MenuEntity(dto);
             menuRepository.save(menuEntity);
+            List<MenuDetailEntity> menuDetailEntities = menuDetailRepository.findByMenuCode(menuCode);
+            
             
         } catch (Exception exceptione) {
             exceptione.printStackTrace();
@@ -60,8 +63,8 @@ public class DietRoutineServiceImplement implements DietRoutineService{
     }
     
     @Override
-    public ResponseEntity<? super GetDietRoutineResponseDto> getDietRoutine(PostDietRoutineRequestDto dto) {
-        GetDietRoutineResponseDto body = null;
+    public ResponseEntity<? super GetMenuResponseDto> getDietRoutine(PostMenuRequestDto dto) {
+        GetMenuResponseDto body = null;
         String menuCode = dto.getMenuCode();
         int userCode = dto.getUserCode();
 
@@ -90,7 +93,7 @@ public class DietRoutineServiceImplement implements DietRoutineService{
     }
 
     @Override
-    public ResponseEntity<ResponseDto> patchDietRoutine(PatchDietRoutineRequestDto dto) {
+    public ResponseEntity<ResponseDto> patchDietRoutine(PatchMenuRequestDto dto) {
 
 
         // TODO Auto-generated method stub
