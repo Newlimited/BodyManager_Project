@@ -18,13 +18,11 @@ import lombok.NoArgsConstructor;
 public class MenuEntity {
     @Id
     private String menuCode;
-    private String menuName;
+   
 
 
     public MenuEntity(PostMenuRequestDto dto) {
         this.menuCode = dto.getMenuCode();
-        
-        this.menuName = dto.getMenuName();
 
     }
     
