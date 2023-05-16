@@ -29,7 +29,7 @@ public class ExerciseRoutineServiceImplement implements ExerciseRoutineService {
             }
 
             // 존재하지 않는 루틴 번호 반환
-            ExerciseRoutineEntity exerciseRoutineEntity = exerciseRoutineRepository.findByRoutinNumber(routineNumber);
+            ExerciseRoutineEntity exerciseRoutineEntity = exerciseRoutineRepository.findByRoutineNumber(routineNumber);
             if (exerciseRoutineEntity == null)
                 return CustomResponse.notExistRoutineNumber();
             // 이미지 가져오기

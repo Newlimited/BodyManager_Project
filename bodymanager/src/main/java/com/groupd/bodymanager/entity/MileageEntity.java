@@ -18,7 +18,7 @@ public class MileageEntity {
 
     @Id
     private int userCode;
-    private boolean attendanceResult;
+    private boolean attendanceToday;
     private int attendanceMileage;
     private String attendanceDate;
 
@@ -29,7 +29,7 @@ public class MileageEntity {
         String attendanceDate = simpleDateFormat.format(now);
 
         this.userCode = dto.getUserCode();
-        this.attendanceResult = true;
+        this.attendanceToday = false;
         this.attendanceMileage = 0;
         this.attendanceDate = attendanceDate;
     }
