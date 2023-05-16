@@ -12,6 +12,7 @@ import com.groupd.bodymanager.common.CustomResponse;
 import com.groupd.bodymanager.dto.request.menu.PatchMenuRequestDto;
 import com.groupd.bodymanager.dto.request.menu.PostMenuRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
+import com.groupd.bodymanager.dto.response.menu.GetMenuDetailListResponseDto;
 import com.groupd.bodymanager.dto.response.menu.GetMenuResponseDto;
 import com.groupd.bodymanager.entity.MenuDetailEntity;
 import com.groupd.bodymanager.entity.MenuEntity;
@@ -92,6 +93,20 @@ public class MenuServiceImplement implements MenuService{
         throw new UnsupportedOperationException("Unimplemented method 'getDietRoutine'");
     }
 
+
+    @Override
+    public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList() {
+        GetMenuDetailListResponseDto body = null;
+
+        try {
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getMenuDetailList'");
+    }
+
     @Override
     public ResponseEntity<ResponseDto> patchDietRoutine(PatchMenuRequestDto dto) {
 
@@ -99,6 +114,7 @@ public class MenuServiceImplement implements MenuService{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'patchDietRoutine'");
     }
+  
 
     
     
