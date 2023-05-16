@@ -9,9 +9,13 @@ import javax.persistence.Table;
 
 import com.groupd.bodymanager.dto.request.mileage.PostMileageRequestDto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "Mileage")
 @Entity(name = "Mileage")
 public class MileageEntity {

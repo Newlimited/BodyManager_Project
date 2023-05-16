@@ -14,16 +14,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class GetMileageResponseDto extends ResponseDto{
     private int userCode;
-    private boolean attendanceResult;
     private int attendanceMileage;
-    private String attendanceDate;
+
 
     public GetMileageResponseDto(UserEntity userEntity,MileageEntity mileageEntity){
         super("SU", "Success");
         this.userCode = userEntity.getUserCode();
-        this.attendanceResult = mileageEntity.isAttendanceResult();
         this.attendanceMileage = mileageEntity.getAttendanceMileage();
-        this.attendanceDate = mileageEntity.getAttendanceDate();
+        
+    
     }
+
 }
 

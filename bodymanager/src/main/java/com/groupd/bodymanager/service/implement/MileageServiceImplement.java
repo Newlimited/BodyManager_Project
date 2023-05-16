@@ -24,8 +24,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class MileageServiceImplement implements MileageService {
-    private  UserRepository userRepository;
-    private  MileageRepository mileageRepository;
+    private  final UserRepository userRepository;
+    private  final MileageRepository mileageRepository;
 
     @Override
     public ResponseEntity<ResponseDto> postMileage(PostMileageRequestDto dto) {
@@ -45,21 +45,23 @@ public class MileageServiceImplement implements MileageService {
                 ResponseDto errorBody = new ResponseDto("NC", "Non-Existent User Code");
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
             }
+            
+            MileageEntity mileageEntity = mileageRepository.findByUserCode(userCode);
             // 이미 출석했는지 확인
-            boolean attendanceResult = dto.isAttendanceResult();
-            boolean attendanceToday = mileageRepository.isAlreadyAttend(userCode);
-            boolean isAlreadyAttend = attendanceResult == !attendanceToday; // 둘다 T 면 T다. 
+            // boolean attendanceResult = dto.isAttendanceResult();
+            MileageEntity attendanceStatus = mileageRepository.findByUserCodeAndAttendanceToday(userCode, true);
+            boolean attendanceToday = attendanceStatus != null && attendanceStatus.isAttendanceToday();
+            // boolean isAlreadyAttend = attendanceResult == !attendanceToday; // 둘다 T 면 T다. 
             // 출석을 하면 T로 된다. F가 됨, = 같음 -> T가됨. ==>>> 출석한 상태
             // F가되면 출석을 하지 않은 상태.
-            if(isAlreadyAttend) {
+            if(attendanceToday) {
                 ResponseDto errorBody = new ResponseDto("AT", "Already Attended Today");
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
             } 
-           
-            
+                        
             // 출석 및 마일리지 +10
-            MileageEntity mileageEntity = new MileageEntity(dto);
             mileageEntity.setAttendanceToday(true);
+            mileageEntity.setAttendanceDate(attendanceDate);
             mileageEntity.setAttendanceMileage(mileageEntity.getAttendanceMileage() + 10);
             mileageRepository.save(mileageEntity);
 
@@ -92,8 +94,9 @@ public class MileageServiceImplement implements MileageService {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
             }       
             
-            MileageEntity mileageEntity = mileageRepository.findByUserCodeAndAttendanceMileage(userCode);
-            
+            MileageEntity mileageEntity = mileageRepository.findByUserCode(userCode);
+            int totalMileage = mileageEntity.getAttendanceMileage();
+            body = new GetMileageResponseDto(userCode, totalMileage);
         } catch (Exception exception) {
             // 데이터베이스 오류 반환 //
             exception.printStackTrace();

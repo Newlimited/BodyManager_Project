@@ -40,7 +40,7 @@ public class MenuServiceImplement implements MenuService {
     }
 
     @Override
-    public ResponseEntity<? super GetMenuDetailListResponseDto> postDietRoutine(PostMenuRequestDto dto) {
+    public ResponseEntity<ResponseDto> postDietRoutine(PostMenuRequestDto dto) {
         GetMenuDetailListResponseDto body = null;
         String menuCode = dto.getMenuCode();
         try {
@@ -88,12 +88,14 @@ public class MenuServiceImplement implements MenuService {
         GetMenuResponseDto body = null;
         String menuCode = dto.getMenuCode();
         int userCode = dto.getUserCode();
+        
 
         try {
-            MenuEntity menuEntity = menuRepository.findByUserCode(userCode);
-             //*존재하지 않는 메뉴코드 반환 */
-            if(menuEntity == null ) return CustomResponse.notExistUserCode();
-            
+            UserEntity userEntity = userRepository.findByUserCode(userCode);
+            // *존재하지 않는 메뉴코드 반환 */
+            if (userEntity == null)
+                return CustomResponse.notExistUserCode();
+
         } catch (Exception exceptione) {
             exceptione.printStackTrace();
             // *데이터베이스 오류 */
@@ -112,6 +114,6 @@ public class MenuServiceImplement implements MenuService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'patchDietRoutine'");
     }
-  
+
 
 }
