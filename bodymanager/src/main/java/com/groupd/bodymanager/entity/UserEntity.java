@@ -35,11 +35,11 @@ public class UserEntity {
     private String userAddress;
     private String userGender;
     private Integer userAge;
-   
+    
 
     
 
-       public UserEntity(SignUpRequestDto dto, int userCode) {
+    public UserEntity(SignUpRequestDto dto, int userCode) {
         
         this.userCode = userCode;
         this.userEmail = dto.getUserEmail();
