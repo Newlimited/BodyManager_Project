@@ -69,21 +69,21 @@ public class BodyInfoServiceImplement implements BodyInfoService {
         GetBodyInfoResponseDto body = null;
 
         try {
+            if(userCode == null) return CustomResponse.validationFaild();
             // 존재하지않는 유저코드
-            UserEntity existeduserCode = userRepository.findByUserCode(userCode);
-            if(existeduserCode == null) {
-                ResponseDto errorBody = new ResponseDto("NC", "Non-Existent User Code");
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
-            }
-
             BodyInfoEntity bodyInfoEntity = bodyInfoRepository.findByUserCode(userCode);
-            if(bodyInfoEntity == null){
-                ResponseDto errorBody = new ResponseDto("NC", "Non-Existent User Code");
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
+            if(bodyInfoEntity == null) {
+                return CustomResponse.notExistUserCode();
             }
-            // 미완성
-            body = new GetBodyInfoResponseDto(bodyInfoEntity, existeduserCode);
+            double height = bodyInfoEntity.getHeight();
+            double weight = bodyInfoEntity.getWeight();
+            double muscleMass = bodyInfoEntity.getMuscleMass();
 
+            
+            UserEntity userEntity = userRepository.findByUserCode(userCode);
+            body = new GetBodyInfoResponseDto(bodyInfoEntity, userEntity);
+            // 미완성
+            
         } catch (Exception exception) {
            // 데이터베이스 오류
             exception.printStackTrace();
@@ -105,12 +105,6 @@ public class BodyInfoServiceImplement implements BodyInfoService {
         double fatRate = dto.getFatRate();
 
         try {
-
-            // UserEntity existeduserCode = userRepository.findByUserCode(userCode);
-            // if(existeduserCode == null){
-            //     ResponseDto erroBody = new ResponseDto("NC", "Non-Existent User Code");
-            //     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(erroBody);
-            // }
 
             BodyInfoEntity bodyInfoEntity = bodyInfoRepository.findByUserCode(userCode);
             if(bodyInfoEntity == null){

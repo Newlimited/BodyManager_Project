@@ -9,5 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BodyInfoRepository extends JpaRepository<BodyInfoEntity,Integer>{
     public BodyInfoEntity findByUserCode(int userCode);
+    public boolean existsByUserCode(int userCode);
     
 }
