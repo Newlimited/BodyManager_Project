@@ -78,17 +78,8 @@ public class MenuServiceImplement implements MenuService {
 <<<<<<< HEAD
 =======
     
-    @Override //메뉴코드에 맞는 식단 조회
-    public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList() {
-        GetMenuDetailListResponseDto body = null;
-
-        try {
-            List<MenuListResultSet> resultSet = menuDetailRepository.getMenuDetailList();
-            body = new GetMenuDetailListResponseDto(resultSet);
-            
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return CustomResponse.databaseError();
+    
+    
         }
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
@@ -99,6 +90,7 @@ public class MenuServiceImplement implements MenuService {
         GetMenuResponseDto body = null;
         String menuCode = dto.getMenuCode();
         int userCode = dto.getUserCode();
+        
 
         try {
 <<<<<<< HEAD
