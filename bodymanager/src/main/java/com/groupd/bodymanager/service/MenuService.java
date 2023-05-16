@@ -13,7 +13,7 @@ public interface MenuService {
     
     public ResponseEntity<? super GetMenuDetailListResponseDto> postDietRoutine(PostMenuRequestDto dto);
     public ResponseEntity<ResponseDto> patchDietRoutine(PatchMenuRequestDto dto);
-    public ResponseEntity<? super GetMenuResponseDto> getDietRoutine(PostMenuRequestDto dto);
+    public ResponseEntity<? super GetMenuResponseDto> getMenuDetail(PostMenuRequestDto dto);
     public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList();
 
 }
