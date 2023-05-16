@@ -10,3 +10,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MenuDetailRepository extends JpaRepository<MenuDetailEntity,Integer>{
     public List<MenuDetailEntity> findByMenuCode(String menuCode);
+}

@@ -50,7 +50,7 @@ public class MenuServiceImplement implements MenuService{
             }
             MenuEntity menuEntity = new MenuEntity(dto);
             menuRepository.save(menuEntity);
-            List<MenuDetailEntity> menuDetailEntities 
+            List<MenuDetailEntity> menuDetailEntities = menuDetailRepository.findByMenuCode(menuCode);
             
             
         } catch (Exception exceptione) {
