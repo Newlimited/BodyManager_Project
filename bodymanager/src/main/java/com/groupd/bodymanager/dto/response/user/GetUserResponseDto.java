@@ -20,17 +20,13 @@ public class GetUserResponseDto extends ResponseDto{
     private int userAge;
 
     public GetUserResponseDto(UserEntity userEntity){
+        super("SU", "Success");
         this.userNickname = userEntity.getUserNickname();
         this.userPhoneNumber = userEntity.getUserPhoneNumber();
         this.userAddress = userEntity.getUserAddress();
         this.userGender = userEntity.getUserGender();
         this.userAge = userEntity.getUserAge();
-    }
-    public GetUserResponseDto(ManagerEntity managerEntity){
-        this.userNickname = managerEntity.getUserNickname();
-        this.userPhoneNumber = managerEntity.getUserPhoneNumber();
-        this.userAddress = managerEntity.getUserAddress();
-        this.userGender = managerEntity.getUserGender();
-        this.userAge = managerEntity.getUserAge();
+    
+   
     }
 }

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.groupd.bodymanager.dto.response.board.GetBoardResponseDto;
 import com.groupd.bodymanager.dto.response.board.GetBoardListResponseDto;
-import com.groupd.bodymanager.dto.request.board.DeleteBoardRequestDto;
 import com.groupd.bodymanager.dto.request.board.PatchBoardRequestDto;
 import com.groupd.bodymanager.dto.request.board.PostBoardRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
@@ -65,7 +64,7 @@ public class BoardController {
     @DeleteMapping("/{boardNumber}")
     public ResponseEntity<ResponseDto> deleteBoard(
         @AuthenticationPrincipal String email,
-        @PathVariable("boardNumber") DeleteBoardRequestDto boardNumber
+        @PathVariable("boardNumber") Integer boardNumber
         ){
         ResponseEntity<ResponseDto> response = 
         boardService.deleteBoard(email, boardNumber);

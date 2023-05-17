@@ -25,13 +25,13 @@ public class BoardEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int boardNumber;
+    private Integer boardNumber;
     private String boardWriterEmail;
     private String boardWriterNickname;
     private String boardTitle;
     private String boardContent;
     private String boardImageUrl;
-    private String boradWriteDatetime;
+    private String boardWriteDatetime;
     private int viewCount;
     
     public BoardEntity(PostBoardRequestDto dto){
@@ -44,7 +44,7 @@ public class BoardEntity {
         this.boardTitle = dto.getBoardTitle();
         this.boardContent = dto.getBoardContent();
         this.boardImageUrl = dto.getBoardImageUrl();
-        this.boradWriteDatetime = writeDateTime;
+        this.boardWriteDatetime = writeDateTime;
         this.viewCount = 0;
 
     }

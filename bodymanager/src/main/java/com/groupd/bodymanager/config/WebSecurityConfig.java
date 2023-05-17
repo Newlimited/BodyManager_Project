@@ -30,9 +30,10 @@ public class WebSecurityConfig {
             .csrf().disable()
             .httpBasic().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-            .authorizeHttpRequests().antMatchers("/api/v1/user/**", "/api/v2/auth/**").permitAll()
+            .authorizeHttpRequests().antMatchers("/api/v2/auth/**").permitAll()
             .antMatchers("/api/v1/board/list", "/api/v1/board/top3").permitAll()
-            .antMatchers(HttpMethod.GET, "/api/v1/board/*").permitAll()
+            .antMatchers(HttpMethod.GET, "/api/v1/board/*", "/api/v1/user/*").permitAll()
+            .antMatchers(HttpMethod.POST, "/api/v1/user/sign-*").permitAll()
             .anyRequest().authenticated();
 
         httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

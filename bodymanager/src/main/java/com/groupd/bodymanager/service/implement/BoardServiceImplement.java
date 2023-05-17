@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.groupd.bodymanager.common.CustomResponse;
-import com.groupd.bodymanager.dto.request.board.DeleteBoardRequestDto;
 import com.groupd.bodymanager.dto.request.board.PatchBoardRequestDto;
 import com.groupd.bodymanager.dto.request.board.PostBoardRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
@@ -41,6 +40,10 @@ public class BoardServiceImplement implements BoardService {
             if (!existedUserEmail) {
                 ResponseDto errorbody = new ResponseDto("NU", "Non-Existent User Email");
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorbody);
+            }
+            boolean isManager = managerRepository.existsByManagerEmail(boardWriterEmail);
+            if(!isManager){
+                return CustomResponse.noPermission();
             }
             BoardEntity boardEntity = new BoardEntity(dto);
             boardRepository.save(boardEntity);
@@ -77,7 +80,7 @@ public class BoardServiceImplement implements BoardService {
             exception.printStackTrace();
             return CustomResponse.databaseError();
         }
-        return CustomResponse.successs();
+        return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
     @Override// 게시물 목록 보기
@@ -128,8 +131,7 @@ public class BoardServiceImplement implements BoardService {
     }
 
     @Override //게시물 삭제
-    public ResponseEntity<ResponseDto> deleteBoard(String email, DeleteBoardRequestDto dto) {
-            int boardNumber = dto.getBoardNumber();
+    public ResponseEntity<ResponseDto> deleteBoard(String email, Integer boardNumber) {
             
         // TODO : 존재하지 않는 게시물 번호 반환 boardNumber가 필요함
         BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
