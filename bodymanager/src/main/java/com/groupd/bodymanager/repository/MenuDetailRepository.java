@@ -27,7 +27,7 @@ public interface MenuDetailRepository extends JpaRepository<MenuDetailEntity,Int
         +"MD.friday,"
         +"MD.saturday,"
         +"MD.sunday"
-        +"from menu M, menu_detail MD, user_menu_select US, user U"
+        +"from Menu M, Menu_detail MD, User_menu_select US, User U"
         +"where MD.menu_code = M.menu_code "
         +"and M.menu_code = US.menu_code "
         +"and US.user_code = U.user_code"
