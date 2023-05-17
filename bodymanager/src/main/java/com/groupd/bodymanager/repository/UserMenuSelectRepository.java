@@ -8,6 +8,7 @@ import com.groupd.bodymanager.entity.primaryKey.selectPK;
 
 
 public interface UserMenuSelectRepository extends JpaRepository<UserMenuSelect,selectPK>{
+
     public UserMenuSelect findByUserCode(int userCode);
     
 }

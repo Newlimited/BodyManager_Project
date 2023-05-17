@@ -39,7 +39,7 @@ public class MenuController {
         }
 
     //*2.식단 리스트를 조회 */
-    @GetMapping("/list")
+    @GetMapping("/menuList")
     public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList(
         @Valid @RequestBody MenuRequestDto requestBody
     ) {
@@ -48,7 +48,7 @@ public class MenuController {
     }
 
     //*3.유저의 메뉴코드 변경 */
-    @PatchMapping("/{userCode}")
+    @PatchMapping("")
     public ResponseEntity<ResponseDto> patchMenuCode(
         @Valid @RequestBody MenuRequestDto requestBody
     ) {
