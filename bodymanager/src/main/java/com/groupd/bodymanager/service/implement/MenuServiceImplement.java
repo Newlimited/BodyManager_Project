@@ -12,10 +12,7 @@ import com.groupd.bodymanager.common.CustomResponse;
 import com.groupd.bodymanager.dto.request.menu.MenuRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.menu.GetMenuDetailListResponseDto;
-import com.groupd.bodymanager.dto.response.menu.GetMenuResponseDto;
-import com.groupd.bodymanager.entity.MenuDetailEntity;
 import com.groupd.bodymanager.entity.MenuEntity;
-import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.entity.UserMenuSelect;
 import com.groupd.bodymanager.entity.resultSet.MenuListResultSet;
 import com.groupd.bodymanager.repository.MenuDetailRepository;
@@ -41,9 +38,9 @@ public class MenuServiceImplement implements MenuService {
 
     }
 
+    //*유저코드와 메뉴코드를 등록 */
     @Override
     public ResponseEntity<ResponseDto> postMenuCodeAndUserCode(MenuRequestDto dto) {
-        GetMenuDetailListResponseDto body = null;
         String menuCode = dto.getMenuCode();
         int userCode = dto.getUserCode();
         try {
@@ -53,10 +50,7 @@ public class MenuServiceImplement implements MenuService {
 
             // *존재하지 않는 메뉴코드 반환 */
             boolean existedByMenuCode = menuRepository.existsByMenuCode(menuCode);
-            if (!existedByMenuCode) {
-                ResponseDto errorBody = new ResponseDto("NMC", "Non-Existent Menu Code");
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
-            }
+            if (!existedByMenuCode) return CustomResponse.notExistMenuCode();
             
             // *Response 데이터를 레포지토리에 저장 */
             UserMenuSelect userMenuSelect = new UserMenuSelect(menuCode, userCode);
@@ -74,39 +68,18 @@ public class MenuServiceImplement implements MenuService {
         return CustomResponse.successs();
     }
 
-
-    @Override //*메뉴엔티티를 반환,메뉴네임 */
-    public ResponseEntity<? super GetMenuResponseDto> getMenu(MenuRequestDto dto) {
-        GetMenuResponseDto body = null;
-        String menuCode = dto.getMenuCode();
-        int userCode = dto.getUserCode();
-        
-        try {
-            UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
-            // **/
-            if (userMenuSelect == null)
-                return CustomResponse.notExistUserCode();
-
-            MenuEntity menuEntity = menuRepository.findByMenuCode(menuCode);
-            body = new GetMenuResponseDto(menuEntity, userMenuSelect);
-
-        } catch (Exception exceptione) {
-            exceptione.printStackTrace();
-            // *데이터베이스 오류 */
-            return CustomResponse.databaseError();
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(body);
-    }
-
     
     @Override //메뉴코드에 맞는 식단 조회
-    public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList() {
+    public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList(MenuRequestDto dto) {
         GetMenuDetailListResponseDto body = null;
+        String menuCode = dto.getMenuCode();
+        int userCode = dto.getUserCode();
+        UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
+        MenuEntity menuEntity = menuRepository.findByMenuCode(menuCode);
         
         try {
             List<MenuListResultSet> resultSet = menuDetailRepository.getMenuDetailList();
-            body = new GetMenuDetailListResponseDto(resultSet);
+            body = new GetMenuDetailListResponseDto(resultSet,menuEntity,userMenuSelect);
             
         } catch (Exception exception) {
             exception.printStackTrace();

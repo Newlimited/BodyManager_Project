@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.groupd.bodymanager.dto.request.menu.MenuRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
-import com.groupd.bodymanager.dto.response.menu.GetMenuResponseDto;
 import com.groupd.bodymanager.dto.response.menu.GetMenuDetailListResponseDto;
 import com.groupd.bodymanager.service.MenuService;
 
@@ -39,25 +38,16 @@ public class MenuController {
             return response;
         }
 
-
-    // 2. 식단 정보를 조회
-    @GetMapping("/{userCode}")
-    public ResponseEntity<? super GetMenuResponseDto> getMenu(
+    //*2.식단 리스트를 조회 */
+    @GetMapping("/list")
+    public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList(
         @Valid @RequestBody MenuRequestDto requestBody
     ) {
-        ResponseEntity<? super GetMenuResponseDto> response =
-        menuService.getMenu(requestBody);
+        ResponseEntity<? super GetMenuDetailListResponseDto> response = menuService.getMenuDetailList(requestBody);
         return response;
     }
 
-    //*3.식단 리스트를 조회 */
-    @GetMapping("/list")
-    public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList() {
-        ResponseEntity<? super GetMenuDetailListResponseDto> response = menuService.getMenuDetailList();
-        return response;
-    }
-
-    //*4.유저의 메뉴코드 변경 */
+    //*3.유저의 메뉴코드 변경 */
     @PatchMapping("/{userCode}")
     public ResponseEntity<ResponseDto> patchMenuCode(
         @Valid @RequestBody MenuRequestDto requestBody

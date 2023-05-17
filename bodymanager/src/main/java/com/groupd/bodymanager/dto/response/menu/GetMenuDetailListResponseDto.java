@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.groupd.bodymanager.dto.response.ResponseDto;
+import com.groupd.bodymanager.entity.MenuEntity;
+import com.groupd.bodymanager.entity.UserMenuSelect;
 import com.groupd.bodymanager.entity.resultSet.MenuListResultSet;
 
 import lombok.AllArgsConstructor;
@@ -14,9 +16,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class GetMenuDetailListResponseDto extends ResponseDto {
+    private int userCode;
+    private String menuCode;
+    private String menuName;
     private List<MenuDetail> menuDetailList;
 
-    public GetMenuDetailListResponseDto(List<MenuListResultSet> resultSet){
+    public GetMenuDetailListResponseDto(List<MenuListResultSet> resultSet,MenuEntity menuEntity,UserMenuSelect userMenuSelect){
         super("SU","Success");
 
         List<MenuDetail> menuDetailList = new ArrayList<>();
@@ -26,7 +31,12 @@ public class GetMenuDetailListResponseDto extends ResponseDto {
             menuDetailList.add(menuDetail);
         }
         this.menuDetailList = menuDetailList;
+        this.menuName = menuEntity.getMenuName();
+        this.userCode = userMenuSelect.getUserCode();
+        this.menuCode = menuEntity.getMenuCode();
     }
+
+
 }
 @Data
 @AllArgsConstructor
