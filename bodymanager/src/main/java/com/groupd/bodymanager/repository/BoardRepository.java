@@ -26,7 +26,7 @@ public interface BoardRepository extends JpaRepository<BoardEntity, String>{
         +"B.board_write_datetime AS boardWriteDatetime "
         +"From board B, manager M, user U "
         +"WHERE B.board_writer_email = M.manager_email "
-        +"AND M.manager_eamil = U.user_email "
+        +"AND M.manager_email = U.user_email "
         +"ORDER BY B.board_number DESC; ",
         nativeQuery = true  
     )

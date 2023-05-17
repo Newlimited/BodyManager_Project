@@ -26,13 +26,13 @@ public class MileageEntity {
     private int attendanceMileage;
     private String attendanceDate;
 
-    public MileageEntity(PostMileageRequestDto dto) {
+    public MileageEntity(PostMileageRequestDto dto, UserEntity userEntity) {
         Date now = new Date();
         SimpleDateFormat simpleDateFormat = 
             new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String attendanceDate = simpleDateFormat.format(now);
 
-        this.userCode = dto.getUserCode();
+        this.userCode = userEntity.getUserCode();
         this.attendanceToday = false;
         this.attendanceMileage = 0;
         this.attendanceDate = attendanceDate;

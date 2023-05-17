@@ -3,6 +3,7 @@ package com.groupd.bodymanager.controller;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,9 +29,10 @@ public class MileageController {
     // 출석체크 및 마일리지 등록
     @PostMapping("")
     public ResponseEntity<ResponseDto> postMileage(
+        @AuthenticationPrincipal String userEmail,
         @Valid @RequestBody PostMileageRequestDto requestBody
     ){
-        ResponseEntity<ResponseDto> response = mileageService.postMileage(requestBody);
+        ResponseEntity<ResponseDto> response = mileageService.postMileage(userEmail, requestBody);
         return response;
     }
 

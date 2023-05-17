@@ -28,7 +28,7 @@ public class MileageServiceImplement implements MileageService {
     private  final MileageRepository mileageRepository;
 
     @Override
-    public ResponseEntity<ResponseDto> postMileage(PostMileageRequestDto dto) {
+    public ResponseEntity<ResponseDto> postMileage(String userEmail, PostMileageRequestDto dto) {
 
         ResponseDto body = null;
         Date now = new Date();
@@ -36,8 +36,9 @@ public class MileageServiceImplement implements MileageService {
         new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String attendanceDate = simpleDateFormat.format(now);
         
-        int userCode = dto.getUserCode();
-        
+       
+        UserEntity userEntity = userRepository.findByUserEmail(userEmail);
+        int userCode = userEntity.getUserCode();
         try {
             // 존재하지 않는 유저코드 반환
             UserEntity existeduserCode = userRepository.findByUserCode(userCode);
