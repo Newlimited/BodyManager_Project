@@ -20,9 +20,11 @@ import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetUserResponseDto;
 import com.groupd.bodymanager.entity.ManagerEntity;
+import com.groupd.bodymanager.entity.MileageEntity;
 import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.provider.JwtProvider;
 import com.groupd.bodymanager.repository.ManagerRepository;
+import com.groupd.bodymanager.repository.MileageRepository;
 import com.groupd.bodymanager.repository.UserRepository;
 import com.groupd.bodymanager.service.UserService;
 
@@ -32,20 +34,19 @@ import com.groupd.bodymanager.service.UserService;
 public class UserServiceImplement implements UserService {
     private UserRepository userRepository;
     private ManagerRepository managerRepository;
+    private MileageRepository mileageRepository;
     private JwtProvider jwtProvider;
     private PasswordEncoder passwordEncoder;
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userCode;
 
     @Autowired
     public UserServiceImplement(
             UserRepository userRepository,
-            JwtProvider jwtProvider, ManagerRepository managerRepository) {
+            JwtProvider jwtProvider, ManagerRepository managerRepository, MileageRepository mileageRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = new BCryptPasswordEncoder();
         this.jwtProvider = jwtProvider;
         this.managerRepository = managerRepository;
+        this.mileageRepository = mileageRepository;
     }
 
     // 회원가입
@@ -79,8 +80,17 @@ public class UserServiceImplement implements UserService {
             String encodedPassword = passwordEncoder.encode(userPassword); // 유저 계정 생성 및 암호화 작업
             dto.setUserPassword(encodedPassword);
 
-            UserEntity userEntity = new UserEntity(dto, userCode);
+            UserEntity userEntity = new UserEntity(dto);
             userRepository.save(userEntity);
+            int userCode = userEntity.getUserCode();
+
+            MileageEntity mileageEntity = new MileageEntity();
+            mileageEntity.setUserCode(userCode);
+            mileageEntity.setAttendanceToday(false);
+            mileageEntity.setAttendanceDate(null);
+            mileageEntity.setAttendanceMileage(0);
+            mileageRepository.save(mileageEntity);
+
 
             body = new GetAuthResponseDto(userCode);
 
@@ -113,7 +123,7 @@ public class UserServiceImplement implements UserService {
                 return CustomResponse.signInFailed();
 
             String jwt = jwtProvider.create(userEmail);
-
+            int userCode = userEntity.getUserCode();
             body = new GetAuthResponseDto(jwt, userCode);
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -126,6 +136,7 @@ public class UserServiceImplement implements UserService {
     public ResponseEntity<? super GetUserResponseDto> addManager(PostManagerRequestDto dto) {
         GetUserResponseDto body = null;
         String addEmail = dto.getManagerEmail();
+        int addCode;
 
         try {
             // TODO 이메일 일치 확인 - 유저이메일에서 확인하는거고...
@@ -138,7 +149,10 @@ public class UserServiceImplement implements UserService {
             if (isAlreadyAdded) {
                 return CustomResponse.existUserEmail();// 오류반환 <이메일 중복>
             }
-            ManagerEntity managerEntity = new ManagerEntity(addEmail);
+            UserEntity userEntity = userRepository.findByUserEmail(addEmail);
+            
+            addCode = userEntity.getUserCode();
+            ManagerEntity managerEntity = new ManagerEntity(addCode,addEmail);
             managerRepository.save(managerEntity);
 
         } catch (Exception exception) {
@@ -174,7 +188,7 @@ public class UserServiceImplement implements UserService {
             return CustomResponse.databaseError();
         }
 
-        return CustomResponse.successs();
+        return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
     @Override
@@ -205,7 +219,7 @@ public class UserServiceImplement implements UserService {
                 return CustomResponse.existUserNickname();
             }
             boolean isExistPhoneNumber = userRepository.existsByUserPhoneNumber(dto.getUserPhoneNumber());
-            if (!isExistPhoneNumber) { // TODO 존재하는 유저 휴대전화 번호
+            if (isExistPhoneNumber) { // TODO 존재하는 유저 휴대전화 번호
                 return CustomResponse.existUserPhoneNumber();
             }
             boolean changePassword = userNewPassword.isBlank();
@@ -249,16 +263,17 @@ public class UserServiceImplement implements UserService {
             // todo 로그인 상태에서 로그인된 이메일을 어떻게 가져오는지
             boolean matchId = userEmail.equals(userEmailCheck);
             if (!matchId)
-                return CustomResponse.signInFailed();
+                return CustomResponse.signInFailedId();
 
             // 로그인 실패 (패스워드 x)
-            String encordedPassword = dto.getUserPassword();
+            UserEntity userEntity = userRepository.findByUserEmail(userEmailCheck);
+            String encordedPassword = userEntity.getUserPassword();
             boolean equaledPassword = passwordEncoder.matches(userPassword, encordedPassword);
             ;
             if (!equaledPassword)
-                return CustomResponse.signInFailed();
+                return CustomResponse.signInFailedpassword();
 
-            UserEntity userEntity = userRepository.findByUserEmail(userEmailCheck);
+            
             // String jwt = jwtProvider.create(userEmail);
 
             // body = new GetAuthResponseDto(jwt, userCode);

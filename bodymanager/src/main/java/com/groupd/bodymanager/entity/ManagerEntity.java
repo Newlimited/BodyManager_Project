@@ -2,8 +2,11 @@ package com.groupd.bodymanager.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+
+import com.groupd.bodymanager.entity.primaryKey.managerPK;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,31 +17,23 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@IdClass(managerPK.class)
 public class ManagerEntity {
 
     @Id
     @Email
     String managerEmail;
+    @Id
     int managerCode;
-    String userPassword;
-    String userNickname;
-    String userPhoneNumber;
-    String userAddress;
-    String userGender;
-    Integer userAge;
+    
 
     public ManagerEntity(UserEntity dto) {
         this.managerCode = dto.getUserCode();
         this.managerEmail = dto.getUserEmail();
-        this.userNickname = dto.getUserNickname();
-        this.userPhoneNumber = dto.getUserPhoneNumber();
-        this.userAddress = dto.getUserAddress();
-        this.userGender = dto.getUserGender();
-        this.userPassword = dto.getUserPassword();
-        this.userAge = dto.getUserAge();
     }
 
-    public ManagerEntity(String email) {
+    public ManagerEntity(int userCode, String email) {
         this.managerEmail = email;
+        this.managerCode = userCode;
     }
 }

@@ -65,11 +65,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter  { // 확장�
         String token = request.getHeader("Authorization");
         
         boolean hasToken = 
-        token!= null && 
-        !token.equalsIgnoreCase("null");
+            token != null && 
+            !token.equalsIgnoreCase("null");
         if(!hasToken) return null;
 
-        boolean isbearer = token.startsWith("bearer ");
+        boolean isbearer = token.startsWith("Bearer ");
         if(!isbearer) return null;
 
         String jwt = token.substring(7);
