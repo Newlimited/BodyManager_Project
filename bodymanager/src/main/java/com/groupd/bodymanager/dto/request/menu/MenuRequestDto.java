@@ -2,19 +2,19 @@ package com.groupd.bodymanager.dto.request.menu;
 
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class PostMenuRequestDto {
+public class MenuRequestDto {
     
-    @NotBlank
+    @NotNull
     private int userCode;
     @NotBlank
     private String menuCode;
-  
- 
+
 
 }
