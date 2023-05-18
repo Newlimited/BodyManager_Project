@@ -96,7 +96,8 @@ public class MileageServiceImplement implements MileageService {
             }       
             
             MileageEntity mileageEntity = mileageRepository.findByUserCode(userCode);
-            int totalMileage = mileageEntity.getAttendanceMileage();
+            
+            Integer totalMileage = mileageEntity.getAttendanceMileage();
             body = new GetMileageResponseDto(userCode, totalMileage);
         } catch (Exception exception) {
             // 데이터베이스 오류 반환 //
