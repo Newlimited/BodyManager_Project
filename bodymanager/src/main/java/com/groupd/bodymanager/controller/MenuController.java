@@ -2,6 +2,7 @@ package com.groupd.bodymanager.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -15,17 +16,17 @@ import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.menu.GetMenuDetailListResponseDto;
 import com.groupd.bodymanager.service.MenuService;
 
+import lombok.RequiredArgsConstructor;
+
 
 
 @RestController
 @RequestMapping("/api/v1/menu")
+@RequiredArgsConstructor
 public class MenuController {
 
-    private MenuService menuService;
+    private final MenuService menuService;
 
-    public MenuController(MenuService menuService) {
-        menuService = this.menuService;
-    }
     
     
     //*1.유저코드와 메뉴코드를 등록 */
