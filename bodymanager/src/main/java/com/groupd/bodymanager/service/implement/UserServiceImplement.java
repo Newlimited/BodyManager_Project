@@ -155,7 +155,7 @@ public class UserServiceImplement implements UserService {
             UserEntity userEntity = userRepository.findByUserEmail(addEmail);
             
             addCode = userEntity.getUserCode();
-            ManagerEntity managerEntity = new ManagerEntity(addCode,addEmail);
+            ManagerEntity managerEntity = new ManagerEntity(addEmail);
             managerRepository.save(managerEntity);
 
         } catch (Exception exception) {
