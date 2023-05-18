@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,11 +40,11 @@ public class MenuController {
         }
 
     //*2.식단 리스트를 조회 */
-    @GetMapping("/menuList")
+    @GetMapping("/{userCode}")
     public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList(
-        @Valid @RequestBody MenuRequestDto requestBody
+        @PathVariable("userCode") Integer userCode
     ) {
-        ResponseEntity<? super GetMenuDetailListResponseDto> response = menuService.getMenuDetailList(requestBody);
+        ResponseEntity<? super GetMenuDetailListResponseDto> response = menuService.getMenuDetailList(userCode);
         return response;
     }
 

@@ -13,6 +13,7 @@ import com.groupd.bodymanager.dto.request.menu.MenuRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.menu.GetMenuDetailListResponseDto;
 import com.groupd.bodymanager.entity.MenuEntity;
+import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.entity.UserMenuSelect;
 import com.groupd.bodymanager.entity.resultSet.MenuListResultSet;
 import com.groupd.bodymanager.repository.MenuDetailRepository;
@@ -46,6 +47,8 @@ public class MenuServiceImplement implements MenuService {
         try {
             // 필수 값 입력
             if (menuCode == null)  return CustomResponse.validationFaild();
+            UserEntity userEntity = userRepository.findByUserCode(userCode);
+            if (userEntity == null) return CustomResponse.notExistUserCode();
 
             // *존재하지 않는 메뉴코드 반환 */
             boolean existedByMenuCode = menuRepository.existsByMenuCode(menuCode);
@@ -66,19 +69,19 @@ public class MenuServiceImplement implements MenuService {
     }
 
     
-    @Override //메뉴코드에 맞는 식단 조회
-    public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList(MenuRequestDto dto) {
+    @Override //식단 조회
+    public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList(Integer userCode) {
         GetMenuDetailListResponseDto body = null;
-       
         try {
             //*매개변수 에러 */
-            String menuCode = dto.getMenuCode();
-            int userCode = dto.getUserCode();
+            if(userCode == null) return CustomResponse.validationFaild();
+
             UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
+
+            //*존재하지 않는 유저 */
             if(userMenuSelect == null) return CustomResponse.notExistUserCode();
+            String menuCode = userMenuSelect.getMenuCode();
             MenuEntity menuEntity = menuRepository.findByMenuCode(menuCode);
-            
-            
             
             List<MenuListResultSet> resultSet = menuDetailRepository.getMenuDetailList();
             body = new GetMenuDetailListResponseDto(resultSet,menuEntity,userMenuSelect);
