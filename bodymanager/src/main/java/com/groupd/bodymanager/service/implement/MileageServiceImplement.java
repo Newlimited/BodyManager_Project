@@ -36,7 +36,7 @@ public class MileageServiceImplement implements MileageService {
         new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String attendanceDate = simpleDateFormat.format(now);
         
-       
+        
         UserEntity userEntity = userRepository.findByUserEmail(userEmail);
         int userCode = userEntity.getUserCode();
         try {
@@ -81,7 +81,7 @@ public class MileageServiceImplement implements MileageService {
 
     @Override
     public ResponseEntity<? super GetMileageResponseDto> getMileage(Integer userCode) {
-       
+        
         GetMileageResponseDto body = null;
         
         try {
