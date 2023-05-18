@@ -105,7 +105,6 @@ public class BodyInfoServiceImplement implements BodyInfoService {
 
     public ResponseEntity<ResponseDto> patchBodyInfo(PatchBodyInfoRequestDto dto) {
 
-        ResponseDto body = null;
         int userCode = dto.getUserCode();
         double height = dto.getHeight();
         double weight = dto.getWeight();
@@ -124,13 +123,14 @@ public class BodyInfoServiceImplement implements BodyInfoService {
             bodyInfoEntity.setMuscleMass(muscleMass);
             bodyInfoEntity.setFatRate(fatRate);
             bodyInfoRepository.save(bodyInfoEntity);
+            
 
         } catch (Exception exception) {
             exception.printStackTrace();
             return CustomResponse.databaseError();
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(body);
+        return CustomResponse.successs();
     }
 
 }
