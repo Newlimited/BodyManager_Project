@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.groupd.bodymanager.dto.request.menu.MenuRequestDto;
+// import com.groupd.bodymanager.dto.request.menu.MenuRequestDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

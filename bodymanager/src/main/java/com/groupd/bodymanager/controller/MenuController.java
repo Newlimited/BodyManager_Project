@@ -2,7 +2,6 @@ package com.groupd.bodymanager.controller;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -24,13 +23,12 @@ public class MenuController {
 
     private MenuService menuService;
 
-    @Autowired
     public MenuController(MenuService menuService) {
         menuService = this.menuService;
     }
     
     
-    // 1. 유저코드와 메뉴코드를 등록
+    //*1.유저코드와 메뉴코드를 등록 */
     @PostMapping("")
     public ResponseEntity<ResponseDto> postMenuCodeAndUserCode(
         @Valid @RequestBody MenuRequestDto requestBody
