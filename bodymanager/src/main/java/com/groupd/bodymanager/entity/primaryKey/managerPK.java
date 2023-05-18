@@ -8,8 +8,7 @@ import lombok.Data;
 
 @Data
 public class managerPK implements Serializable{
-    @Column(name ="manager_code")
-    private int managerCode;
+  
     @Column(name ="manager_email")
     private String managerEmail;
 }
