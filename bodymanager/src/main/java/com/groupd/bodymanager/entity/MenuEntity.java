@@ -19,9 +19,8 @@ public class MenuEntity {
     @Id
     private String menuCode;
     private String menuName;
-    public MenuEntity(MenuRequestDto dto) {
-        this.menuCode = dto.getMenuCode();
-
-    }
+    // public MenuEntity(MenuRequestDto dto) {
+    //     this.menuCode = dto.getMenuCode();
+    // }
     
 }
