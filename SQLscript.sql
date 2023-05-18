@@ -7,7 +7,7 @@ B.board_number AS boardNumber,
 M.manager_email AS boardWriterEmail,
 B.board_writer_nickname AS boardWriterNickname,
 B.board_title AS title,
-B.board_content AS boardContetn,
+B.board_content AS boardContent,
 B.board_image_url AS boardImageUrl,
 B.view_count AS viewCount,
 B.board_write_datetime AS boardWriteDatetime
