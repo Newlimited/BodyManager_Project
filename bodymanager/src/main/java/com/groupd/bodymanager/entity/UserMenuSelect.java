@@ -22,7 +22,7 @@ public class UserMenuSelect {
     private String menuCode;
     @Id
     private int userCode;
-    UserMenuSelect(UserEntity userEntity, MenuEntity menuEntity){
+    public UserMenuSelect(UserEntity userEntity, MenuEntity menuEntity){
         this.menuCode = menuEntity.getMenuCode();
         this.userCode = userEntity.getUserCode();
     }   

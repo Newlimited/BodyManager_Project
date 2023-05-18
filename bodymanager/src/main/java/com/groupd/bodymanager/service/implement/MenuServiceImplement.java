@@ -57,7 +57,7 @@ public class MenuServiceImplement implements MenuService {
             MenuEntity menuEntity = menuRepository.findByMenuCode(menuCode);
             
             // *Response 데이터를 레포지토리에 저장 */
-            UserMenuSelect userMenuSelect = new UserMenuSelect(menuCode, userCode);
+            UserMenuSelect userMenuSelect = new UserMenuSelect(userEntity, menuEntity);
             userMenuSelectRepository.save(userMenuSelect);
             
             
