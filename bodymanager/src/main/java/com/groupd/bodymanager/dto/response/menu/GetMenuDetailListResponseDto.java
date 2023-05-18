@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class GetMenuDetailListResponseDto extends ResponseDto {
     private int userCode;
     private String menuCode;
-    private String menuName;
+
     private List<MenuDetail> menuDetailList;
 
     public GetMenuDetailListResponseDto(List<MenuListResultSet> resultSet,MenuEntity menuEntity,UserMenuSelect userMenuSelect){
@@ -31,7 +31,7 @@ public class GetMenuDetailListResponseDto extends ResponseDto {
             menuDetailList.add(menuDetail);
         }
         this.menuDetailList = menuDetailList;
-        this.menuName = menuEntity.getMenuName();
+        
         this.userCode = userMenuSelect.getUserCode();
         this.menuCode = menuEntity.getMenuCode();
     }
