@@ -45,8 +45,7 @@ public class MenuServiceImplement implements MenuService {
         int userCode = dto.getUserCode();
         try {
             // 필수 값 입력
-            if (menuCode == null)
-                return CustomResponse.validationFaild();
+            if (menuCode == null)  return CustomResponse.validationFaild();
 
             // *존재하지 않는 메뉴코드 반환 */
             boolean existedByMenuCode = menuRepository.existsByMenuCode(menuCode);
@@ -55,8 +54,6 @@ public class MenuServiceImplement implements MenuService {
             // *Response 데이터를 레포지토리에 저장 */
             UserMenuSelect userMenuSelect = new UserMenuSelect(menuCode, userCode);
             userMenuSelectRepository.save(userMenuSelect);
-            // MenuEntity menuEntity = new MenuEntity(menuCode);
-            // menuRepository.save(menuEntity);
             
             
         } catch (Exception exceptione) {
@@ -72,12 +69,17 @@ public class MenuServiceImplement implements MenuService {
     @Override //메뉴코드에 맞는 식단 조회
     public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList(MenuRequestDto dto) {
         GetMenuDetailListResponseDto body = null;
-        String menuCode = dto.getMenuCode();
-        int userCode = dto.getUserCode();
-        UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
-        MenuEntity menuEntity = menuRepository.findByMenuCode(menuCode);
-        
+       
         try {
+            //*매개변수 에러 */
+            String menuCode = dto.getMenuCode();
+            int userCode = dto.getUserCode();
+            UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
+            if(userMenuSelect == null) return CustomResponse.notExistUserCode();
+            MenuEntity menuEntity = menuRepository.findByMenuCode(menuCode);
+            
+            
+            
             List<MenuListResultSet> resultSet = menuDetailRepository.getMenuDetailList();
             body = new GetMenuDetailListResponseDto(resultSet,menuEntity,userMenuSelect);
             
@@ -92,17 +94,20 @@ public class MenuServiceImplement implements MenuService {
 
 
 
-    @Override // 유저의 식단 코드 변경
+    @Override // 메뉴 코드를 수정
     public ResponseEntity<ResponseDto> patchMenuCode(MenuRequestDto dto) {
         int userCode = dto.getUserCode();
         String menuCode = dto.getMenuCode();
 
         try {
             UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
+
             if(userMenuSelect == null) return CustomResponse.notExistUserCode();
+
+            //* 수정된 메뉴코드와 현재 메뉴코드가 같을 시 반환 */
+            if(userMenuSelect.getMenuCode() == menuCode) return CustomResponse.equalMenuCode();
             userMenuSelect.setMenuCode(menuCode);
             
-
             userMenuSelectRepository.save(userMenuSelect);
         } catch (Exception exception) {
             exception.printStackTrace();

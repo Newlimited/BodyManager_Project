@@ -86,6 +86,11 @@ public class CustomResponse {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
     }
 
+    public static ResponseEntity<ResponseDto> equalMenuCode() {
+        ResponseDto errorBody = new ResponseDto("EM", "Adjusted MenuCode Equal Current MenuCode");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
+    }
+
     public static ResponseEntity<ResponseDto> noPermission() {
 
         ResponseDto errorBody = new ResponseDto("NP", "No-permission");
