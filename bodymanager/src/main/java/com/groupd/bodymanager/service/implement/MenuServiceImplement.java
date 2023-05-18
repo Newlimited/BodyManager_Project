@@ -53,6 +53,8 @@ public class MenuServiceImplement implements MenuService {
             // *존재하지 않는 메뉴코드 반환 */
             boolean existedByMenuCode = menuRepository.existsByMenuCode(menuCode);
             if (!existedByMenuCode) return CustomResponse.notExistMenuCode();
+
+            MenuEntity menuEntity = menuRepository.findByMenuCode(menuCode);
             
             // *Response 데이터를 레포지토리에 저장 */
             UserMenuSelect userMenuSelect = new UserMenuSelect(menuCode, userCode);
