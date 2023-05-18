@@ -6,7 +6,7 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
-import com.groupd.bodymanager.entity.primaryKey.managerPK;
+import com.groupd.bodymanager.entity.primaryKey.ManagerPK;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

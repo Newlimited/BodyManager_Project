@@ -7,7 +7,7 @@ import javax.persistence.Column;
 import lombok.Data;
 
 @Data
-public class managerPK implements Serializable{
+public class ManagerPK implements Serializable{
   
     @Column(name ="manager_email")
     private String managerEmail;
