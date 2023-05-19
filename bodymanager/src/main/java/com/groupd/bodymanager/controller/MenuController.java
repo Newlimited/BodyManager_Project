@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.groupd.bodymanager.dto.request.menu.MenuRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
-import com.groupd.bodymanager.dto.response.menu.GetAllMenuListResponseDto;
+import com.groupd.bodymanager.dto.response.menu.GetMenuDetailListResponseDto;
+import com.groupd.bodymanager.dto.response.menu.GetUserMenuResponseDto;
 import com.groupd.bodymanager.service.MenuService;
 
 import lombok.RequiredArgsConstructor;
@@ -38,14 +39,23 @@ public class MenuController {
             return response;
         }
 
-    //*2.식단 리스트를 조회 */
+    //*2.식단 전체 리스트를 조회 */
     @GetMapping("/list")
-    public ResponseEntity<? super GetAllMenuListResponseDto> getMenuDetailList() {
-        ResponseEntity<? super GetAllMenuListResponseDto> response = menuService.getMenuList();
+    public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList() {
+        ResponseEntity<? super GetMenuDetailListResponseDto> response = menuService.getMenuList();
         return response;
     }
 
-    //*3.유저의 메뉴코드 변경 */
+    //*3.유저의 식단 정보를 조회 */
+    @GetMapping("/{userCode}")
+    public ResponseEntity<? super GetUserMenuResponseDto> getMenuDetailList(
+        @PathVariable("userCode") Integer userCode
+    ) {
+        ResponseEntity<? super GetUserMenuResponseDto> response = menuService.getMenu(userCode);
+        return response;
+    }
+
+    //*4.유저의 메뉴코드 변경 */
     @PatchMapping("")
     public ResponseEntity<ResponseDto> patchMenuCode(
         @Valid @RequestBody MenuRequestDto requestBody

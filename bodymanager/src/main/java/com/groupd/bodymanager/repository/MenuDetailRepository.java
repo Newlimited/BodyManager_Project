@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MenuDetailRepository extends JpaRepository<MenuDetailEntity,Integer>{
 
-    public MenuDetailEntity findByMenuCode(String menuCode);
+    public List<MenuDetailEntity> findByMenuCode(String menuCode);
 
     @Query(value =
         "SELECT "
@@ -27,10 +27,8 @@ public interface MenuDetailRepository extends JpaRepository<MenuDetailEntity,Int
         +"MD.friday AS friday, "
         +"MD.saturday AS saturday, "
         +"MD.sunday AS sunday "
-        +"from menu M, menu_detail MD, user_menu_select US, user U "
+        +"from menu M, menu_detail MD "
         +"where MD.menu_code = M.menu_code "
-        +"and M.menu_code = US.menu_code "
-        +"and US.user_code = U.user_code "
         +"order by MD.menu_index; ",
         nativeQuery = true
     )
