@@ -37,12 +37,13 @@ public class MileageServiceImplement implements MileageService {
         String attendanceDate = simpleDateFormat.format(now);
         
         
-        UserEntity userEntity = userRepository.findByUserEmail(userEmail);
-        int userCode = userEntity.getUserCode();
+        int userCode = dto.getUserCode();
+        UserEntity userEntity = userRepository.findByUserCode(userCode);
+        
         try {
             // 존재하지 않는 유저코드 반환
-            UserEntity existeduserCode = userRepository.findByUserCode(userCode);
-            if(existeduserCode == null) {
+            // UserEntity existeduserCode = userRepository.findByUserCode(userCode);
+            if(userEntity == null) {
                 ResponseDto errorBody = new ResponseDto("NC", "Non-Existent User Code");
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
             }
