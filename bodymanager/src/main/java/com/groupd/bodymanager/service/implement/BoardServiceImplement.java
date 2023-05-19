@@ -33,7 +33,8 @@ public class BoardServiceImplement implements BoardService {
 
         // 게시물 작성
         String boardWriterEmail = dto.getBoardWriterEmail();
- 
+        String boardWriterNickname = dto.getBoardWriterNickname();
+        UserEntity userEntity;
         try {
             // TODO 존재하지 않는 유저 오류 반환
             boolean existedUserEmail = userRepository.existsByUserEmail(boardWriterEmail);
@@ -44,6 +45,11 @@ public class BoardServiceImplement implements BoardService {
             boolean isManager = managerRepository.existsByManagerEmail(boardWriterEmail);
             if(!isManager){
                 return CustomResponse.noPermission();
+            }
+            userEntity = userRepository.findByUserEmail(boardWriterEmail);
+            boolean isMatchedNickname = boardWriterNickname.equals(userEntity.getUserNickname());
+            if(!isMatchedNickname){ 
+                return CustomResponse.notExistUserNick(); 
             }
             BoardEntity boardEntity = new BoardEntity(dto);
             boardRepository.save(boardEntity);

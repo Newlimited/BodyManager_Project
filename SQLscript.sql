@@ -1,6 +1,7 @@
 use bodymanager;
 select * from user;
 select * from mileage;
+select * from manager;
 
 SELECT
 B.board_number AS boardNumber,
