@@ -13,7 +13,7 @@ public class SignInRequestDto {
     @NotBlank
     @Email
     private String userEmail;
-    @NotBlank
+    
     private String userPassword;
   
 }
