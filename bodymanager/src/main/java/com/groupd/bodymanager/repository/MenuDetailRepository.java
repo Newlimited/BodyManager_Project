@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MenuDetailRepository extends JpaRepository<MenuDetailEntity,Integer>{
-
+    //*쿼리문 + findBy */
     public List<MenuDetailEntity> findByMenuCode(String menuCode);
 
     @Query(value =
