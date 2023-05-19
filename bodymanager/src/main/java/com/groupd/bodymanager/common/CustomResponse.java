@@ -72,7 +72,11 @@ public class CustomResponse {
     }
   
     public static ResponseEntity<ResponseDto> noneMatchedPassword(){
-        ResponseDto errorBody = new ResponseDto("NM", "None Matched New Password with New PasswordCheck");
+        ResponseDto errorBody = new ResponseDto("NM", "Not Matched New Password with New PasswordCheck");
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorBody);
+    }
+    public static ResponseEntity<ResponseDto> notMatchedPhoneNumberPattern(){
+        ResponseDto errorBody = new ResponseDto("NT", "Not Matched NewPhoneNumbers Pattern");
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorBody);
     }
 

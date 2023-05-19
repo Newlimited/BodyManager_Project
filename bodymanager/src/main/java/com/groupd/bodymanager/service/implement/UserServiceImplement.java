@@ -1,5 +1,8 @@
 package com.groupd.bodymanager.service.implement;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -195,10 +198,10 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> patchUser(PatchUserRequestDto dto) {
+    public ResponseEntity<ResponseDto> patchUser(String email, PatchUserRequestDto dto) {
 
         ResponseDto responseBody = null;
-        UserEntity userEntity = userRepository.findByUserEmail(dto.getUserEmail());
+        UserEntity userEntity = userRepository.findByUserEmail(email);
         String userPassword = userEntity.getUserPassword();
         String userNewPassword = dto.getUserNewPassword();
         String userNewPasswordCheck = dto.getUserNewPasswordCheck();
@@ -208,25 +211,38 @@ public class UserServiceImplement implements UserService {
         String userGender = dto.getUserGender();
         int userAge = dto.getUserAge();
 
+        Pattern phoneNumberPattern = Pattern.compile("^\\d{2,3}-\\d{3,4}-\\d{4}$");
+
+       
+        
         try {
             boolean isRightPassword = passwordEncoder.matches(dto.getUserPassword(), userPassword);
             if (!isRightPassword) { // TODO 기존 비밀번호 불일치
                 return CustomResponse.noPermission();
             }
-            boolean isMatchedPassword = userNewPassword.equals(userNewPasswordCheck);
+           
+           boolean isMatchedPassword = userNewPassword.equals(userNewPasswordCheck);
             if (!isMatchedPassword) { // TODO 새로운 비밀번호와 비밀번호 확인간의 불일치
                 return CustomResponse.noneMatchedPassword();
             }
-            boolean isExistNickname = userRepository.existsByUserNickname(dto.getUserNickname());
-            if (isExistNickname) { // TODO 존재하는 유저 닉네임
-                return CustomResponse.existUserNickname();
+      
+
+            boolean isExistNickname = userRepository.existsByUserNickname(userNickname);
+            boolean isChangedNickname = userEntity.getUserNickname().equals(userNickname);
+            if (!isChangedNickname) {
+                if (isExistNickname) { // TODO 존재하는 유저 닉네임
+                    return CustomResponse.existUserNickname();
+                }
             }
-            boolean isExistPhoneNumber = userRepository.existsByUserPhoneNumber(dto.getUserPhoneNumber());
-            if (isExistPhoneNumber) { // TODO 존재하는 유저 휴대전화 번호
-                return CustomResponse.existUserPhoneNumber();
+            boolean isChangedPhoneNumber = userEntity.getUserPhoneNumber().equals(userPhoneNumber);
+            boolean isExistPhoneNumber = userRepository.existsByUserPhoneNumber(userPhoneNumber);
+            if (!isChangedPhoneNumber) {
+                if (isExistPhoneNumber) { // TODO 존재하는 유저 휴대전화 번호
+                    return CustomResponse.existUserPhoneNumber();
+                }
             }
             boolean changePassword = userNewPassword.isBlank();
-            if (!changePassword) {
+            if (!changePassword) { // TODO 변경 여부
                 userPassword = passwordEncoder.encode(userNewPassword);
                 userEntity.setUserPassword(userPassword); // 비밀번호 변경
             }
@@ -234,10 +250,17 @@ public class UserServiceImplement implements UserService {
             if (!changeNickname) {
                 userEntity.setUserNickname(userNickname); // 닉네임 변경
             }
-            boolean changePhoneNumber = userPhoneNumber.isBlank();
-            if (!changePhoneNumber) {
-                userEntity.setUserPhoneNumber(userPhoneNumber); // 휴대전화번호 변경
+            boolean changePhoneNumber = !userPhoneNumber.isBlank(); //값이 있냐? 있으면 T 
+            if (changePhoneNumber) {// TODO 변경 여부
+                Matcher matchPatternPhoneNumber = phoneNumberPattern.matcher(userPhoneNumber);
+                boolean isMatchedPattern = matchPatternPhoneNumber.matches(); 
+                if (!isMatchedPattern) {// 패턴 맞냐?
+                    return CustomResponse.notMatchedPhoneNumberPattern();
+                }
             }
+                userEntity.setUserPhoneNumber(userPhoneNumber); // 휴대전화번호 변경 // 패턴 맞으면
+
+           
             // 나머지는 변경된 사항 저장
             userEntity.setUserAddress(userAddress);
             userEntity.setUserGender(userGender);
@@ -257,7 +280,7 @@ public class UserServiceImplement implements UserService {
     @Override
     public ResponseEntity<ResponseDto> deleteUser(String userEmail, DeleteUserRequestDto dto) {
 
-        GetAuthResponseDto body = null;
+      
 
         String userEmailCheck = dto.getUserEmailCheck();
         String userPassword = dto.getUserPassword();
