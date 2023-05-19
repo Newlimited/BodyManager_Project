@@ -46,6 +46,11 @@ public class CustomResponse {
         ResponseDto errorBody = new ResponseDto("NMC", "Non-Existent Menu Code");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
     }
+    public static ResponseEntity<ResponseDto> existUserCode() {
+
+        ResponseDto errorBody = new ResponseDto("EC", "Existent User Code");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
+    }
 
     public static ResponseEntity<ResponseDto> existUserEmail() {
 
