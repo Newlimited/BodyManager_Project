@@ -13,21 +13,15 @@ import lombok.Data;
 @Data
 public class PatchUserRequestDto {
     
-    @NotBlank
-    @Email
-    private String userEmail;
+   
     @NotBlank
     @Size(min=8)
     private String userPassword;
-    @NotBlank
-    @Size(min=8)
     private String userNewPassword;
     private String userNewPasswordCheck;
     @NotBlank
     @Size(min=0, max=6)
     private String userNickname;
-    @NotBlank
-    @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$") 
     private String userPhoneNumber;
     private String userAddress;
     private String userGender;

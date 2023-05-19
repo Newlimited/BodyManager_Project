@@ -66,10 +66,11 @@ public class UserController{
 
     @PatchMapping("")
     public ResponseEntity<ResponseDto> patchUser(
+        @AuthenticationPrincipal String email,
         @Valid @RequestBody PatchUserRequestDto requestBody
     ){
         ResponseEntity<ResponseDto> response =
-            userService.patchUser(requestBody);
+            userService.patchUser(email, requestBody);
         return response;
     }
 
