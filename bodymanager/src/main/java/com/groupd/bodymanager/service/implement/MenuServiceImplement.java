@@ -84,10 +84,9 @@ public class MenuServiceImplement implements MenuService {
             if(userMenuSelect == null) return CustomResponse.notExistUserCode();
             String menuCode = userMenuSelect.getMenuCode();
             MenuEntity menuEntity = menuRepository.findByMenuCode(menuCode);
-            
             List<MenuListResultSet> resultSet = menuDetailRepository.getMenuDetailList();
             body = new GetMenuDetailListResponseDto(resultSet,menuEntity,userMenuSelect);
-            
+
         } catch (Exception exception) {
             exception.printStackTrace();
             return CustomResponse.databaseError();
