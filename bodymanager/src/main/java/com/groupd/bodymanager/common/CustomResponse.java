@@ -71,12 +71,12 @@ public class CustomResponse {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorBody);
     }
   
-    public static ResponseEntity<ResponseDto> noneMatchedPassword(){
+    public static ResponseEntity<ResponseDto> notMatchedPassword(){
         ResponseDto errorBody = new ResponseDto("NM", "Not Matched New Password with New PasswordCheck");
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorBody);
     }
-    public static ResponseEntity<ResponseDto> notMatchedPhoneNumberPattern(){
-        ResponseDto errorBody = new ResponseDto("NT", "Not Matched NewPhoneNumbers Pattern");
+    public static ResponseEntity<ResponseDto> notMatchedForm(){
+        ResponseDto errorBody = new ResponseDto("NF", "Not Matched Form");
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorBody);
     }
 
