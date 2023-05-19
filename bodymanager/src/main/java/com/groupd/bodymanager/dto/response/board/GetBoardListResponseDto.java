@@ -43,10 +43,10 @@ class BoardSummary {
   
     public BoardSummary(BoardListResultSet resultSet){
     this.boardNumber = resultSet.getBoardNumber();
-    this.boardTitle =resultSet.getBoardTitle();
+    this.boardTitle =resultSet.getTitle();
     this.boardContent=resultSet.getBoardContent();
     this.boardImageUrl=resultSet.getBoardimageUrl();
-    this.boardWriteDatetime = resultSet.getBoardWrtieDatetime();
+    this.boardWriteDatetime = resultSet.getBoardWriteDatetime();
     this.viewCount = resultSet.getViewCount();
     this.boardWriterEmail = resultSet.getBoardWriterEmail();
    
