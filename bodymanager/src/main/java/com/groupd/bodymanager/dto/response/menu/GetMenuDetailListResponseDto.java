@@ -28,7 +28,7 @@ public class GetMenuDetailListResponseDto extends ResponseDto {
         
         for(MenuListResultSet result : resultSet) {
             MenuDetail menuDetail = new MenuDetail(result);
-            boolean isEqualMenuCode = menuDetail.getMenuCode() == userMenuSelect.getMenuCode();
+            // boolean isEqualMenuCode = menuDetail.getMenuCode() == userMenuSelect.getMenuCode();
             menuDetailList.add(menuDetail);
         }
         this.menuDetailList = menuDetailList;
@@ -59,7 +59,7 @@ class MenuDetail {
         this.monday = resultSet.getMonday();
         this.tuesday = resultSet.getTuesday();
         this.wednesday = resultSet.getWednesday();
-        this.thursday = resultSet.getThursady();
+        this.thursday = resultSet.getThursday();
         this.friday = resultSet.getFriday();
         this.saturday = resultSet.getSaturday();
         this.sunday = resultSet.getSunday();
