@@ -70,8 +70,8 @@ public class MenuServiceImplement implements MenuService {
         return CustomResponse.successs();
     }
 
-    
-    @Override //회원이 선택한 식단 조회
+
+    @Override //모든 식단 조회
     public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList(Integer userCode) {
         GetMenuDetailListResponseDto body = null;
         try {
@@ -93,7 +93,7 @@ public class MenuServiceImplement implements MenuService {
         }
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
-    
+
 //특정 식단 조회 (getMenuView (menucode))
 
 // 식단 전체 조회 (getMenuList)
