@@ -23,7 +23,7 @@ public class MenuDetailEntity {
     private String monday;
     private String tuesday;
     private String wednesday;
-    private String thursady;
+    private String thursday;
     private String friday;
     private String saturday;
     private String sunday;
