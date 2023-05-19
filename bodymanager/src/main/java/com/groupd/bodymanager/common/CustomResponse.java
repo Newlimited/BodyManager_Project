@@ -26,13 +26,13 @@ public class CustomResponse {
         ResponseDto errorBody = new ResponseDto("NC", "Non-Existent User Code");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
     }
-    public static ResponseEntity<ResponseDto> notExistUserNick() {
-        ResponseDto errorBody = new ResponseDto("NM", "Non-Existent UserNickname");
+    public static ResponseEntity<ResponseDto> notExistUserNickname() {
+        ResponseDto errorBody = new ResponseDto("MN", "Not-Matched UserNickname");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
     }
 
     public static ResponseEntity<ResponseDto> notExistBoardNumber() {
-        ResponseDto errorBody = new ResponseDto("NB", "None-existent Board Number");
+        ResponseDto errorBody = new ResponseDto("NB", "None-Existent Board Number");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
     }
 
