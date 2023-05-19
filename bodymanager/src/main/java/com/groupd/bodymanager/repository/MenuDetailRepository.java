@@ -16,8 +16,8 @@ public interface MenuDetailRepository extends JpaRepository<MenuDetailEntity,Int
 
     public MenuDetailEntity findByMenuCode(String menuCode);
 
-    @Query(value = 
-        "select" 
+    @Query(value =
+        "select"
         +"MD.menu_code AS menuCode,"
         +"MD.time,"
         +"MD.monday,"

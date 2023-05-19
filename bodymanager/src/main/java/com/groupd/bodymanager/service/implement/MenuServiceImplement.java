@@ -71,7 +71,7 @@ public class MenuServiceImplement implements MenuService {
     }
 
     
-    @Override //식단 조회
+    @Override //회원이 선택한 식단 조회
     public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList(Integer userCode) {
         GetMenuDetailListResponseDto body = null;
         try {
@@ -84,10 +84,9 @@ public class MenuServiceImplement implements MenuService {
             if(userMenuSelect == null) return CustomResponse.notExistUserCode();
             String menuCode = userMenuSelect.getMenuCode();
             MenuEntity menuEntity = menuRepository.findByMenuCode(menuCode);
-            
             List<MenuListResultSet> resultSet = menuDetailRepository.getMenuDetailList();
             body = new GetMenuDetailListResponseDto(resultSet,menuEntity,userMenuSelect);
-            
+
         } catch (Exception exception) {
             exception.printStackTrace();
             return CustomResponse.databaseError();
@@ -95,7 +94,9 @@ public class MenuServiceImplement implements MenuService {
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
     
+//특정 식단 조회 (getMenuView (menucode))
 
+// 식단 전체 조회 (getMenuList)
 
 
 
