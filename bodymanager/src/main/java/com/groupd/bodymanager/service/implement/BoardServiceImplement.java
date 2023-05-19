@@ -49,7 +49,7 @@ public class BoardServiceImplement implements BoardService {
             userEntity = userRepository.findByUserEmail(boardWriterEmail);
             boolean isMatchedNickname = boardWriterNickname.equals(userEntity.getUserNickname());
             if(!isMatchedNickname){ 
-                return CustomResponse.notExistUserNick(); 
+                return CustomResponse.notExistUserNickname(); 
             }
             BoardEntity boardEntity = new BoardEntity(dto);
             boardRepository.save(boardEntity);
