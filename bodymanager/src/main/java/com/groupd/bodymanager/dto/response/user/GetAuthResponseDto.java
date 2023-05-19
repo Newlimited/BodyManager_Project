@@ -22,6 +22,7 @@ public class GetAuthResponseDto extends ResponseDto {
     }
     public GetAuthResponseDto(String token, int userCode){ //로그인
         super("SU", "Sucess");
+        this.userCode = userCode;
         this.token = token;
         this.expirationDate = 3600;
     }
