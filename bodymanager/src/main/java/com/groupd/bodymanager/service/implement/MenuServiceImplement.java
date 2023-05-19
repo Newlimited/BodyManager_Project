@@ -3,6 +3,8 @@ package com.groupd.bodymanager.service.implement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +13,9 @@ import org.springframework.stereotype.Service;
 import com.groupd.bodymanager.common.CustomResponse;
 import com.groupd.bodymanager.dto.request.menu.MenuRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
-import com.groupd.bodymanager.dto.response.menu.GetAllMenuListResponseDto;
+import com.groupd.bodymanager.dto.response.menu.GetMenuDetailListResponseDto;
 import com.groupd.bodymanager.dto.response.menu.GetUserMenuResponseDto;
+import com.groupd.bodymanager.entity.MenuDetailEntity;
 import com.groupd.bodymanager.entity.MenuEntity;
 import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.entity.UserMenuSelect;
@@ -40,23 +43,25 @@ public class MenuServiceImplement implements MenuService {
 
     }
 
-    //*유저코드와 메뉴코드를 등록 */
+    //*1.유저코드와 메뉴코드를 등록 */
     @Override
     public ResponseEntity<ResponseDto> postMenuCodeAndUserCode(MenuRequestDto dto) {
         String menuCode = dto.getMenuCode();
         int userCode = dto.getUserCode();
         try {
-            // 필수 값 입력
+            //*필수 값을 입력 */
             if (menuCode == null)  return CustomResponse.validationFaild();
+            //*회원엔티디에 회원정보가 없을시 반환 */
             UserEntity userEntity = userRepository.findByUserCode(userCode);
             if (userEntity == null) return CustomResponse.notExistUserCode();
-
             // *존재하지 않는 메뉴코드 반환 */
             boolean existedByMenuCode = menuRepository.existsByMenuCode(menuCode);
             if (!existedByMenuCode) return CustomResponse.notExistMenuCode();
-
-            MenuEntity menuEntity = menuRepository.findByMenuCode(menuCode);
+            //* 이미 등록한 유저 정보*/
+            boolean existsByUserCode = userMenuSelectRepository.existsByUserCode(userCode);
+            if (existsByUserCode) return CustomResponse.existUserCode();
             // *Response 데이터를 레포지토리에 저장 */
+            MenuEntity menuEntity = menuRepository.findByMenuCode(menuCode);
             UserMenuSelect userMenuSelect = new UserMenuSelect(userEntity, menuEntity);
             userMenuSelectRepository.save(userMenuSelect);
         } catch (Exception exceptione) {
@@ -70,12 +75,12 @@ public class MenuServiceImplement implements MenuService {
 
 
     @Override //*모든 식단을 조회합니다. */
-    public ResponseEntity<? super GetAllMenuListResponseDto> getMenuList() {
-        GetAllMenuListResponseDto body = null;
+    public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuList() {
+        GetMenuDetailListResponseDto body = null;
         try {
 
             List<MenuListResultSet> resultSet = menuDetailRepository.getMenuDetailList();
-            body = new GetAllMenuListResponseDto(resultSet);
+            body = new GetMenuDetailListResponseDto(resultSet);
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -84,14 +89,26 @@ public class MenuServiceImplement implements MenuService {
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
-//특정 식단 조회 (getMenuView (menucode))
 
-@Override //*유저가 선택한 식단을 조회합니다. */
+
+@Override //*회원이 선택한 식단을 조회합니다. */
 public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode) {
-    
-    throw new UnsupportedOperationException("Unimplemented method 'getUserMenu'");
+    GetUserMenuResponseDto body = null;
+    try {
+        
+        if(userCode == null) return CustomResponse.validationFaild();
+        UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
+        String menuCode = userMenuSelect.getMenuCode();
+        List<MenuDetailEntity> menuDetailList = menuDetailRepository.findByMenuCode(menuCode);
+        body = new GetUserMenuResponseDto(userMenuSelect, menuDetailList);
+
+    } catch (Exception exception) {
+        exception.printStackTrace();
+        return CustomResponse.databaseError();
+    }
+
+    return ResponseEntity.status(HttpStatus.OK).body(body);
 }
-// 식단 전체 조회 (getMenuList)
 
 
 

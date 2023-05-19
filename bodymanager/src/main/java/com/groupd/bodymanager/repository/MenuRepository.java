@@ -12,6 +12,5 @@ import com.groupd.bodymanager.entity.MenuEntity;
 public interface MenuRepository extends JpaRepository<MenuEntity,String> {
     public boolean existsByMenuCode(String menuCode);
     public MenuEntity findByMenuCode(String menuCode);
-  
-    
+
 }
