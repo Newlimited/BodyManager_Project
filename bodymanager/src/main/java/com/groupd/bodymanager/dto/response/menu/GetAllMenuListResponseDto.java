@@ -16,25 +16,18 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class GetMenuDetailListResponseDto extends ResponseDto {
-    private int userCode;
-    private String menuCode;
 
     private List<MenuDetail> menuDetailList;
-
-    public GetMenuDetailListResponseDto(List<MenuListResultSet> resultSet,MenuEntity menuEntity,UserMenuSelect userMenuSelect){
+    public GetMenuDetailListResponseDto(List<MenuListResultSet> resultSet){
         super("SU","Success");
 
         List<MenuDetail> menuDetailList = new ArrayList<>();
-        
         for(MenuListResultSet result : resultSet) {
             MenuDetail menuDetail = new MenuDetail(result);
-            // boolean isEqualMenuCode = menuDetail.getMenuCode() == userMenuSelect.getMenuCode();
             menuDetailList.add(menuDetail);
         }
         this.menuDetailList = menuDetailList;
-        
-        this.userCode = userMenuSelect.getUserCode();
-        this.menuCode = menuEntity.getMenuCode();
+
     }
 
 
@@ -52,7 +45,7 @@ class MenuDetail {
     private String friday;
     private String saturday;
     private String sunday;
-  
+
     public MenuDetail(MenuListResultSet resultSet){
         this.menuCode = resultSet.getMenuCode();
         this.time = resultSet.getTime();

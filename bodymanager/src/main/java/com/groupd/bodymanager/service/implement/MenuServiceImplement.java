@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 import com.groupd.bodymanager.common.CustomResponse;
 import com.groupd.bodymanager.dto.request.menu.MenuRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
-import com.groupd.bodymanager.dto.response.menu.GetMenuDetailListResponseDto;
+import com.groupd.bodymanager.dto.response.menu.GetAllMenuListResponseDto;
+import com.groupd.bodymanager.dto.response.menu.GetUserMenuResponseDto;
 import com.groupd.bodymanager.entity.MenuEntity;
 import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.entity.UserMenuSelect;
@@ -55,12 +56,9 @@ public class MenuServiceImplement implements MenuService {
             if (!existedByMenuCode) return CustomResponse.notExistMenuCode();
 
             MenuEntity menuEntity = menuRepository.findByMenuCode(menuCode);
-            
             // *Response 데이터를 레포지토리에 저장 */
             UserMenuSelect userMenuSelect = new UserMenuSelect(userEntity, menuEntity);
             userMenuSelectRepository.save(userMenuSelect);
-            
-            
         } catch (Exception exceptione) {
             exceptione.printStackTrace();
             // *데이터베이스 오류 */
@@ -71,21 +69,13 @@ public class MenuServiceImplement implements MenuService {
     }
 
 
-    @Override //모든 식단 조회
-    public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList(Integer userCode) {
-        GetMenuDetailListResponseDto body = null;
+    @Override //*모든 식단을 조회합니다. */
+    public ResponseEntity<? super GetAllMenuListResponseDto> getMenuList() {
+        GetAllMenuListResponseDto body = null;
         try {
-            //*매개변수 에러 */
-            if(userCode == null) return CustomResponse.validationFaild();
 
-            UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
-
-            //*존재하지 않는 유저 */
-            if(userMenuSelect == null) return CustomResponse.notExistUserCode();
-            String menuCode = userMenuSelect.getMenuCode();
-            MenuEntity menuEntity = menuRepository.findByMenuCode(menuCode);
             List<MenuListResultSet> resultSet = menuDetailRepository.getMenuDetailList();
-            body = new GetMenuDetailListResponseDto(resultSet,menuEntity,userMenuSelect);
+            body = new GetAllMenuListResponseDto(resultSet);
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -96,6 +86,11 @@ public class MenuServiceImplement implements MenuService {
 
 //특정 식단 조회 (getMenuView (menucode))
 
+@Override //*유저가 선택한 식단을 조회합니다. */
+public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode) {
+    
+    throw new UnsupportedOperationException("Unimplemented method 'getUserMenu'");
+}
 // 식단 전체 조회 (getMenuList)
 
 
@@ -121,6 +116,7 @@ public class MenuServiceImplement implements MenuService {
         }
             return CustomResponse.successs();
     }
+
 
 
 }

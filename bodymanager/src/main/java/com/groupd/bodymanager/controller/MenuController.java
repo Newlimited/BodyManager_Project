@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.groupd.bodymanager.dto.request.menu.MenuRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
-import com.groupd.bodymanager.dto.response.menu.GetMenuDetailListResponseDto;
+import com.groupd.bodymanager.dto.response.menu.GetAllMenuListResponseDto;
 import com.groupd.bodymanager.service.MenuService;
 
 import lombok.RequiredArgsConstructor;
@@ -39,11 +39,9 @@ public class MenuController {
         }
 
     //*2.식단 리스트를 조회 */
-    @GetMapping("/{userCode}")
-    public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuDetailList(
-        @PathVariable("userCode") Integer userCode
-    ) {
-        ResponseEntity<? super GetMenuDetailListResponseDto> response = menuService.getMenuDetailList(userCode);
+    @GetMapping("/list")
+    public ResponseEntity<? super GetAllMenuListResponseDto> getMenuDetailList() {
+        ResponseEntity<? super GetAllMenuListResponseDto> response = menuService.getMenuList();
         return response;
     }
 
