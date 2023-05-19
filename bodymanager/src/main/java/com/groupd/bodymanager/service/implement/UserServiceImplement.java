@@ -115,7 +115,7 @@ public class UserServiceImplement implements UserService {
         try {
             // TODO 로그인 실패 (이메일 x)
             UserEntity userEntity = userRepository.findByUserEmail(userEmail);
-            if (userEmail == null)
+            if (userEntity == null)
                 return CustomResponse.signInFailed();
 
             // TODO 로그인 실패 (패스워드 x)
