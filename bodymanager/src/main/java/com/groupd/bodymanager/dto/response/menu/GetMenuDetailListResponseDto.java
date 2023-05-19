@@ -15,10 +15,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class GetAllMenuListResponseDto extends ResponseDto {
+public class GetMenuDetailListResponseDto extends ResponseDto {
 
     private List<MenuDetail> menuDetailList;
-    public GetAllMenuListResponseDto(List<MenuListResultSet> resultSet){
+    public GetMenuDetailListResponseDto(List<MenuListResultSet> resultSet){
         super("SU","Success");
 
         List<MenuDetail> menuDetailList = new ArrayList<>();

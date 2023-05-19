@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.groupd.bodymanager.common.CustomResponse;
 import com.groupd.bodymanager.dto.request.menu.MenuRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
-import com.groupd.bodymanager.dto.response.menu.GetAllMenuListResponseDto;
+import com.groupd.bodymanager.dto.response.menu.GetMenuDetailListResponseDto;
 import com.groupd.bodymanager.dto.response.menu.GetUserMenuResponseDto;
 import com.groupd.bodymanager.entity.MenuEntity;
 import com.groupd.bodymanager.entity.UserEntity;
@@ -40,7 +40,7 @@ public class MenuServiceImplement implements MenuService {
 
     }
 
-    //*유저코드와 메뉴코드를 등록 */
+    //*1.유저코드와 메뉴코드를 등록 */
     @Override
     public ResponseEntity<ResponseDto> postMenuCodeAndUserCode(MenuRequestDto dto) {
         String menuCode = dto.getMenuCode();
@@ -50,7 +50,6 @@ public class MenuServiceImplement implements MenuService {
             if (menuCode == null)  return CustomResponse.validationFaild();
             UserEntity userEntity = userRepository.findByUserCode(userCode);
             if (userEntity == null) return CustomResponse.notExistUserCode();
-
             // *존재하지 않는 메뉴코드 반환 */
             boolean existedByMenuCode = menuRepository.existsByMenuCode(menuCode);
             if (!existedByMenuCode) return CustomResponse.notExistMenuCode();
@@ -70,12 +69,12 @@ public class MenuServiceImplement implements MenuService {
 
 
     @Override //*모든 식단을 조회합니다. */
-    public ResponseEntity<? super GetAllMenuListResponseDto> getMenuList() {
-        GetAllMenuListResponseDto body = null;
+    public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuList() {
+        GetMenuDetailListResponseDto body = null;
         try {
 
             List<MenuListResultSet> resultSet = menuDetailRepository.getMenuDetailList();
-            body = new GetAllMenuListResponseDto(resultSet);
+            body = new GetMenuDetailListResponseDto(resultSet);
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -84,14 +83,23 @@ public class MenuServiceImplement implements MenuService {
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
-//특정 식단 조회 (getMenuView (menucode))
 
-@Override //*유저가 선택한 식단을 조회합니다. */
+
+@Override //*회원이 선택한 식단을 조회합니다. */
 public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode) {
-    
+    GetUserMenuResponseDto body = null;
+    try {
+        UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
+        String menuCode = userMenuSelect.getMenuCode();
+        
+
+    } catch (Exception exception) {
+        // TODO: handle exception
+        exception.printStackTrace();
+    }
+
     throw new UnsupportedOperationException("Unimplemented method 'getUserMenu'");
 }
-// 식단 전체 조회 (getMenuList)
 
 
 
