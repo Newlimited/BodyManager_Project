@@ -16,22 +16,22 @@ public interface MenuDetailRepository extends JpaRepository<MenuDetailEntity,Int
 
     public MenuDetailEntity findByMenuCode(String menuCode);
 
-    @Query(value = 
-        "select" 
-        +"MD.menu_code AS menuCode,"
-        +"MD.time,"
-        +"MD.monday,"
-        +"MD.tuesday,"
-        +"MD.wednesday,"
-        +"MD.thursday,"
-        +"MD.friday,"
-        +"MD.saturday,"
-        +"MD.sunday"
-        +"from Menu M, Menu_detail MD, User_menu_select US, User U"
+    @Query(value =
+        "SELECT "
+        +"MD.menu_code AS menuCode, "
+        +"MD.time As time, "
+        +"MD.monday AS monday, "
+        +"MD.tuesday AS tuesday, "
+        +"MD.wednesday AS wednesday, "
+        +"MD.thursday AS thursday, "
+        +"MD.friday AS friday, "
+        +"MD.saturday AS saturday, "
+        +"MD.sunday AS sunday "
+        +"from menu M, menu_detail MD, user_menu_select US, user U "
         +"where MD.menu_code = M.menu_code "
         +"and M.menu_code = US.menu_code "
-        +"and US.user_code = U.user_code"
-        +"order by MD.menu_index;",
+        +"and US.user_code = U.user_code "
+        +"order by MD.menu_index; ",
         nativeQuery = true
     )
     public List<MenuListResultSet> getMenuDetailList();
