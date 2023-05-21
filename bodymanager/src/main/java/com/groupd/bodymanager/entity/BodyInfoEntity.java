@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 public class BodyInfoEntity {
 
     @Id
-    private int userCode;
+    private Integer userCode;
     @NotNull
     private double height;
     @NotNull

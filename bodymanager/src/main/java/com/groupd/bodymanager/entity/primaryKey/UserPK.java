@@ -12,7 +12,7 @@ import lombok.Data;
 public class UserPK implements Serializable{
     @Column(name ="user_code")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userCode;
+    private Integer userCode;
     @Column(name ="user_email")
     private String userEmail;
 }
