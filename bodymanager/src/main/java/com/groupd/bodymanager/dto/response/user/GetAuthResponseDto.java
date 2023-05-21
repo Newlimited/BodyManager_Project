@@ -12,15 +12,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GetAuthResponseDto extends ResponseDto {
      
-    private int userCode;
+    private Integer userCode;
     private String token;
     private int expirationDate;  
 
-    public GetAuthResponseDto(int userCode){ //회원가입
+    public GetAuthResponseDto(Integer userCode){ //회원가입
         super("SU", "Sucess");
         this.userCode = userCode;
     }
-    public GetAuthResponseDto(String token, int userCode){ //로그인
+    public GetAuthResponseDto(String token, Integer userCode){ //로그인
         super("SU", "Sucess");
         this.userCode = userCode;
         this.token = token;

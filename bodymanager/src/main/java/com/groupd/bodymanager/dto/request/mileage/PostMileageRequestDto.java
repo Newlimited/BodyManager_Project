@@ -15,5 +15,5 @@ import lombok.NoArgsConstructor;
 public class PostMileageRequestDto {
 
     @NotNull
-    private int userCode;
+    private Integer userCode;
 }
