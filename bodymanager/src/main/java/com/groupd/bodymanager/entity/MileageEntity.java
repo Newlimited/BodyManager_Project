@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class MileageEntity {
 
     @Id
-    private int userCode;
+    private Integer userCode;
     private boolean attendanceToday;
     private int attendanceMileage;
     private String attendanceDate;

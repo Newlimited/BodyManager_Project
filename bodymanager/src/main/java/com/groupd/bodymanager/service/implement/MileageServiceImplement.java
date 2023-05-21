@@ -36,27 +36,35 @@ public class MileageServiceImplement implements MileageService {
         new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String attendanceDate = simpleDateFormat.format(now);
         
-        
-        int userCode = dto.getUserCode();
-        UserEntity userEntity = userRepository.findByUserCode(userCode);
+                int userCode = dto.getUserCode();
+        MileageEntity mileageEntity = mileageRepository.findByUserCode(userCode);
+        String attendanceStatusToday = mileageEntity.getAttendanceDate();
+        boolean isNull = attendanceStatusToday == null ;
+        if(!isNull){
+        boolean isOtherDay = !attendanceStatusToday.equals(attendanceDate);
+        if(isOtherDay){
+            mileageEntity.setAttendanceToday(false);
+        }
+    }
         
         try {
             // 존재하지 않는 유저코드 반환
-            // UserEntity existeduserCode = userRepository.findByUserCode(userCode);
-            if(userEntity == null) {
+            UserEntity existeduserCode = userRepository.findByUserCode(userCode);
+            if(existeduserCode == null) {
                 ResponseDto errorBody = new ResponseDto("NC", "Non-Existent User Code");
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
             }
             
-            MileageEntity mileageEntity = mileageRepository.findByUserCode(userCode);
+            
             // 이미 출석했는지 확인
             // boolean attendanceResult = dto.isAttendanceResult();
             MileageEntity attendanceStatus = mileageRepository.findByUserCodeAndAttendanceToday(userCode, true);
-            boolean attendanceToday = attendanceStatus != null && attendanceStatus.isAttendanceToday();
+            boolean isattendanceToday = attendanceStatus != null && attendanceStatus.isAttendanceToday();
+            // boolean isattendanceToday = mileageEntity.isAttendanceToday(); 
             // boolean isAlreadyAttend = attendanceResult == !attendanceToday; // 둘다 T 면 T다. 
             // 출석을 하면 T로 된다. F가 됨, = 같음 -> T가됨. ==>>> 출석한 상태
             // F가되면 출석을 하지 않은 상태.
-            if(attendanceToday) {
+            if(!isattendanceToday) {
                 ResponseDto errorBody = new ResponseDto("AT", "Already Attended Today");
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
             } 

@@ -21,7 +21,7 @@ public class UserMenuSelect {
     @Id
     private String menuCode;
     @Id
-    private int userCode;
+    private Integer userCode;
     public UserMenuSelect(UserEntity userEntity, MenuEntity menuEntity){
         this.menuCode = menuEntity.getMenuCode();
         this.userCode = userEntity.getUserCode();

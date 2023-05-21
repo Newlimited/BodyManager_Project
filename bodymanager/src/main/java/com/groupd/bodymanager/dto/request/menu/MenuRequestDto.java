@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class MenuRequestDto {
     
     @NotNull
-    private int userCode;
+    private Integer userCode;
     @NotBlank
     private String menuCode;
 

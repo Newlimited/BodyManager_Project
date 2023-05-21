@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PatchBodyInfoRequestDto {
     @NotNull
-    private int userCode;
+    private Integer userCode;
     @NotNull
     private double height;
     @NotNull

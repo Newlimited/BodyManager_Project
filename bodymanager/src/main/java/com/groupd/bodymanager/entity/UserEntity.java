@@ -29,7 +29,7 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userCode;
+    private Integer userCode;
     // @Id
     private String userEmail;
     private String userPassword;
