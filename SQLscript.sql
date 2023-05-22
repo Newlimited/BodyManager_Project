@@ -135,6 +135,9 @@ INSERt INTO menu_detail(menu_code, time, monday, tuesday, wednesday, thursday, f
 INSERt INTO menu_detail(menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday) values ('C','점심', '가2', '나2', '다2', '라2','마2','바2','사2'); 
 INSERt INTO menu_detail(menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday) values ('C','저녁', '가2', '나2', '다2', '라2','마2','바2','사2'); 
 
+INSERT INTO exercise_routine VALUES (1, "routine 1", "routine 2", "routine 3");
+INSERT INTO exercise_routine VALUES (2, "routine 1", "routine 2", "routine 3");
+INSERT INTO exercise_routine VALUES (3, "routine 1", "routine 2", "routine 3");
 
 select * from excersice_routine;
 

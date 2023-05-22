@@ -1,7 +1,6 @@
 package com.groupd.bodymanager.dto.response.user;
 
 import com.groupd.bodymanager.dto.response.ResponseDto;
-import com.groupd.bodymanager.entity.ManagerEntity;
 import com.groupd.bodymanager.entity.UserEntity;
 
 import lombok.AllArgsConstructor;
