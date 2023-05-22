@@ -43,5 +43,4 @@ public interface MenuDetailRepository extends JpaRepository<MenuDetailEntity,Int
     public List<MenuListResultSet> getMenuDetailList();
 
 
-
 }
