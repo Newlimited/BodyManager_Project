@@ -48,7 +48,7 @@ public class MenuController {
 
     //*3.유저의 식단 정보를 조회 */
     @GetMapping("/{userCode}")
-    public ResponseEntity<? super GetUserMenuResponseDto> getMenuDetailList(
+    public ResponseEntity<? super GetUserMenuResponseDto> getMenu(
         @PathVariable("userCode") Integer userCode
     ) {
         ResponseEntity<? super GetUserMenuResponseDto> response = menuService.getMenu(userCode);

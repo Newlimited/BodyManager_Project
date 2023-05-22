@@ -1,6 +1,7 @@
 package com.groupd.bodymanager.entity.resultSet;
 
 public interface MenuListResultSet {
+    public int getMenuIndex();
     public String getMenuCode();
     public String getTime();
     public String getMonday();
