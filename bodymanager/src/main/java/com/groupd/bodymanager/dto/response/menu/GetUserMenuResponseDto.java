@@ -16,48 +16,48 @@ import lombok.NoArgsConstructor;
 public class GetUserMenuResponseDto extends ResponseDto{
     private int userCode;
     private String menuCode;
-    private List<MenuDetail> menuDetailList;
+    private MenuDetailEntity menuDetailEntity;
 
-    public GetUserMenuResponseDto(UserMenuSelect userMenuSelect,List<MenuDetailEntity> menuDetailEntities) {
+    public GetUserMenuResponseDto(UserMenuSelect userMenuSelect,MenuDetailEntity menuDetailEntitity) {
         super("SU","Success");
         this.userCode = userMenuSelect.getUserCode();
         this.menuCode = userMenuSelect.getMenuCode();
-        this.menuDetailList = MenuDetail.createList(menuDetailEntities);
+
 
         }
     }
 
 
-@Data
-@AllArgsConstructor
-class MenuDetail {
-    private String time;
-    private String monday;
-    private String tuesday;
-    private String wednesday;
-    private String thursday;
-    private String friday;
-    private String saturday;
-    private String sunday;
+// @Data
+// @AllArgsConstructor
+// class MenuDetail {
+//     private String time;
+//     private String monday;
+//     private String tuesday;
+//     private String wednesday;
+//     private String thursday;
+//     private String friday;
+//     private String saturday;
+//     private String sunday;
 
-    MenuDetail(MenuDetailEntity menuDetailEntity) {
-        this.time = menuDetailEntity.getTime();
-        this.monday = menuDetailEntity.getMonday();
-        this.tuesday = menuDetailEntity.getTuesday();
-        this.wednesday = menuDetailEntity.getWednesday();
-        this.thursday = menuDetailEntity.getThursday();
-        this.friday = menuDetailEntity.getFriday();;
-        this.saturday = menuDetailEntity.getSaturday();
-    }
+//     MenuDetail(MenuDetailEntity menuDetailEntity) {
+//         this.time = menuDetailEntity.getTime();
+//         this.monday = menuDetailEntity.getMonday();
+//         this.tuesday = menuDetailEntity.getTuesday();
+//         this.wednesday = menuDetailEntity.getWednesday();
+//         this.thursday = menuDetailEntity.getThursday();
+//         this.friday = menuDetailEntity.getFriday();;
+//         this.saturday = menuDetailEntity.getSaturday();
+//     }
 
-    static List<MenuDetail> createList(List<MenuDetailEntity> menuDetailEntities) {
-        List<MenuDetail> menuDetailList = new ArrayList<>();
-        for(MenuDetailEntity menuDetailEntity : menuDetailEntities) {
-            MenuDetail menuDetail = new MenuDetail(menuDetailEntity);
-            menuDetailList.add(menuDetail);
-        }
-        return menuDetailList;
+//     static List<MenuDetail> createList(List<MenuDetailEntity> menuDetailEntities) {
+//         List<MenuDetail> menuDetailList = new ArrayList<>();
+//         for(MenuDetailEntity menuDetailEntity : menuDetailEntities) {
+//             MenuDetail menuDetail = new MenuDetail(menuDetailEntity);
+//             menuDetailList.add(menuDetail);
+//         }
+//         return menuDetailList;
 
-    }
+//     }
     
-}
+// }
