@@ -55,12 +55,11 @@ INSERT INTO exercise_routine VALUES (3, "routine 3-1", "routine 2", "routine 3")
 
 
 # MENU
-<<<<<<< HEAD
+
 INSERT INTO menu value ("A");
 INSERT INTO menu value ("B");
 INSERT INTO menu value ("C");
-=======
->>>>>>> 9b9da7ad6b8c4befa8609d6eca19c12cf2736dbf
+
 
 INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
 VALUES ("A", "아침", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu", "S-menu");
@@ -84,12 +83,6 @@ INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, 
 VALUES ("C", "저녁", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu", "S-menu");
 
 
-
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 9b9da7ad6b8c4befa8609d6eca19c12cf2736dbf
 SELECT * FROM bodymanager.menu_detail;
 select U.user_code, M.menu_code, M.time,M.monday,M.tuesday,M.wednesday, M.thursday, M.friday,M.saturday,M.sunday
 From user U, menu_detail M, user_menu_select US
