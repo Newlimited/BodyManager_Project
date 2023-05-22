@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.groupd.bodymanager.dto.response.ResponseDto;
-import com.groupd.bodymanager.entity.MenuEntity;
-import com.groupd.bodymanager.entity.UserMenuSelect;
+
 import com.groupd.bodymanager.entity.resultSet.MenuListResultSet;
 
 import lombok.AllArgsConstructor;
