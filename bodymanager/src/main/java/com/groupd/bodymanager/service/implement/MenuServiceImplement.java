@@ -99,8 +99,8 @@ public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode) 
         if(userCode == null) return CustomResponse.validationFaild();
         UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
         String menuCode = userMenuSelect.getMenuCode();
-        List<MenuDetailEntity> menuDetailList = menuDetailRepository.findByMenuCode(menuCode);
-        body = new GetUserMenuResponseDto(userMenuSelect, menuDetailList);
+        List<MenuDetailEntity> menuDetailEntities = menuDetailRepository.findByMenuCode(menuCode);
+        body = new GetUserMenuResponseDto(userMenuSelect, menuDetailEntities);
 
     } catch (Exception exception) {
         exception.printStackTrace();
