@@ -9,6 +9,41 @@ INSERT INTO excersice_routine values(1, "image1", "image2", "image3");
 select U.user_code, M.manager_email from user U, manager M
 where U.user_email = M.manager_email;
 
+CREATE VIEW manager_info AS(
+SELECT U.user_code, U.user_email,
+U.user_nickname, U.user_age, U.user_phone_number
+FROM user U, manager M 
+WHERE U.user_email = M.manager_email
+ORDER BY user_code ASC
+);
+
+UPDATE mileage 
+SET 
+    attendance_date = '2023-05-21'
+    where user_code = 4;
+    
+    commit ;
+
+select * from manager_info;
+
+CREATE VIEW board_view AS (
+SELECT
+B.board_number AS boardNumber,
+M.manager_email AS boardWriterEmail,
+B.board_writer_nickname AS boardWriterNickname,
+B.board_title AS title,
+B.board_content AS boardContent,
+B.board_image_url AS boardImageUrl,
+B.view_count AS viewCount,
+B.board_write_datetime AS boardWriteDatetime
+From board B, manager M, user U
+WHERE B.board_writer_email = M.manager_email
+AND M.manager_email = U.user_email
+ORDER BY B.board_number DESC
+);
+SELECT * from board_view ;
+
+
 SELECT
 B.board_number AS boardNumber,
 M.manager_email AS boardWriterEmail,
@@ -46,32 +81,30 @@ D.user_code DESC
 SELECT * FROM diet_menu;
 
 
-SELECT @@sql_mode;
 
-USE syh_board;
 
-SELECT board_number;
 
-SELECT 
-B.board_number As 게시물번호,
-B.title AS boardTitle,
-B.content As boardContent,
-B.board_image_url AS boardImageUrl,
-B.write_datetime As boardWriteDatetime,
-B.view_count As viewCount,
-U.email As boardWriterEmail,
-U.nickname AS boardWriterNickname,
-U.profile_image_url AS boardWriterProfileImageUrl,
-count(DISTINCT C.comment_number) As commentCount,
-count(DISTINCT L.user_email) AS likeCount
 
-from Board B, Comment C, Liky L, User U
-where B.board_number = C.board_number
-AND B.writer_email = U.email 
-GROUP BY B.board_number 
-ORDER BY B.write_datetime DESC;
+-- SELECT 
+-- B.board_number As 게시물번호,
+-- B.title AS boardTitle,
+-- B.content As boardContent,
+-- B.board_image_url AS boardImageUrl,
+-- B.write_datetime As boardWriteDatetime,
+-- B.view_count As viewCount,
+-- U.email As boardWriterEmail,
+-- U.nickname AS boardWriterNickname,
+-- U.profile_image_url AS boardWriterProfileImageUrl,
+-- count(DISTINCT C.comment_number) As commentCount,
+-- count(DISTINCT L.user_email) AS likeCount
 
-Drop table menu;
+-- from Board B, Comment C, Liky L, User U
+-- where B.board_number = C.board_number
+-- AND B.writer_email = U.email 
+-- GROUP BY B.board_number 
+-- ORDER BY B.write_datetime DESC;
+
+
 
 CREATE VIEW diet_menu AS (
 SELECT
