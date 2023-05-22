@@ -33,23 +33,26 @@ public class BodyInfoServiceImplement implements BodyInfoService {
 
         ResponseDto body = null;
         
-        int userCode = dto.getUserCode();
+        Integer userCode = dto.getUserCode();
 
+        double heightForBmiIndex = dto.getHeight()/100 ;
+        double weightForBmiIndex = dto.getWeight();
+        double calculateForBmiIndex = weightForBmiIndex/(heightForBmiIndex*heightForBmiIndex);
+        double decimalPoint = Math.round(calculateForBmiIndex*100)/100.0;
+        BodyInfoEntity bodyInfoEntity = new BodyInfoEntity(dto);
+        bodyInfoEntity.setBmiIndex(decimalPoint);
+        Double bmiReult = bodyInfoEntity.getBmiIndex();
+       
         try {
+            
             // 존재하지않는 유저코드
             UserEntity existeduserCode = userRepository.findByUserCode(userCode);
             if(existeduserCode == null) {
-                ResponseDto errorBody = new ResponseDto("NC", "Non-Existent User Code");
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
+                
+                return CustomResponse.notExistUserCode();
             }
             // kg/㎡. BMI가 18.5 이하면 저체중 ／ 18.5 ~ 22.9 사이면 정상 ／ 23.0 ~ 24.9 사이면 과체중 ／ 25.0 / 비만 
-            double heightForBmiIndex = dto.getHeight()/100 ;
-            double weightForBmiIndex = dto.getWeight();
-            double calculateForBmiIndex = weightForBmiIndex/(heightForBmiIndex*heightForBmiIndex);
-            double test1 = Math.round(calculateForBmiIndex);
-            BodyInfoEntity bodyInfoEntity = new BodyInfoEntity(dto);
-            bodyInfoEntity.setBmiIndex(test1);
-            Double bmiReult = bodyInfoEntity.getBmiIndex();
+
             if(bmiReult <= 18.5 ) {
                 bodyInfoEntity.setBmiResult("저체중");
             }
@@ -94,7 +97,6 @@ public class BodyInfoServiceImplement implements BodyInfoService {
 
             UserEntity userEntity = userRepository.findByUserCode(userCode);
             body = new GetBodyInfoResponseDto(bodyInfoEntity, userEntity);
-            // 미완성
 
         } catch (Exception exception) {
             // 데이터베이스 오류
@@ -131,8 +133,8 @@ public class BodyInfoServiceImplement implements BodyInfoService {
             double heightForBmiIndex = dto.getHeight()/100 ;
             double weightForBmiIndex = dto.getWeight();
             double calculateForBmiIndex = weightForBmiIndex/(heightForBmiIndex*heightForBmiIndex);
-            double test1 = Math.round(calculateForBmiIndex);
-            bodyInfoEntity.setBmiIndex(test1);
+            double decimalPoint = Math.round(calculateForBmiIndex*100)/100.0;
+            bodyInfoEntity.setBmiIndex(decimalPoint);
             Double bmiReult = bodyInfoEntity.getBmiIndex();
             if(bmiReult <= 18.5 ) {
                 bodyInfoEntity.setBmiResult("저체중");

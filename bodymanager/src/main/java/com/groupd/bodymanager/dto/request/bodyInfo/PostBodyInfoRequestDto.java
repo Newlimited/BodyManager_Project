@@ -1,5 +1,6 @@
 package com.groupd.bodymanager.dto.request.bodyInfo;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -13,12 +14,12 @@ public class PostBodyInfoRequestDto {
     @NotNull
     private Integer userCode;
     @NotNull
-    private double height;
+    private Double height;
     @NotNull
-    private double weight;
+    private Double weight;
     @NotNull
-    private double muscleMass;
+    private Double muscleMass;
     @NotNull
-    private double fatRate;
+    private Double fatRate;
     
 }
