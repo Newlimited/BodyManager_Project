@@ -35,9 +35,9 @@ SELECT * from board_view ;
 
 
 #EXCERCISE_ROUTINE
-INSERT INTO exercise_routine VALUES (1, "routine 1", "routine 2", "routine 3");
-INSERT INTO exercise_routine VALUES (2, "routine 1", "routine 2", "routine 3");
-INSERT INTO exercise_routine VALUES (3, "routine 1", "routine 2", "routine 3");
+INSERT INTO exercise_routine VALUES (1, "routine 1-1", "routine 2", "routine 3");
+INSERT INTO exercise_routine VALUES (2, "routine 2-1", "routine 2", "routine 3");
+INSERT INTO exercise_routine VALUES (3, "routine 3-1", "routine 2", "routine 3");
 
 
 
@@ -55,6 +55,34 @@ INSERT INTO exercise_routine VALUES (3, "routine 1", "routine 2", "routine 3");
 
 
 # MENU
+INSERT INTO menu value ("A");
+INSERT INTO menu value ("B");
+INSERT INTO menu value ("C");
+
+INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
+VALUES ("A", "아침", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu", "S-menu");
+INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
+VALUES ("A", "점심", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu", "S-menu");
+INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
+VALUES ("A", "저녁", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu", "S-menu");
+
+INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
+VALUES ("B", "아침", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu", "S-menu");
+INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
+VALUES ("B", "점심", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu", "S-menu");
+INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
+VALUES ("B", "저녁", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu", "S-menu");
+
+INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
+VALUES ("C", "아침", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu", "S-menu");
+INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
+VALUES ("C", "점심", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu", "S-menu");
+INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
+VALUES ("C", "저녁", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu", "S-menu");
+
+
+
+
 
 
 
