@@ -22,7 +22,7 @@ public interface MenuDetailRepository extends JpaRepository<MenuDetailEntity,Int
         "* FROM user_select_menu ",
         nativeQuery = true
     )
-        public List<MenuDetailEntity> getMenuDetail();
+        public List<MenuDetailEntity> getMenuDetail(String menuCode);
 
     @Query(value =
         "SELECT "
