@@ -232,7 +232,7 @@ public class UserServiceImplement implements UserService {
                 userEntity.setUserPassword(userPassword); // 비밀번호 변경
                 // 나머지는 변경된 사항 저장
             }
-          
+            
 
             boolean isExistNickname = userRepository.existsByUserNickname(userNickname);
             boolean isChangedNickname = userEntity.getUserNickname().equals(userNickname);
