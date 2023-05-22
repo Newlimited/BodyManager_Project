@@ -16,13 +16,12 @@ import lombok.NoArgsConstructor;
 public class GetUserMenuResponseDto extends ResponseDto{
     private Integer userCode;
     private String menuCode;
-    private List<MenuDetail> menuDetailList;
-
+    private List<MenuDetail> menuList;
     public GetUserMenuResponseDto(UserMenuSelect userMenuSelect,List<MenuDetailEntity> menuDetailList) {
         super("SU","Success");
         this.userCode = userMenuSelect.getUserCode();
         this.menuCode = userMenuSelect.getMenuCode();
-        this.menuDetailList = MenuDetail.createList(menuDetailList);
+        this.menuList = MenuDetail.createList(menuDetailList);
 
         }
     }
