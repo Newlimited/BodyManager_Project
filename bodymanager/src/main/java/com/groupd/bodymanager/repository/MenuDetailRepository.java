@@ -16,6 +16,14 @@ public interface MenuDetailRepository extends JpaRepository<MenuDetailEntity,Int
 
     public List<MenuDetailEntity> findByMenuCode(String menuCode);
 
+    @Query(
+        value = 
+        "SELECT " +
+        "* FROM user_select_menu ",
+        nativeQuery = true
+    )
+        public List<MenuDetailEntity> getMenuDetail(String menuCode);
+
     @Query(value =
         "SELECT "
         +"MD.menu_code AS menuCode, "
@@ -33,5 +41,7 @@ public interface MenuDetailRepository extends JpaRepository<MenuDetailEntity,Int
         nativeQuery = true
     )
     public List<MenuListResultSet> getMenuDetailList();
+
+
 
 }

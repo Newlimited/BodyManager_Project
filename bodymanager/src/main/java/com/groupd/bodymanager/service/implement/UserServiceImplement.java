@@ -3,8 +3,6 @@ package com.groupd.bodymanager.service.implement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -66,17 +64,17 @@ public class UserServiceImplement implements UserService {
         int userAge = dto.getUserAge();
 
         try {
-            // TODO 존재하는 유저 이메일
+            // 존재하는 유저 이메일
             boolean existedUserEmail = userRepository.existsByUserEmail(userEmail);
             if (existedUserEmail)
                 return CustomResponse.existUserEmail();
 
-            // TODO 존재하는 유저 닉네임
+            // 존재하는 유저 닉네임
             boolean existedUserNickname = userRepository.existsByUserNickname(userNickname);
             if (existedUserNickname)
                 return CustomResponse.existUserNickname();
 
-            // TODO 존재하는 유저 휴대전화 번호
+            // 존재하는 유저 휴대전화 번호
             boolean existedUserPhoneNumber = userRepository.existsByUserPhoneNumber(userPhoneNumber);
             if (existedUserPhoneNumber)
                 return CustomResponse.existUserPhoneNumber();
@@ -114,12 +112,12 @@ public class UserServiceImplement implements UserService {
         String userPassword = dto.getUserPassword();
 
         try {
-            // TODO 로그인 실패 (이메일 x)
+            // 로그인 실패 (이메일 x)
             UserEntity userEntity = userRepository.findByUserEmail(userEmail);
             if (userEntity == null)
                 return CustomResponse.signInFailed();
 
-            // TODO 로그인 실패 (패스워드 x)
+            // 로그인 실패 (패스워드 x)
             String encordedPassword = userEntity.getUserPassword();
             boolean equaledPassword = passwordEncoder.matches(userPassword, encordedPassword);
             ;
@@ -143,12 +141,12 @@ public class UserServiceImplement implements UserService {
         int addCode;
 
         try {
-            // TODO 이메일 일치 확인 - 유저이메일에서 확인하는거고...
+            // 이메일 일치 확인 - 유저이메일에서 확인하는거고...
             boolean isExistEmail = userRepository.existsByUserEmail(addEmail);
             if (!isExistEmail) {
                 return CustomResponse.notExistUserEmail();
             } // 오류 반환 <이메일 없숨!>
-              // TODO 이메일 중복 확인 - 매니저이메일 리스트 안에서 확인하는것..
+              // 이메일 중복 확인 - 매니저이메일 리스트 안에서 확인하는것..
             boolean isAlreadyAdded = managerRepository.existsByManagerEmail(addEmail);
             if (isAlreadyAdded) {
                 return CustomResponse.existUserEmail();// 오류반환 <이메일 중복>
@@ -232,7 +230,7 @@ public class UserServiceImplement implements UserService {
                 userEntity.setUserPassword(userPassword); // 비밀번호 변경
                 // 나머지는 변경된 사항 저장
             }
-          
+            
 
             boolean isExistNickname = userRepository.existsByUserNickname(userNickname);
             boolean isChangedNickname = userEntity.getUserNickname().equals(userNickname);

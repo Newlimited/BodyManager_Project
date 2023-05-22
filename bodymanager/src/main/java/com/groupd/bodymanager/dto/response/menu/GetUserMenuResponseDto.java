@@ -7,22 +7,57 @@ import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.entity.MenuDetailEntity;
 import com.groupd.bodymanager.entity.UserMenuSelect;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 public class GetUserMenuResponseDto extends ResponseDto{
-    private Integer userCode;
+    private int userCode;
     private String menuCode;
-    private List<MenuDetailEntity> menuDetailList;
+    private List<MenuDetail> menuDetailList;
 
-    public GetUserMenuResponseDto(UserMenuSelect userMenuSelect,List<MenuDetailEntity> menuDetailList) {
+    public GetUserMenuResponseDto(UserMenuSelect userMenuSelect,List<MenuDetailEntity> menuDetailEntities) {
         super("SU","Success");
         this.userCode = userMenuSelect.getUserCode();
         this.menuCode = userMenuSelect.getMenuCode();
-        this.menuDetailList = menuDetailList;
+        this.menuDetailList = MenuDetail.createList(menuDetailEntities);
 
         }
     }
 
+
+@Data
+@AllArgsConstructor
+class MenuDetail {
+    private String time;
+    private String monday;
+    private String tuesday;
+    private String wednesday;
+    private String thursday;
+    private String friday;
+    private String saturday;
+    private String sunday;
+
+    MenuDetail(MenuDetailEntity menuDetailEntity) {
+        this.time = menuDetailEntity.getTime();
+        this.monday = menuDetailEntity.getMonday();
+        this.tuesday = menuDetailEntity.getTuesday();
+        this.wednesday = menuDetailEntity.getWednesday();
+        this.thursday = menuDetailEntity.getThursday();
+        this.friday = menuDetailEntity.getFriday();;
+        this.saturday = menuDetailEntity.getSaturday();
+    }
+
+    static List<MenuDetail> createList(List<MenuDetailEntity> menuDetailEntities) {
+        List<MenuDetail> menuDetailList = new ArrayList<>();
+        for(MenuDetailEntity menuDetailEntity : menuDetailEntities) {
+            MenuDetail menuDetail = new MenuDetail(menuDetailEntity);
+            menuDetailList.add(menuDetail);
+        }
+        return menuDetailList;
+
+    }
+    
+}

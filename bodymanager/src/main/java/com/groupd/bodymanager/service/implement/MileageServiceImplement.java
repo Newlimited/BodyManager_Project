@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -35,18 +35,10 @@ public class MileageServiceImplement implements MileageService {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String attendanceDate = simpleDateFormat.format(now);
         Integer userCode = dto.getUserCode();
-        System.out.println(attendanceDate);        
+        
         try {
-            MileageEntity mileageEntity = mileageRepository.findByUserCode(userCode);
-            String attendanceStatusToday = mileageEntity.getAttendanceDate();
+         
             
-            boolean isNull = attendanceStatusToday == null;
-            if (!isNull) {
-                boolean isOtherDay = attendanceStatusToday.equals(attendanceDate);
-                if (!isOtherDay) {
-                    mileageEntity.setAttendanceToday(false);
-                }
-            }
             // 존재하지 않는 유저코드 반환
             UserEntity existeduserCode = userRepository.findByUserCode(userCode);
             if (existeduserCode == null) {
@@ -59,6 +51,16 @@ public class MileageServiceImplement implements MileageService {
             
             if(!isMatchUserCode){
                 return CustomResponse.noPermission();
+            }
+            MileageEntity mileageEntity = mileageRepository.findByUserCode(userCode);
+            String attendanceStatusToday = mileageEntity.getAttendanceDate();
+            boolean isNull = attendanceStatusToday == null;
+            if (!isNull) {
+                boolean isOtherDay = attendanceStatusToday.equals(attendanceDate);
+                if (!isOtherDay) {
+                    mileageEntity.setAttendanceToday(false);
+                    mileageRepository.save(mileageEntity);
+                }
             }
 
             // 이미 출석했는지 확인

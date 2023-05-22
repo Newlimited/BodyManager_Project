@@ -13,12 +13,12 @@ public class PatchBodyInfoRequestDto {
     @NotNull
     private Integer userCode;
     @NotNull
-    private double height;
+    private Double height;
     @NotNull
-    private double weight;
+    private Double weight;
     @NotNull
-    private double muscleMass;
+    private Double muscleMass;
     @NotNull
-    private double fatRate;
+    private Double fatRate;
 
 }
