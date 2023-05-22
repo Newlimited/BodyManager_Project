@@ -32,7 +32,7 @@ public class WebSecurityConfig {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeHttpRequests().antMatchers("/api/v2/auth/**").permitAll()
             .antMatchers("/api/v1/board/list", "/api/v1/board/top3").permitAll()
-            .antMatchers(HttpMethod.GET, "/api/v1/board/*","/api/v1/user/*","/api/v1/exercise-routine/*").permitAll()
+            .antMatchers(HttpMethod.GET, "/api/v1/board/*","/api/v1/user/*","/api/v1/exercise-routine/*","/api/v1/menu/*").permitAll()
             .antMatchers(HttpMethod.POST, "/api/v1/user/sign-*").permitAll()
             .anyRequest().authenticated();
 

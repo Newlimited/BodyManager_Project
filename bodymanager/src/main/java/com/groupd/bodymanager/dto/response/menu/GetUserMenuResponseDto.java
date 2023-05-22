@@ -16,21 +16,23 @@ import lombok.NoArgsConstructor;
 public class GetUserMenuResponseDto extends ResponseDto{
     private int userCode;
     private String menuCode;
-    private List<MenuDetail> menuDetailList;
+    private List<SelectMenuDetail> menuDetailList;
 
-    public GetUserMenuResponseDto(UserMenuSelect userMenuSelect,List<MenuDetailEntity> menuDetailEntities) {
-        super("SU","Success");
+    public GetUserMenuResponseDto(UserMenuSelect userMenuSelect,
+            List<MenuDetailEntity> menuDetailEntities) {
+        super("SU", "Success");
         this.userCode = userMenuSelect.getUserCode();
         this.menuCode = userMenuSelect.getMenuCode();
-        this.menuDetailList = MenuDetail.createList(menuDetailEntities);
-
-        }
+        SelectMenuDetail menuDetail = new SelectMenuDetail();
+        
+        this.menuDetailList = menuDetail.seletedMenuDetail(menuDetailEntities);
     }
-
-
+}
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-class MenuDetail {
+class SelectMenuDetail {
+
     private String time;
     private String monday;
     private String tuesday;
@@ -40,24 +42,25 @@ class MenuDetail {
     private String saturday;
     private String sunday;
 
-    MenuDetail(MenuDetailEntity menuDetailEntity) {
+    SelectMenuDetail(MenuDetailEntity menuDetailEntity) {
+
         this.time = menuDetailEntity.getTime();
         this.monday = menuDetailEntity.getMonday();
         this.tuesday = menuDetailEntity.getTuesday();
         this.wednesday = menuDetailEntity.getWednesday();
         this.thursday = menuDetailEntity.getThursday();
-        this.friday = menuDetailEntity.getFriday();;
+        this.friday = menuDetailEntity.getFriday();
         this.saturday = menuDetailEntity.getSaturday();
+        this.sunday = menuDetailEntity.getSunday();
     }
+    List<SelectMenuDetail> seletedMenuDetail(List<MenuDetailEntity> menuDetailEntities){
+   
+        List<SelectMenuDetail> menuDetailList = new ArrayList<>();
 
-    static List<MenuDetail> createList(List<MenuDetailEntity> menuDetailEntities) {
-        List<MenuDetail> menuDetailList = new ArrayList<>();
-        for(MenuDetailEntity menuDetailEntity : menuDetailEntities) {
-            MenuDetail menuDetail = new MenuDetail(menuDetailEntity);
-            menuDetailList.add(menuDetail);
-        }
-        return menuDetailList;
-
+    for (MenuDetailEntity menuDetailEntity : menuDetailEntities) {
+        SelectMenuDetail menuDetail = new SelectMenuDetail(menuDetailEntity);
+        menuDetailList.add(menuDetail);
     }
-    
+    return menuDetailList;
+}
 }
