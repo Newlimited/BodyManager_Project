@@ -59,6 +59,7 @@ public class MileageServiceImplement implements MileageService {
                 boolean isOtherDay = attendanceStatusToday.equals(attendanceDate);
                 if (!isOtherDay) {
                     mileageEntity.setAttendanceToday(false);
+                    mileageRepository.save(mileageEntity);
                 }
             }
 
