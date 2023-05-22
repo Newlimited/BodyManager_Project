@@ -32,34 +32,43 @@ public class MileageServiceImplement implements MileageService {
 
         ResponseDto body = null;
         Date now = new Date();
-        SimpleDateFormat simpleDateFormat =
-        new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String attendanceDate = simpleDateFormat.format(now);
-        
-        
-        int userCode = dto.getUserCode();
-        UserEntity userEntity = userRepository.findByUserCode(userCode);
-        
+        Integer userCode = dto.getUserCode();
+        System.out.println(attendanceDate);        
         try {
-            // 존재하지 않는 유저코드 반환
-            // UserEntity existeduserCode = userRepository.findByUserCode(userCode);
-            if(userEntity == null) {
-                ResponseDto errorBody = new ResponseDto("NC", "Non-Existent User Code");
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
-            }
+         
             
+            // 존재하지 않는 유저코드 반환
+            UserEntity existeduserCode = userRepository.findByUserCode(userCode);
+            if (existeduserCode == null) {
+                return CustomResponse.notExistUserCode();
+            }
+            // 권한없음
+            UserEntity userEntity = userRepository.findByUserEmail(userEmail);
+            Integer logInUserCode = userEntity.getUserCode();
+            boolean isMatchUserCode = logInUserCode.equals(userCode);
+            
+            if(!isMatchUserCode){
+                return CustomResponse.noPermission();
+            }
             MileageEntity mileageEntity = mileageRepository.findByUserCode(userCode);
+            String attendanceStatusToday = mileageEntity.getAttendanceDate();
+            boolean isNull = attendanceStatusToday == null;
+            if (!isNull) {
+                boolean isOtherDay = attendanceStatusToday.equals(attendanceDate);
+                if (!isOtherDay) {
+                    mileageEntity.setAttendanceToday(false);
+                }
+            }
+
             // 이미 출석했는지 확인
             // boolean attendanceResult = dto.isAttendanceResult();
             MileageEntity attendanceStatus = mileageRepository.findByUserCodeAndAttendanceToday(userCode, true);
-            boolean attendanceToday = attendanceStatus != null && attendanceStatus.isAttendanceToday();
-            // boolean isAlreadyAttend = attendanceResult == !attendanceToday; // 둘다 T 면 T다. 
-            // 출석을 하면 T로 된다. F가 됨, = 같음 -> T가됨. ==>>> 출석한 상태
-            // F가되면 출석을 하지 않은 상태.
-            if(attendanceToday) {
-                ResponseDto errorBody = new ResponseDto("AT", "Already Attended Today");
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
-            } 
+            if(attendanceStatus != null){
+                return CustomResponse.alreadyAtteneded();
+            
+        }
                         
             // 출석 및 마일리지 +10
             mileageEntity.setAttendanceToday(true);

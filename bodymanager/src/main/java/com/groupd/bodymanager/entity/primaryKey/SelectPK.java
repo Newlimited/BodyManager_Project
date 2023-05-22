@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class SelectPK implements Serializable{
     @Column(name ="user_code")
-    private int userCode;
+    private Integer userCode;
     @Column(name ="menu_code")
     private String menuCode;
 }

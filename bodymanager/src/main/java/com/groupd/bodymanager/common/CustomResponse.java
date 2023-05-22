@@ -94,6 +94,11 @@ public class CustomResponse {
         ResponseDto errorBody = new ResponseDto("EM", "Adjusted MenuCode Equal Current MenuCode");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
     }
+    public static ResponseEntity<ResponseDto> alreadyAtteneded() {
+        ResponseDto errorBody = new ResponseDto("AT", "Already Attended Today");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
+    }
+
 
     public static ResponseEntity<ResponseDto> noPermission() {
 

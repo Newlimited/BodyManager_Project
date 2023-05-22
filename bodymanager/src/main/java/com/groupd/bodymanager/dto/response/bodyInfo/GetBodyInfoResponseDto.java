@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetBodyInfoResponseDto extends ResponseDto{
-    private int userCode;
+    private Integer userCode;
     private String userEmail;
     private double height;
     private double weight;

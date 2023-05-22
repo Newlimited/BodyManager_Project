@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class GetUserMenuResponseDto extends ResponseDto{
-    private int userCode;
+    private Integer userCode;
     private String menuCode;
     private List<MenuDetail> menuDetailList;
 
