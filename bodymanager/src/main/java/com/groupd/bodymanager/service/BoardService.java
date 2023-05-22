@@ -1,6 +1,5 @@
 package com.groupd.bodymanager.service;
 import com.groupd.bodymanager.dto.response.board.GetBoardResponseDto;
-import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.dto.response.board.GetBoardListResponseDto;
 import org.springframework.http.ResponseEntity;
 

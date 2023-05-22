@@ -2,13 +2,12 @@ package com.groupd.bodymanager.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
 
 
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

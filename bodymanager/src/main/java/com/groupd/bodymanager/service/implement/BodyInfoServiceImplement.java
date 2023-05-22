@@ -1,7 +1,5 @@
 package com.groupd.bodymanager.service.implement;
 
-import java.text.DecimalFormat;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

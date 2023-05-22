@@ -1,6 +1,6 @@
 package com.groupd.bodymanager.dto.request.bodyInfo;
 
-import javax.validation.constraints.NotBlank;
+
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
