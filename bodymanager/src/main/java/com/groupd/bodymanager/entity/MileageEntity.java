@@ -29,7 +29,7 @@ public class MileageEntity {
     public MileageEntity(PostMileageRequestDto dto, UserEntity userEntity) {
         Date now = new Date();
         SimpleDateFormat simpleDateFormat = 
-            new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            new SimpleDateFormat("yyyy-MM-dd");
         String attendanceDate = simpleDateFormat.format(now);
 
         this.userCode = userEntity.getUserCode();
