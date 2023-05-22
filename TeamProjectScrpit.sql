@@ -55,7 +55,6 @@ INSERT INTO exercise_routine VALUES (3, "routine 3-1", "routine 2", "routine 3")
 
 
 # MENU
-<<<<<<< HEAD
 INSERT INTO menu value ("A");
 INSERT INTO menu value ("B");
 INSERT INTO menu value ("C");
@@ -83,8 +82,6 @@ VALUES ("C", "저녁", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu
 
 
 
-
-=======
 SELECT * FROM bodymanager.menu_detail;
 select U.user_code, M.menu_code, M.time,M.monday,M.tuesday,M.wednesday, M.thursday, M.friday,M.saturday,M.sunday
 From user U, menu_detail M, user_menu_select US
