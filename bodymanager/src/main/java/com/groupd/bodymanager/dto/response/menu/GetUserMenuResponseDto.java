@@ -14,14 +14,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class GetUserMenuResponseDto extends ResponseDto{
-    private Integer userCode;
+    private int userCode;
     private String menuCode;
-    private List<MenuDetail> menuList;
-    public GetUserMenuResponseDto(UserMenuSelect userMenuSelect,List<MenuDetailEntity> menuDetailList) {
+    private List<MenuDetail> menuDetailList;
+
+    public GetUserMenuResponseDto(UserMenuSelect userMenuSelect,List<MenuDetailEntity> menuDetailEntities) {
         super("SU","Success");
         this.userCode = userMenuSelect.getUserCode();
         this.menuCode = userMenuSelect.getMenuCode();
-        this.menuList = MenuDetail.createList(menuDetailList);
+        this.menuDetailList = MenuDetail.createList(menuDetailEntities);
 
         }
     }
@@ -50,12 +51,12 @@ class MenuDetail {
     }
 
     static List<MenuDetail> createList(List<MenuDetailEntity> menuDetailEntities) {
-        List<MenuDetail> menuList = new ArrayList<>();
+        List<MenuDetail> menuDetailList = new ArrayList<>();
         for(MenuDetailEntity menuDetailEntity : menuDetailEntities) {
             MenuDetail menuDetail = new MenuDetail(menuDetailEntity);
-            menuList.add(menuDetail);
+            menuDetailList.add(menuDetail);
         }
-        return menuList;
+        return menuDetailList;
 
     }
     
