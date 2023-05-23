@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MenuRequestDto {
     
-    @NotNull
-    private Integer userCode;
+   
     @NotBlank
     private String menuCode;
 

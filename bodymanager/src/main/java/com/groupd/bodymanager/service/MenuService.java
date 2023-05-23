@@ -9,9 +9,9 @@ import com.groupd.bodymanager.dto.response.menu.GetUserMenuResponseDto;;
 
 public interface MenuService {
 
-    public ResponseEntity<ResponseDto> postMenuCodeAndUserCode(MenuRequestDto dto);
+    public ResponseEntity<ResponseDto> postMenuCodeAndUserCode(String email, MenuRequestDto dto);
     public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuList();
     public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode);
-    public ResponseEntity<ResponseDto> patchMenuCode(MenuRequestDto dto);
+    public ResponseEntity<ResponseDto> patchMenuCode(String email, MenuRequestDto dto);
 
 }
