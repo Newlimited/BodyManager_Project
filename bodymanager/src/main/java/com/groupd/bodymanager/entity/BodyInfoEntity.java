@@ -5,11 +5,13 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.groupd.bodymanager.dto.request.bodyInfo.PostBodyInfoRequestDto;
+import com.groupd.bodymanager.entity.primaryKey.BodyPK;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,10 +22,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "BodyInfo")
 @Entity(name = "BodyInfo")
+@IdClass(BodyPK.class)
 public class BodyInfoEntity {
 
     @Id
     private Integer userCode;
+    @Id
+    private String recordDate;
     @NotNull
     private double height;
     @NotNull
@@ -32,8 +37,6 @@ public class BodyInfoEntity {
     private double muscleMass;
     @NotNull
     private double fatRate;
-    @NotBlank
-    private String recordDate;
     @NotNull
     private double bmiIndex;
     @NotBlank
