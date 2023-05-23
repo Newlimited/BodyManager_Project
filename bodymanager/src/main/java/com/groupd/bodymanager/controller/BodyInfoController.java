@@ -3,6 +3,7 @@ package com.groupd.bodymanager.controller;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,9 +31,10 @@ public class BodyInfoController {
     // 1.신체 정보 등록
     @PostMapping("")
     public ResponseEntity<ResponseDto> postBodyInfo(
+        @AuthenticationPrincipal String email,
         @Valid @RequestBody PostBodyInfoRequestDto requestBody
     ){
-        ResponseEntity<ResponseDto> response = bodyInfoService.postBodyInfo(requestBody);
+        ResponseEntity<ResponseDto> response = bodyInfoService.postBodyInfo(email, requestBody);
         return response;
     }
     // 2.신체 정보 조회

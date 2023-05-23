@@ -8,7 +8,7 @@ import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.bodyInfo.GetBodyInfoResponseDto;
 
 public interface BodyInfoService {
-    public ResponseEntity<ResponseDto> postBodyInfo(PostBodyInfoRequestDto dto);
+    public ResponseEntity<ResponseDto> postBodyInfo(String email, PostBodyInfoRequestDto dto);
 
     public ResponseEntity<? super GetBodyInfoResponseDto> getBodyInfo(Integer userCode);
 
