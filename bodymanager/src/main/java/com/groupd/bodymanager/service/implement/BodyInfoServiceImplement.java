@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.groupd.bodymanager.common.CustomResponse;
-import com.groupd.bodymanager.dto.request.bodyInfo.PatchBodyInfoRequestDto;
 import com.groupd.bodymanager.dto.request.bodyInfo.PostBodyInfoRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.bodyInfo.GetBodyInfoResponseDto;
@@ -27,26 +26,26 @@ public class BodyInfoServiceImplement implements BodyInfoService {
 
    
     @Override
-    public ResponseEntity<ResponseDto> postBodyInfo(PostBodyInfoRequestDto dto) {
+    public ResponseEntity<ResponseDto> postBodyInfo(String email, PostBodyInfoRequestDto dto) {
 
         ResponseDto body = null;
-        
-        Integer userCode = dto.getUserCode();
+        UserEntity userEntity = userRepository.findByUserEmail(email);
+        Integer userCode = userEntity.getUserCode();
 
         double heightForBmiIndex = dto.getHeight()/100 ;
         double weightForBmiIndex = dto.getWeight();
         double calculateForBmiIndex = weightForBmiIndex/(heightForBmiIndex*heightForBmiIndex);
         double decimalPoint = Math.round(calculateForBmiIndex*100)/100.0;
+    
         BodyInfoEntity bodyInfoEntity = new BodyInfoEntity(dto);
         bodyInfoEntity.setBmiIndex(decimalPoint);
         Double bmiReult = bodyInfoEntity.getBmiIndex();
-       
+
         try {
             
             // 존재하지않는 유저코드
             UserEntity existeduserCode = userRepository.findByUserCode(userCode);
             if(existeduserCode == null) {
-                
                 return CustomResponse.notExistUserCode();
             }
             // kg/㎡. BMI가 18.5 이하면 저체중 ／ 18.5 ~ 22.9 사이면 정상 ／ 23.0 ~ 24.9 사이면 과체중 ／ 25.0 / 비만 
@@ -63,8 +62,8 @@ public class BodyInfoServiceImplement implements BodyInfoService {
             else{
                 bodyInfoEntity.setBmiResult("비만");
             }
-                              
-            bodyInfoRepository.save(bodyInfoEntity);
+           
+                bodyInfoRepository.save(bodyInfoEntity);
 
             body = new ResponseDto("SU", "Success");
 
@@ -105,55 +104,6 @@ public class BodyInfoServiceImplement implements BodyInfoService {
 
         return ResponseEntity.status(HttpStatus.OK).body(body);
 
-    }
-
-    public ResponseEntity<ResponseDto> patchBodyInfo(PatchBodyInfoRequestDto dto) {
-
-        int userCode = dto.getUserCode();
-        double height = dto.getHeight();
-        double weight = dto.getWeight();
-        double muscleMass = dto.getMuscleMass();
-        double fatRate = dto.getFatRate();
-
-        try {
-
-            BodyInfoEntity bodyInfoEntity = bodyInfoRepository.findByUserCode(userCode);
-            if (bodyInfoEntity == null) {
-                return CustomResponse.notExistUserCode();
-            }
-
-            bodyInfoEntity.setHeight(height);
-            bodyInfoEntity.setWeight(weight);
-            bodyInfoEntity.setMuscleMass(muscleMass);
-            bodyInfoEntity.setFatRate(fatRate);
-            bodyInfoRepository.save(bodyInfoEntity);
-
-            double heightForBmiIndex = dto.getHeight()/100 ;
-            double weightForBmiIndex = dto.getWeight();
-            double calculateForBmiIndex = weightForBmiIndex/(heightForBmiIndex*heightForBmiIndex);
-            double decimalPoint = Math.round(calculateForBmiIndex*100)/100.0;
-            bodyInfoEntity.setBmiIndex(decimalPoint);
-            Double bmiReult = bodyInfoEntity.getBmiIndex();
-            if(bmiReult <= 18.5 ) {
-                bodyInfoEntity.setBmiResult("저체중");
-            }
-            else if(bmiReult <= 22.9){
-                bodyInfoEntity.setBmiResult("정상");
-            }
-            else if(bmiReult <= 24.9){
-                bodyInfoEntity.setBmiResult("과체중");
-            }
-            else{
-                bodyInfoEntity.setBmiResult("비만");
-            }
-            bodyInfoRepository.save(bodyInfoEntity);
-                
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return CustomResponse.databaseError();
-        }
-
-        return CustomResponse.successs();
     }
 
 }
