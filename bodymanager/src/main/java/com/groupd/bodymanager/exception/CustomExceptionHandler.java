@@ -5,6 +5,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import com.groupd.bodymanager.common.CustomResponse;
 import com.groupd.bodymanager.dto.response.ResponseDto;
@@ -25,4 +26,12 @@ public class CustomExceptionHandler {
 
         return CustomResponse.validationFaild();
     }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ResponseDto> handlerMethodArgumentTypeMismatchException(
+            MethodArgumentTypeMismatchException exception){
+        
+        return CustomResponse.validationFaild();
+    }
+    
 }
