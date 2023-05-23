@@ -44,10 +44,7 @@ public class BodyInfoServiceImplement implements BodyInfoService {
         BodyInfoEntity bodyInfoEntity = new BodyInfoEntity(dto);
         bodyInfoEntity.setBmiIndex(decimalPoint);
         Double bmiReult = bodyInfoEntity.getBmiIndex();
-        Date today = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String todayRecord = simpleDateFormat.format(today);
-        String recordedDate = bodyInfoEntity.getRecordDate();
+
         try {
             
             // 존재하지않는 유저코드
@@ -69,15 +66,8 @@ public class BodyInfoServiceImplement implements BodyInfoService {
             else{
                 bodyInfoEntity.setBmiResult("비만");
             }
-            if(todayRecord.equals(recordedDate)) {
+           
                 bodyInfoRepository.save(bodyInfoEntity);
-            }else {
-                BodyInfoEntity newBodyInfo = new BodyInfoEntity(dto);
-                bodyInfoRepository.save(newBodyInfo);
-
-            }
-
-            
 
             body = new ResponseDto("SU", "Success");
 
