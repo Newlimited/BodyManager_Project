@@ -44,14 +44,14 @@ public class MenuServiceImplement implements MenuService {
 
     //*1.유저코드와 메뉴코드를 등록 */
     @Override
-    public ResponseEntity<ResponseDto> postMenuCodeAndUserCode(MenuRequestDto dto) {
+    public ResponseEntity<ResponseDto> postMenuCodeAndUserCode(String email, MenuRequestDto dto) {
         String menuCode = dto.getMenuCode();
-        int userCode = dto.getUserCode();
+        UserEntity userEntity = userRepository.findByUserEmail(email);
+        Integer userCode = userEntity.getUserCode();
         try {
             //*필수 값을 입력 */
             if (menuCode == null)  return CustomResponse.validationFaild();
             //*회원엔티디에 회원정보가 없을시 반환 */
-            UserEntity userEntity = userRepository.findByUserCode(userCode);
             if (userEntity == null) return CustomResponse.notExistUserCode();
             // *존재하지 않는 메뉴코드 반환 */
             boolean existedByMenuCode = menuRepository.existsByMenuCode(menuCode);
@@ -60,8 +60,7 @@ public class MenuServiceImplement implements MenuService {
             boolean existsByUserCode = userMenuSelectRepository.existsByUserCode(userCode);
             if (existsByUserCode) return CustomResponse.existUserCode();
             // *Response 데이터를 레포지토리에 저장 */
-            MenuEntity menuEntity = menuRepository.findByMenuCode(menuCode);
-            UserMenuSelect userMenuSelect = new UserMenuSelect(userEntity, menuEntity);
+            UserMenuSelect userMenuSelect = new UserMenuSelect(userCode, menuCode);
             userMenuSelectRepository.save(userMenuSelect);
         } catch (Exception exceptione) {
             exceptione.printStackTrace();
@@ -114,8 +113,9 @@ public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode) 
 
 
     @Override // 메뉴 코드를 수정
-    public ResponseEntity<ResponseDto> patchMenuCode(MenuRequestDto dto) {
-        int userCode = dto.getUserCode();
+    public ResponseEntity<ResponseDto> patchMenuCode(String email, MenuRequestDto dto) {
+        UserEntity userEntity = userRepository.findByUserEmail(email);
+        Integer userCode = userEntity.getUserCode();
         String menuCode = dto.getMenuCode();
 
         try {

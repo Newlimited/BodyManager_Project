@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,9 +34,10 @@ public class MenuController {
     //*1.유저코드와 메뉴코드를 등록 */
     @PostMapping("")
     public ResponseEntity<ResponseDto> postMenuCodeAndUserCode(
+        @AuthenticationPrincipal String email,
         @Valid @RequestBody MenuRequestDto requestBody
         ) {
-            ResponseEntity<ResponseDto> response = menuService.postMenuCodeAndUserCode(requestBody);
+            ResponseEntity<ResponseDto> response = menuService.postMenuCodeAndUserCode(email, requestBody);
             return response;
         }
 
@@ -58,9 +60,10 @@ public class MenuController {
     //*4.유저의 메뉴코드 변경 */
     @PatchMapping("")
     public ResponseEntity<ResponseDto> patchMenuCode(
+        @AuthenticationPrincipal String email,
         @Valid @RequestBody MenuRequestDto requestBody
     ) {
-        ResponseEntity<ResponseDto> response = menuService.patchMenuCode(requestBody);
+        ResponseEntity<ResponseDto> response = menuService.patchMenuCode(email, requestBody);
         return response;
     }
 
