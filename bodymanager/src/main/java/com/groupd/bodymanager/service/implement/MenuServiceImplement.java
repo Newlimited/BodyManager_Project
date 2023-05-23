@@ -125,7 +125,7 @@ public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode) 
             UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
             if(userMenuSelect == null) return CustomResponse.notExistUserCode();
 
-            //* 수정할 메뉴코드와 현재 메뉴코드가 같을 시 반환 */
+            //* 수정된 메뉴코드와 현재 메뉴코드가 같을 시 반환 */
             if(userMenuSelect.getMenuCode().equals(menuCode)) return CustomResponse.equalMenuCode();
             userMenuSelectRepository.patchMenuCode(menuCode, userCode);
                         
