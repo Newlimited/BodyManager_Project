@@ -1,5 +1,7 @@
 package com.groupd.bodymanager.service.implement;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -87,13 +89,13 @@ public class BodyInfoServiceImplement implements BodyInfoService {
             if (userCode == null)
                 return CustomResponse.validationFaild();
             // 존재하지않는 유저코드
-            BodyInfoEntity bodyInfoEntity = bodyInfoRepository.findByUserCode(userCode);
-            if (bodyInfoEntity == null) {
+            List<BodyInfoEntity> bodyInfoEntities = bodyInfoRepository.findByUserCode(userCode);
+            if (bodyInfoEntities == null) {
                 return CustomResponse.notExistUserCode();
             }
 
             UserEntity userEntity = userRepository.findByUserCode(userCode);
-            body = new GetBodyInfoResponseDto(bodyInfoEntity, userEntity);
+            body = new GetBodyInfoResponseDto(bodyInfoEntities, userEntity);
 
         } catch (Exception exception) {
             // 데이터베이스 오류
