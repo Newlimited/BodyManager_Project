@@ -1,5 +1,8 @@
 package com.groupd.bodymanager.service.implement;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,26 +30,26 @@ public class BodyInfoServiceImplement implements BodyInfoService {
 
    
     @Override
-    public ResponseEntity<ResponseDto> postBodyInfo(PostBodyInfoRequestDto dto) {
+    public ResponseEntity<ResponseDto> postBodyInfo(String email, PostBodyInfoRequestDto dto) {
 
         ResponseDto body = null;
-        
-        Integer userCode = dto.getUserCode();
+        UserEntity userEntity = userRepository.findByUserEmail(email);
+        Integer userCode = userEntity.getUserCode();
 
         double heightForBmiIndex = dto.getHeight()/100 ;
         double weightForBmiIndex = dto.getWeight();
         double calculateForBmiIndex = weightForBmiIndex/(heightForBmiIndex*heightForBmiIndex);
         double decimalPoint = Math.round(calculateForBmiIndex*100)/100.0;
+    
         BodyInfoEntity bodyInfoEntity = new BodyInfoEntity(dto);
         bodyInfoEntity.setBmiIndex(decimalPoint);
         Double bmiReult = bodyInfoEntity.getBmiIndex();
-       
+
         try {
             
             // 존재하지않는 유저코드
             UserEntity existeduserCode = userRepository.findByUserCode(userCode);
             if(existeduserCode == null) {
-                
                 return CustomResponse.notExistUserCode();
             }
             // kg/㎡. BMI가 18.5 이하면 저체중 ／ 18.5 ~ 22.9 사이면 정상 ／ 23.0 ~ 24.9 사이면 과체중 ／ 25.0 / 비만 
@@ -63,8 +66,8 @@ public class BodyInfoServiceImplement implements BodyInfoService {
             else{
                 bodyInfoEntity.setBmiResult("비만");
             }
-                              
-            bodyInfoRepository.save(bodyInfoEntity);
+           
+                bodyInfoRepository.save(bodyInfoEntity);
 
             body = new ResponseDto("SU", "Success");
 

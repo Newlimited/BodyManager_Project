@@ -45,7 +45,7 @@ public class BodyInfoEntity {
     public BodyInfoEntity(PostBodyInfoRequestDto dto) {
         Date now = new Date();
         SimpleDateFormat simpleDateFormat = 
-            new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            new SimpleDateFormat("yyyy-MM-dd");
         String recordDate = simpleDateFormat.format(now);
 
         this.userCode = dto.getUserCode();
