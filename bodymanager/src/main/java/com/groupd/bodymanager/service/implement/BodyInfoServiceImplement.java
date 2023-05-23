@@ -44,7 +44,7 @@ public class BodyInfoServiceImplement implements BodyInfoService {
         Double bmiReult = bodyInfoEntity.getBmiIndex();
 
         try {
-            
+            // test
             // 존재하지않는 유저코드
             UserEntity existeduserCode = userRepository.findByUserCode(userCode);
             if(existeduserCode == null) {
