@@ -8,7 +8,7 @@ FROM user U, manager M
 WHERE U.user_email = M.manager_email
 ORDER BY user_code ASC
 );
-
+SELECT * from manager_info ;
 
 
 
@@ -39,7 +39,7 @@ INSERT INTO exercise_routine VALUES (1, "routine 1-1", "routine 2", "routine 3")
 INSERT INTO exercise_routine VALUES (2, "routine 2-1", "routine 2", "routine 3");
 INSERT INTO exercise_routine VALUES (3, "routine 3-1", "routine 2", "routine 3");
 
-
+truncate exercise_routine;
 
 
 

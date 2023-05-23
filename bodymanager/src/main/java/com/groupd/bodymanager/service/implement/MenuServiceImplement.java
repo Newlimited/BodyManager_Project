@@ -126,8 +126,8 @@ public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode) 
             //* 수정된 메뉴코드와 현재 메뉴코드가 같을 시 반환 */
             if(userMenuSelect.getMenuCode() == menuCode) return CustomResponse.equalMenuCode();
             userMenuSelect.setMenuCode(menuCode);
-            
             userMenuSelectRepository.save(userMenuSelect);
+            
         } catch (Exception exception) {
             exception.printStackTrace();
             CustomResponse.databaseError();
