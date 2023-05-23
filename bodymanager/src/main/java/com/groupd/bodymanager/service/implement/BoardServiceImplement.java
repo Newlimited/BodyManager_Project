@@ -112,7 +112,9 @@ public class BoardServiceImplement implements BoardService {
         String boardTitle = dto.getBoardTitle();
         String boardContent = dto.getBoardContent();
         String boardImageUrl = dto.getBoardImageurl();
-       
+        String boardModifyEmail = managerEmail;
+        UserEntity userEntity = userRepository.findByUserEmail(boardModifyEmail);
+        String boardWriterNickname = userEntity.getUserNickname();
         try{
             BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
             // TODO : 존재하지 않는 게시물 번호 반환 boardNumber가 필요함
@@ -124,9 +126,14 @@ public class BoardServiceImplement implements BoardService {
             if (!isExistManageEmail){
                 return CustomResponse.noPermission();
             }
+            if(boardImageUrl != null){
+                boardEntity.setBoardImageUrl(boardImageUrl);
+            }
+            boardEntity.setBoardWriterNickname(boardWriterNickname);
+            boardEntity.setBoardWriterEmail(boardModifyEmail);
             boardEntity.setBoardTitle(boardTitle);
             boardEntity.setBoardContent(boardContent);
-            boardEntity.setBoardImageUrl(boardImageUrl);
+            
 
             boardRepository.save(boardEntity);
         } catch(Exception exception){

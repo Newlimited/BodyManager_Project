@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface ManagerRepository extends JpaRepository<ManagerEntity , String>{
     
     public boolean existsByManagerEmail(String email);
-    
+    public ManagerEntity findByManagerEmail(String email);
 }
