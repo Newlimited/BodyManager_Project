@@ -124,10 +124,16 @@ public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode) 
             if(userMenuSelect == null) return CustomResponse.notExistUserCode();
 
             //* 수정된 메뉴코드와 현재 메뉴코드가 같을 시 반환 */
+<<<<<<< HEAD
             if(userMenuSelect.getMenuCode() == menuCode) return CustomResponse.equalMenuCode();
             userMenuSelect.setMenuCode(menuCode);
             userMenuSelectRepository.save(userMenuSelect);
             
+=======
+            if(userMenuSelect.getMenuCode().equals(menuCode)) return CustomResponse.equalMenuCode();
+            userMenuSelectRepository.patchMenuCode(menuCode, userCode);
+                        
+>>>>>>> b6baef69690516df7115b2248e1ce4c5a844a0e5
         } catch (Exception exception) {
             exception.printStackTrace();
             CustomResponse.databaseError();
