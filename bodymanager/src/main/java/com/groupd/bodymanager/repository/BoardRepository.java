@@ -20,4 +20,7 @@ public interface BoardRepository extends JpaRepository<BoardEntity, String>{
         nativeQuery = true  
     )
     public List<BoardListResultSet> getList();
+
+    public List<BoardEntity> findByBoardWriterEmail(String email);
+
 }
