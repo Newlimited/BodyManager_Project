@@ -1,5 +1,6 @@
 package com.groupd.bodymanager.service.implement;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -297,11 +298,11 @@ public class UserServiceImplement implements UserService {
 
             Integer userCode = userEntity.getUserCode();
             MileageEntity mileageEntity = mileageRepository.findByUserCode(userCode);
-            BodyInfoEntity bodyInfoEntity = bodyInfoRepository.findByUserCode(userCode);
+            List<BodyInfoEntity> bodyInfoEntities = bodyInfoRepository.findByUserCode(userCode);
             // String jwt = jwtProvider.create(userEmail);
 
             // body = new GetAuthResponseDto(jwt, userCode);
-            bodyInfoRepository.delete(bodyInfoEntity);
+            bodyInfoRepository.deleteAll(bodyInfoEntities);
             mileageRepository.delete(mileageEntity);
             userRepository.delete(userEntity);
 
