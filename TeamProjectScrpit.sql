@@ -131,28 +131,29 @@ COMMENT = '식단내용물';
 INSERT INTO menu value ("A");
 INSERT INTO menu value ("B");
 INSERT INTO menu value ("C");
-
-
-INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
-VALUES ("A", "아침", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu", "S-menu");
-INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
-VALUES ("A", "점심", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu", "S-menu");
-INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
-VALUES ("A", "저녁", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu", "S-menu");
+-- 데이터를 먼저 제거하세요
+truncate table menu_detail;
 
 INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
-VALUES ("B", "아침", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu", "S-menu");
+VALUES ("A", "아침", "현미밥 1공기 닭가슴살 120g 배추김치 사과","베이글 1개 닭가슴살 100 야채 샐러드  우유 1컵","현미밥 1공기 닭가슴살 120 배추김치 사과","고구마 1.5 두유 1컵 달걀 2개 방울토마토 5개","보리식빵 2개 달갈 2개 아몬드 5알 사과","단호박 120 달걀 2개 야채 샐러드","베이글 1개 닭가슴살 100 야채 샐러드  우유 1컵");
 INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
-VALUES ("B", "점심", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu", "S-menu");
+VALUES ("A", "점심", "고구마 1.5 두무 1모 방울토마토 5개 아몬드 5알","단호박 200 연어 150 야채샐러드 호두 2알","현미밥 1공기, 닭가슴살 120 , 두유 1컵, 아보카도 1개","고구마 1.5 두무 1모 방울토마토 5개 아몬드 5알","단호박 200 연어 150 야채샐러드 호두 2알","현미밥 1공기, 소고기 부채살 150g, 김치","현미밥 1공기, 소고기 부채살 150g, 김치");
 INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
-VALUES ("B", "저녁", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu", "S-menu");
+VALUES ("A", "저녁", "단호박 200 닭가슴살 120 야채샐러드 자몽 1개","현미밥 1공기, 닭가슴살 120 , 두유 1컵, 아보카도 1개","현미밥 1공기, 닭가슴살 120 , 두유 1컵, 아보카도 1개","단호박 200 닭가슴살 120 야채샐러드 자몽 1개","현미밥 1공기, 닭가슴살 120 , 두유 1컵, 아보카도 1개","고구마 200g 계란 4개 방울토마토 5개","현미밥 1공기 소고기 부채살 150g 야채샐러드 토마토");
 
 INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
-VALUES ("C", "아침", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu", "S-menu");
+VALUES ("B", "아침", "고구마 1.5 두무 1모 방울토마토 5개 아몬드 5알","단호박 200 연어 150 야채샐러드 호두 2알","현미밥 1공기, 닭가슴살 120 , 두유 1컵, 아보카도 1개","고구마 1.5 두무 1모 방울토마토 5개 아몬드 5알","단호박 200 연어 150 야채샐러드 호두 2알","현미밥 1공기, 소고기 부채살 150g, 김치","현미밥 1공기, 소고기 부채살 150g, 김치");
 INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
-VALUES ("C", "점심", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu", "S-menu");
+VALUES ("B", "점심", "현미밥 1공기 닭가슴살 120g 배추김치 사과","베이글 1개 닭가슴살 100 야채 샐러드  우유 1컵","현미밥 1공기 닭가슴살 120 배추김치 사과","고구마 1.5 두유 1컵 달걀 2개 방울토마토 5개","보리식빵 2개 달갈 2개 아몬드 5알 사과","단호박 120 달걀 2개 야채 샐러드","베이글 1개 닭가슴살 100 야채 샐러드  우유 1컵");
 INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
-VALUES ("C", "저녁", "M-menu", "T-menu", "W-menu", "T-menu", "F-menu", "S-menu", "S-menu");
+VALUES ("B", "저녁", "단호박 200 닭가슴살 120 야채샐러드 자몽 1개","현미밥 1공기, 닭가슴살 120 , 두유 1컵, 아보카도 1개","현미밥 1공기, 닭가슴살 120 , 두유 1컵, 아보카도 1개","단호박 200 닭가슴살 120 야채샐러드 자몽 1개","현미밥 1공기, 닭가슴살 120 , 두유 1컵, 아보카도 1개","고구마 200g 계란 4개 방울토마토 5개","현미밥 1공기 소고기 부채살 150g 야채샐러드 토마토");
+
+INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
+VALUES ("C", "아침", "단호박 200 닭가슴살 120 야채샐러드 자몽 1개","현미밥 1공기, 닭가슴살 120 , 두유 1컵, 아보카도 1개","현미밥 1공기, 닭가슴살 120 , 두유 1컵, 아보카도 1개","단호박 200 닭가슴살 120 야채샐러드 자몽 1개","현미밥 1공기, 닭가슴살 120 , 두유 1컵, 아보카도 1개","고구마 200g 계란 4개 방울토마토 5개","현미밥 1공기 소고기 부채살 150g 야채샐러드 토마토");
+INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
+VALUES ("C", "점심", "현미밥 1공기 닭가슴살 120g 배추김치 사과","베이글 1개 닭가슴살 100 야채 샐러드  우유 1컵","현미밥 1공기 닭가슴살 120 배추김치 사과","고구마 1.5 두유 1컵 달걀 2개 방울토마토 5개","보리식빵 2개 달갈 2개 아몬드 5알 사과","단호박 120 달걀 2개 야채 샐러드","베이글 1개 닭가슴살 100 야채 샐러드  우유 1컵");
+INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, friday, saturday, sunday)
+VALUES ("C", "저녁", "고구마 1.5 두무 1모 방울토마토 5개 아몬드 5알","단호박 200 연어 150 야채샐러드 호두 2알","현미밥 1공기, 닭가슴살 120 , 두유 1컵, 아보카도 1개","고구마 1.5 두무 1모 방울토마토 5개 아몬드 5알","단호박 200 연어 150 야채샐러드 호두 2알","현미밥 1공기, 소고기 부채살 150g, 김치","현미밥 1공기, 소고기 부채살 150g, 김치");
 
 
 select U.user_code, M.menu_code, M.time,M.monday,M.tuesday,M.wednesday, M.thursday, M.friday,M.saturday,M.sunday
@@ -160,6 +161,7 @@ From user U, menu_detail M, user_menu_select US
 where U.user_code = US.user_code
 AND US.menu_code = M.menu_code
 order by menu_index asc;
+
 
 # MILEAGE
 CREATE TABLE IF NOT EXISTS `bodymanager`.`Mileage` (

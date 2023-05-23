@@ -97,6 +97,8 @@ public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode) 
         if (userCode == null)
         return CustomResponse.notExistUserCode();
     UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
+    //*UserMenuSelect에 회원정보가 없을시 */
+    if(userMenuSelect == null) return CustomResponse.notExistUserCode();
     String menuCode = userMenuSelect.getMenuCode();
     List<MenuDetailEntity> menuDetailEntities = menuDetailRepository.findByMenuCode(menuCode);
 
@@ -119,8 +121,8 @@ public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode) 
         String menuCode = dto.getMenuCode();
 
         try {
+            if((email == null) || (dto == null)) return CustomResponse.validationFaild();
             UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
-
             if(userMenuSelect == null) return CustomResponse.notExistUserCode();
 
             //* 수정된 메뉴코드와 현재 메뉴코드가 같을 시 반환 */
