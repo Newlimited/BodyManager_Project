@@ -16,7 +16,7 @@ public interface BoardRepository extends JpaRepository<BoardEntity, String>{
     @Query(
         value = 
         "SELECT " +
-        "* FROM board_view ",
+        "* FROM board_view; ",
         nativeQuery = true  
     )
     public List<BoardListResultSet> getList();
