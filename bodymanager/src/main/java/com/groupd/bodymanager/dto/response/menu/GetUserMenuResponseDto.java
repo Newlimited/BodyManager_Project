@@ -27,6 +27,7 @@ public class GetUserMenuResponseDto extends ResponseDto{
         
         this.menuDetailList = menuDetail.seletedMenuDetail(menuDetailEntities);
     }
+
 }
 @Data
 @NoArgsConstructor
