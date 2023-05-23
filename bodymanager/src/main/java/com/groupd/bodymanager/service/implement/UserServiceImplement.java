@@ -21,13 +21,17 @@ import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetUserResponseDto;
+import com.groupd.bodymanager.entity.BoardEntity;
 import com.groupd.bodymanager.entity.BodyInfoEntity;
 import com.groupd.bodymanager.entity.ManagerEntity;
+import com.groupd.bodymanager.entity.MenuEntity;
 import com.groupd.bodymanager.entity.MileageEntity;
 import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.provider.JwtProvider;
+import com.groupd.bodymanager.repository.BoardRepository;
 import com.groupd.bodymanager.repository.BodyInfoRepository;
 import com.groupd.bodymanager.repository.ManagerRepository;
+import com.groupd.bodymanager.repository.MenuDetailRepository;
 import com.groupd.bodymanager.repository.MileageRepository;
 import com.groupd.bodymanager.repository.UserRepository;
 import com.groupd.bodymanager.service.UserService;
@@ -40,16 +44,21 @@ public class UserServiceImplement implements UserService {
     private JwtProvider jwtProvider;
     private PasswordEncoder passwordEncoder;
     private BodyInfoRepository bodyInfoRepository;
+    private BoardRepository boardRepository;
+    private MenuDetailRepository menuDetailRepository;
 
     @Autowired
     public UserServiceImplement(
             UserRepository userRepository,
-            JwtProvider jwtProvider, ManagerRepository managerRepository, MileageRepository mileageRepository) {
+            JwtProvider jwtProvider, ManagerRepository managerRepository, MileageRepository mileageRepository, BoardRepository boardRepository,
+            MenuDetailRepository menuDetailRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = new BCryptPasswordEncoder();
         this.jwtProvider = jwtProvider;
         this.managerRepository = managerRepository;
         this.mileageRepository = mileageRepository;
+        this.boardRepository = boardRepository;
+        this.menuDetailRepository = menuDetailRepository;
     }
 
     // 회원가입
@@ -296,14 +305,22 @@ public class UserServiceImplement implements UserService {
             if (!equaledPassword)
                 return CustomResponse.signInFailed();
 
-            Integer userCode = userEntity.getUserCode();
+            int userCode = userEntity.getUserCode();
             MileageEntity mileageEntity = mileageRepository.findByUserCode(userCode);
-            List<BodyInfoEntity> bodyInfoEntities = bodyInfoRepository.findByUserCode(userCode);
+            // List<BodyInfoEntity> bodyInfoEntities = bodyInfoRepository.findByUserCode(userCode);
             // String jwt = jwtProvider.create(userEmail);
 
             // body = new GetAuthResponseDto(jwt, userCode);
-            bodyInfoRepository.deleteAll(bodyInfoEntities);
+            // 회원 메일이 관리자목록에 있을 경우 관리자목록에서도 삭제
+            ManagerEntity managerEntity = managerRepository.findByManagerEmail(userEmail);
+            if(managerEntity !=null){
+                managerRepository.delete(managerEntity);
+            }
+            
+            bodyInfoRepository.deleteUserBodyInfo(userCode);
+            if(mileageEntity !=null){
             mileageRepository.delete(mileageEntity);
+            }
             userRepository.delete(userEntity);
 
         } catch (Exception exception) {
