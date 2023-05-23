@@ -28,5 +28,20 @@ public class MenuDetailEntity {
     private String saturday;
     private String sunday;
     private String time;
+
+    public MenuDetailEntity(MenuDetailEntity menuDetailEntity) {
+        this.menuIndex = menuDetailEntity.getMenuIndex();
+        this.menuCode = menuDetailEntity.getMenuCode();
+        this.monday = menuDetailEntity.getMonday();
+        this.tuesday = menuDetailEntity.getTuesday();
+        this.wednesday = menuDetailEntity.getWednesday();
+        this.thursday = menuDetailEntity.getThursday();
+        this.friday = menuDetailEntity.getFriday();
+        this.saturday = menuDetailEntity.getSaturday();
+        this.sunday = menuDetailEntity.getSunday();
+        this.time =menuDetailEntity.getSunday();
+    }
+
+
     
 }

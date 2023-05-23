@@ -22,6 +22,7 @@ public class GetUserMenuResponseDto extends ResponseDto{
         super("SU","Success");
         this.userCode = userMenuSelect.getUserCode();
         this.menuCode = userMenuSelect.getMenuCode();
+        this.menuDetailEntity = new MenuDetailEntity(menuDetailEntitity);
 
 
         }
