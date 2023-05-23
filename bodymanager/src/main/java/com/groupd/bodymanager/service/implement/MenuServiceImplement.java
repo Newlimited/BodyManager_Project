@@ -10,9 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.groupd.bodymanager.common.CustomResponse;
+import com.groupd.bodymanager.dto.request.board.PatchBoardRequestDto;
 import com.groupd.bodymanager.dto.request.menu.MenuRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.menu.GetMenuDetailListResponseDto;
+import com.groupd.bodymanager.dto.response.menu.PatchMenuResponseDto;
 import com.groupd.bodymanager.dto.response.menu.GetUserMenuResponseDto;
 import com.groupd.bodymanager.entity.MenuDetailEntity;
 import com.groupd.bodymanager.entity.MenuEntity;
@@ -116,6 +118,7 @@ public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode) 
 
     @Override // 메뉴 코드를 수정
     public ResponseEntity<ResponseDto> patchMenuCode(String email, MenuRequestDto dto) {
+        PatchMenuResponseDto body = null;
         UserEntity userEntity = userRepository.findByUserEmail(email);
         Integer userCode = userEntity.getUserCode();
         String menuCode = dto.getMenuCode();
@@ -128,12 +131,13 @@ public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode) 
             //* 수정된 메뉴코드와 현재 메뉴코드가 같을 시 반환 */
             if(userMenuSelect.getMenuCode().equals(menuCode)) return CustomResponse.equalMenuCode();
             userMenuSelectRepository.patchMenuCode(menuCode, userCode);
+            body = new PatchMenuResponseDto(userCode,menuCode);
                         
         } catch (Exception exception) {
             exception.printStackTrace();
             CustomResponse.databaseError();
         }
-            return CustomResponse.successs();
+        return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
 
