@@ -32,7 +32,7 @@ public class BoardController {
     public ResponseEntity<ResponseDto> postBoard(
             @AuthenticationPrincipal String userEmail,
             @Valid @RequestBody PostBoardRequestDto requestbody) {
-        ResponseEntity<ResponseDto> response = boardService.postBoard(requestbody);
+        ResponseEntity<ResponseDto> response = boardService.postBoard(userEmail, requestbody);
         return response;
 
     }
