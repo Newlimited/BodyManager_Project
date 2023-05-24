@@ -208,3 +208,34 @@ WHERE U.user_email = M.manager_email
 ORDER BY user_code ASC
 );
 
+#----------------23/05/24 10:44 CASECADE로 추가
+ALTER TABLE `bodymanager`.`user_menu_select` 
+DROP FOREIGN KEY `fk_table1_User1`;
+ALTER TABLE `bodymanager`.`user_menu_select` 
+ADD CONSTRAINT `fk_table1_User1`
+  FOREIGN KEY (`user_code`)
+  REFERENCES `bodymanager`.`user` (`user_code`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+  
+  ALTER TABLE `bodymanager`.`mileage` 
+DROP FOREIGN KEY `fk_milege_user1`;
+ALTER TABLE `bodymanager`.`mileage` 
+ADD CONSTRAINT `fk_milege_user1`
+  FOREIGN KEY (`user_code`)
+  REFERENCES `bodymanager`.`user` (`user_code`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+ALTER TABLE `bodymanager`.`body_info` 
+DROP FOREIGN KEY `fk_body_info_user`;
+ALTER TABLE `bodymanager`.`body_info` 
+ADD CONSTRAINT `fk_body_info_user`
+  FOREIGN KEY (`user_code`)
+  REFERENCES `bodymanager`.`user` (`user_code`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+  
+
+
