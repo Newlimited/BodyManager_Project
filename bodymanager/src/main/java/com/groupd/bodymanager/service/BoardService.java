@@ -9,7 +9,7 @@ import com.groupd.bodymanager.dto.request.board.PostBoardRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 
 public interface BoardService {
-    public ResponseEntity<ResponseDto> postBoard(PostBoardRequestDto dto);
+    public ResponseEntity<ResponseDto> postBoard(String email, PostBoardRequestDto dto);
     public ResponseEntity<? super GetBoardResponseDto> getBoard(Integer boardNumber);
     public ResponseEntity<? super GetBoardListResponseDto> getBoardList();
     

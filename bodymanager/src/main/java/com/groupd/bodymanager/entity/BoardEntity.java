@@ -34,12 +34,12 @@ public class BoardEntity {
     private String boardWriteDatetime;
     private int viewCount;
     
-    public BoardEntity(PostBoardRequestDto dto){
+    public BoardEntity(String email, PostBoardRequestDto dto){
         Date now = new Date();
         SimpleDateFormat simpleDateFormat =
         new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String writeDateTime = simpleDateFormat.format(now);
-        this.boardWriterEmail = dto.getBoardWriterEmail();
+        this.boardWriterEmail = email;
         this.boardWriterNickname = dto.getBoardWriterNickname();
         this.boardTitle = dto.getBoardTitle();
         this.boardContent = dto.getBoardContent();

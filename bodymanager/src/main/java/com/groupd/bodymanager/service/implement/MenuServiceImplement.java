@@ -48,19 +48,20 @@ public class MenuServiceImplement implements MenuService {
     @Override
     public ResponseEntity<ResponseDto> postMenuCodeAndUserCode(String email, MenuRequestDto dto) {
         String menuCode = dto.getMenuCode();
+        String correctMenuCode = menuCode.toUpperCase();
         UserEntity userEntity = userRepository.findByUserEmail(email);
         Integer userCode = userEntity.getUserCode();
         try {
             //*필수 값을 입력 */
             if (menuCode == null)  return CustomResponse.validationFaild();
             // *존재하지 않는 메뉴코드 반환 */
-            boolean existedByMenuCode = menuRepository.existsByMenuCode(menuCode);
+            boolean existedByMenuCode = menuRepository.existsByMenuCode(correctMenuCode);
             if (!existedByMenuCode) return CustomResponse.notExistMenuCode();
             //* 이미 등록한 유저 정보*/
             boolean existsByUserCode = userMenuSelectRepository.existsByUserCode(userCode);
             if (existsByUserCode) return CustomResponse.existUserCode();
             // *Response 데이터를 레포지토리에 저장 */
-            UserMenuSelect userMenuSelect = new UserMenuSelect(userCode, menuCode);
+            UserMenuSelect userMenuSelect = new UserMenuSelect(userCode, correctMenuCode);
             userMenuSelectRepository.save(userMenuSelect);
         } catch (Exception exceptione) {
             exceptione.printStackTrace();

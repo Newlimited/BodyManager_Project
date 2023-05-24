@@ -20,7 +20,7 @@ public interface BodyInfoRepository extends JpaRepository<BodyInfoEntity,Integer
     @Query(
         value = 
         "DELETE " +
-        "* FROM body_info WHERE user_code = ?; ",
+        "FROM body_info WHERE user_code = ?; ",
         nativeQuery = true  
     )
     @Transactional
