@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.groupd.bodymanager.common.CustomResponse;
 import com.groupd.bodymanager.dto.request.board.PatchBoardRequestDto;
-import com.groupd.bodymanager.dto.request.menu.MenuPostRequestDto;
 import com.groupd.bodymanager.dto.request.menu.MenuRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.menu.GetMenuDetailListResponseDto;

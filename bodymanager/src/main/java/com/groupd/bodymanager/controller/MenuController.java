@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.groupd.bodymanager.dto.request.menu.MenuRequestDto;
-import com.groupd.bodymanager.dto.request.menu.MenuPostRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.menu.GetMenuDetailListResponseDto;
 import com.groupd.bodymanager.dto.response.menu.GetUserMenuResponseDto;
@@ -36,7 +35,7 @@ public class MenuController {
     @PostMapping("")
     public ResponseEntity<ResponseDto> postMenuCodeAndUserCode(
         @AuthenticationPrincipal String email,
-        @Valid @RequestBody MenuPosstRequestDto requestBody
+        @Valid @RequestBody MenuRequestDto requestBody
         ) {
             ResponseEntity<ResponseDto> response = menuService.postMenuCodeAndUserCode(email, requestBody);
             return response;
