@@ -304,25 +304,12 @@ public class UserServiceImplement implements UserService {
 
             if (!equaledPassword)
                 return CustomResponse.signInFailed();
-
-            int userCode = userEntity.getUserCode();
-            MileageEntity mileageEntity = mileageRepository.findByUserCode(userCode);
-            UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
-            // List<BodyInfoEntity> bodyInfoEntities = bodyInfoRepository.findByUserCode(userCode);
-            // String jwt = jwtProvider.create(userEmail);
-
             // body = new GetAuthResponseDto(jwt, userCode);
             // 회원 메일이 관리자목록에 있을 경우 관리자목록에서도 삭제
             ManagerEntity managerEntity = managerRepository.findByManagerEmail(userEmail);
             if(managerEntity !=null){
                 managerRepository.delete(managerEntity);
             }
-            
-            if(mileageEntity !=null){
-            mileageRepository.delete(mileageEntity);
-            }
-            bodyInfoRepository.deleteUserBodyInfo(userCode);
-            userMenuSelectRepository.delete(userMenuSelect);
             userRepository.delete(userEntity);
 
         } catch (Exception exception) {
