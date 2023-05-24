@@ -34,6 +34,7 @@ public class MileageServiceImplement implements MileageService {
         Date now = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String attendanceDate = simpleDateFormat.format(now);
+        
         Integer userCode = dto.getUserCode();
         
         try {

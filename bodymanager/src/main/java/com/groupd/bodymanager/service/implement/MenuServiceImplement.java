@@ -54,8 +54,6 @@ public class MenuServiceImplement implements MenuService {
         try {
             //*필수 값을 입력 */
             if (menuCode == null)  return CustomResponse.validationFaild();
-            //*회원엔티디에 회원정보가 없을시 반환 */
-            if (userEntity == null) return CustomResponse.notExistUserCode();
             // *존재하지 않는 메뉴코드 반환 */
             boolean existedByMenuCode = menuRepository.existsByMenuCode(correctMenuCode);
             if (!existedByMenuCode) return CustomResponse.notExistMenuCode();
@@ -98,7 +96,7 @@ public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode) 
     try {
         
         if (userCode == null)
-        return CustomResponse.notExistUserCode();
+        return CustomResponse.validationFaild();
     UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
     //*UserMenuSelect에 회원정보가 없을시 */
     if(userMenuSelect == null) return CustomResponse.notExistUserCode();
@@ -128,8 +126,10 @@ public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode) 
         try {
             if((email == null) || (dto == null)) return CustomResponse.validationFaild();
             UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
+            //*메뉴코드가 존재하지 않을시 반환 */
+            if(!menuRepository.existsByMenuCode(menuCode)) return CustomResponse.notExistMenuCode();
+            //*회원코드가 존재하지 않을 시 반환 */
             if(userMenuSelect == null) return CustomResponse.notExistUserCode();
-
             //* 수정된 메뉴코드와 현재 메뉴코드가 같을 시 반환 */
             if(userMenuSelect.getMenuCode().equals(correctMenuCode)) return CustomResponse.equalMenuCode();
             userMenuSelectRepository.patchMenuCode(correctMenuCode, userCode);
