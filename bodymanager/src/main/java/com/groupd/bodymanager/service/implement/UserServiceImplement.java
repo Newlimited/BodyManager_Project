@@ -51,25 +51,14 @@ public class UserServiceImplement implements UserService {
     @Autowired
     public UserServiceImplement(
             UserRepository userRepository,
-<<<<<<< HEAD
-            JwtProvider jwtProvider, ManagerRepository managerRepository, MileageRepository mileageRepository, BoardRepository boardRepository,
-            MenuDetailRepository menuDetailRepository,BodyInfoRepository bodyInfoRepository) {
-=======
             JwtProvider jwtProvider, ManagerRepository managerRepository, MileageRepository mileageRepository, 
             UserMenuSelectRepository userMenuSelectRepository) {
->>>>>>> 05f6270b030c85269e135116ad6beccf750eb956
         this.userRepository = userRepository;
         this.passwordEncoder = new BCryptPasswordEncoder();
         this.jwtProvider = jwtProvider;
         this.managerRepository = managerRepository;
         this.mileageRepository = mileageRepository;
-<<<<<<< HEAD
-        this.boardRepository = boardRepository;
-        this.menuDetailRepository = menuDetailRepository;
-        this.bodyInfoRepository = bodyInfoRepository;
-=======
         this.userMenuSelectRepository = userMenuSelectRepository;
->>>>>>> 05f6270b030c85269e135116ad6beccf750eb956
     }
 
     // 회원가입
@@ -331,13 +320,9 @@ public class UserServiceImplement implements UserService {
             
             if(mileageEntity !=null){
             mileageRepository.delete(mileageEntity);
-<<<<<<< HEAD
-        }
-=======
             }
             bodyInfoRepository.deleteUserBodyInfo(userCode);
             userMenuSelectRepository.delete(userMenuSelect);
->>>>>>> 05f6270b030c85269e135116ad6beccf750eb956
             userRepository.delete(userEntity);
 
         } catch (Exception exception) {

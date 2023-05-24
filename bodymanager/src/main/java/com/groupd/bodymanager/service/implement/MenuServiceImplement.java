@@ -123,6 +123,7 @@ public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode) 
         UserEntity userEntity = userRepository.findByUserEmail(email);
         Integer userCode = userEntity.getUserCode();
         String menuCode = dto.getMenuCode();
+        String correctMenuCode = menuCode.toUpperCase();
 
         try {
             if((email == null) || (dto == null)) return CustomResponse.validationFaild();
@@ -130,9 +131,9 @@ public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode) 
             if(userMenuSelect == null) return CustomResponse.notExistUserCode();
 
             //* 수정된 메뉴코드와 현재 메뉴코드가 같을 시 반환 */
-            if(userMenuSelect.getMenuCode().equals(menuCode)) return CustomResponse.equalMenuCode();
-            userMenuSelectRepository.patchMenuCode(menuCode, userCode);
-            body = new PatchMenuResponseDto(userCode,menuCode);
+            if(userMenuSelect.getMenuCode().equals(correctMenuCode)) return CustomResponse.equalMenuCode();
+            userMenuSelectRepository.patchMenuCode(correctMenuCode, userCode);
+            body = new PatchMenuResponseDto(userCode,correctMenuCode);
                         
         } catch (Exception exception) {
             exception.printStackTrace();
