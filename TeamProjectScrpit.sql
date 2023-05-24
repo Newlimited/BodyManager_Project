@@ -45,8 +45,8 @@ CREATE TABLE IF NOT EXISTS `bodymanager`.`Exercise_routine` (
 ENGINE = InnoDB
 COMMENT = '운동루틴';
 
-INSERT INTO exercise_routine VALUES (1, "routine 1-1", "routine 2", "routine 3");
-INSERT INTO exercise_routine VALUES (2, "routine 2-1", "routine 2", "routine 3");
+INSERT INTO exercise_routine VALUES (1, "https://ifh.cc/g/O5ot87.png", "https://ifh.cc/g/O5ot87.png", "https://ifh.cc/g/O5ot87.png");
+INSERT INTO exercise_routine VALUES (2, "https://ifh.cc/g/jhk5R7.png", "https://ifh.cc/g/jhk5R7.png", "https://ifh.cc/g/jhk5R7.png");
 INSERT INTO exercise_routine VALUES (3, "routine 3-1", "routine 2", "routine 3");
 
 # MANAGER
