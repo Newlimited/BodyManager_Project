@@ -27,12 +27,14 @@ import com.groupd.bodymanager.entity.ManagerEntity;
 import com.groupd.bodymanager.entity.MenuEntity;
 import com.groupd.bodymanager.entity.MileageEntity;
 import com.groupd.bodymanager.entity.UserEntity;
+import com.groupd.bodymanager.entity.UserMenuSelect;
 import com.groupd.bodymanager.provider.JwtProvider;
 import com.groupd.bodymanager.repository.BoardRepository;
 import com.groupd.bodymanager.repository.BodyInfoRepository;
 import com.groupd.bodymanager.repository.ManagerRepository;
 import com.groupd.bodymanager.repository.MenuDetailRepository;
 import com.groupd.bodymanager.repository.MileageRepository;
+import com.groupd.bodymanager.repository.UserMenuSelectRepository;
 import com.groupd.bodymanager.repository.UserRepository;
 import com.groupd.bodymanager.service.UserService;
 
@@ -44,21 +46,19 @@ public class UserServiceImplement implements UserService {
     private JwtProvider jwtProvider;
     private PasswordEncoder passwordEncoder;
     private BodyInfoRepository bodyInfoRepository;
-    private BoardRepository boardRepository;
-    private MenuDetailRepository menuDetailRepository;
+    private UserMenuSelectRepository userMenuSelectRepository;
 
     @Autowired
     public UserServiceImplement(
             UserRepository userRepository,
-            JwtProvider jwtProvider, ManagerRepository managerRepository, MileageRepository mileageRepository, BoardRepository boardRepository,
-            MenuDetailRepository menuDetailRepository) {
+            JwtProvider jwtProvider, ManagerRepository managerRepository, MileageRepository mileageRepository, 
+            UserMenuSelectRepository userMenuSelectRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = new BCryptPasswordEncoder();
         this.jwtProvider = jwtProvider;
         this.managerRepository = managerRepository;
         this.mileageRepository = mileageRepository;
-        this.boardRepository = boardRepository;
-        this.menuDetailRepository = menuDetailRepository;
+        this.userMenuSelectRepository = userMenuSelectRepository;
     }
 
     // 회원가입
@@ -307,6 +307,7 @@ public class UserServiceImplement implements UserService {
 
             int userCode = userEntity.getUserCode();
             MileageEntity mileageEntity = mileageRepository.findByUserCode(userCode);
+            UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
             // List<BodyInfoEntity> bodyInfoEntities = bodyInfoRepository.findByUserCode(userCode);
             // String jwt = jwtProvider.create(userEmail);
 
@@ -317,10 +318,11 @@ public class UserServiceImplement implements UserService {
                 managerRepository.delete(managerEntity);
             }
             
-            bodyInfoRepository.deleteUserBodyInfo(userCode);
             if(mileageEntity !=null){
             mileageRepository.delete(mileageEntity);
             }
+            bodyInfoRepository.deleteUserBodyInfo(userCode);
+            userMenuSelectRepository.delete(userMenuSelect);
             userRepository.delete(userEntity);
 
         } catch (Exception exception) {

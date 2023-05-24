@@ -29,12 +29,13 @@ public class BoardServiceImplement implements BoardService {
     private final UserRepository userRepository;
     private final BoardRepository boardRepository;
     private final ManagerRepository managerRepository;
-    public ResponseEntity<ResponseDto> postBoard(PostBoardRequestDto dto) {
+    public ResponseEntity<ResponseDto> postBoard(String email, PostBoardRequestDto dto) {
 
         // 게시물 작성
-        String boardWriterEmail = dto.getBoardWriterEmail();
+        String boardWriterEmail = email;
         String boardWriterNickname = dto.getBoardWriterNickname();
         UserEntity userEntity;
+       
         try {
             // TODO 존재하지 않는 유저 오류 반환
             boolean existedUserEmail = userRepository.existsByUserEmail(boardWriterEmail);
@@ -51,7 +52,8 @@ public class BoardServiceImplement implements BoardService {
             if(!isMatchedNickname){ 
                 return CustomResponse.notExistUserNickname(); 
             }
-            BoardEntity boardEntity = new BoardEntity(dto);
+            
+            BoardEntity boardEntity = new BoardEntity(email, dto);
             boardRepository.save(boardEntity);
 
         } catch (Exception exception) {
