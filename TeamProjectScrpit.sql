@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `bodymanager`.`Board` (
   `board_image_url` VARCHAR(511) NULL COMMENT '게시글 이미지',
   `board_write_datetime` DATE NOT NULL,
   `view_count` INT NOT NULL,
-  PRIMARY KEY (`board_number`, `board_writer_email`))
+  PRIMARY KEY (`board_number`))
 ENGINE = InnoDB
 COMMENT = '공지사항게시판';
 
@@ -80,24 +80,6 @@ CREATE TABLE IF NOT EXISTS `bodymanager`.`Body_info` (
 ENGINE = InnoDB
 COMMENT = '신체정보';
 
-# UserMenuSelect
-CREATE TABLE IF NOT EXISTS `bodymanager`.`User_menu_select` (
-  `user_code` INT NOT NULL COMMENT '회원번호',
-  `menu_code` VARCHAR(5) NOT NULL COMMENT '메뉴코드',
-  PRIMARY KEY (`user_code`, `menu_code`),
-  INDEX `fk_table1_Menu1_idx` (`menu_code` ASC) VISIBLE,
-  CONSTRAINT `fk_table1_User1`
-    FOREIGN KEY (`user_code`)
-    REFERENCES `bodymanager`.`User` (`user_code`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_table1_Menu1`
-    FOREIGN KEY (`menu_code`)
-    REFERENCES `bodymanager`.`Menu` (`menu_code`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-COMMENT = '회원메뉴 선택';
 
 
 # MENU & MENU Detail
@@ -156,11 +138,25 @@ INSERT INTO menu_detail (menu_code, time, monday, tuesday, wednesday, thursday, 
 VALUES ("C", "저녁", "고구마 1.5 두무 1모 방울토마토 5개 아몬드 5알","단호박 200 연어 150 야채샐러드 호두 2알","현미밥 1공기, 닭가슴살 120 , 두유 1컵, 아보카도 1개","고구마 1.5 두무 1모 방울토마토 5개 아몬드 5알","단호박 200 연어 150 야채샐러드 호두 2알","현미밥 1공기, 소고기 부채살 150g, 김치","현미밥 1공기, 소고기 부채살 150g, 김치");
 
 
-select U.user_code, M.menu_code, M.time,M.monday,M.tuesday,M.wednesday, M.thursday, M.friday,M.saturday,M.sunday
-From user U, menu_detail M, user_menu_select US
-where U.user_code = US.user_code
-AND US.menu_code = M.menu_code
-order by menu_index asc;
+
+# UserMenuSelect
+CREATE TABLE IF NOT EXISTS `bodymanager`.`User_menu_select` (
+  `user_code` INT NOT NULL COMMENT '회원번호',
+  `menu_code` VARCHAR(5) NOT NULL COMMENT '메뉴코드',
+  PRIMARY KEY (`user_code`, `menu_code`),
+  INDEX `fk_table1_Menu1_idx` (`menu_code` ASC) VISIBLE,
+  CONSTRAINT `fk_table1_User1`
+    FOREIGN KEY (`user_code`)
+    REFERENCES `bodymanager`.`User` (`user_code`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_table1_Menu1`
+    FOREIGN KEY (`menu_code`)
+    REFERENCES `bodymanager`.`Menu` (`menu_code`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+COMMENT = '회원메뉴 선택';
 
 
 # MILEAGE
@@ -212,6 +208,3 @@ WHERE U.user_email = M.manager_email
 ORDER BY user_code ASC
 );
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
