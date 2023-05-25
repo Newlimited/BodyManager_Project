@@ -40,7 +40,6 @@ public class BoardEntity {
         new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String writeDateTime = simpleDateFormat.format(now);
         this.boardWriterEmail = email;
-        this.boardWriterNickname = dto.getBoardWriterNickname();
         this.boardTitle = dto.getBoardTitle();
         this.boardContent = dto.getBoardContent();
         this.boardImageUrl = dto.getBoardImageUrl();
