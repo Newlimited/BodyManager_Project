@@ -33,7 +33,6 @@ public class BodyInfoServiceImplement implements BodyInfoService {
         ResponseDto body = null;
         UserEntity userEntity = userRepository.findByUserEmail(email);
         Integer userCode = userEntity.getUserCode();
-
         double heightForBmiIndex = dto.getHeight()/100 ;
         double weightForBmiIndex = dto.getWeight();
         double calculateForBmiIndex = weightForBmiIndex/(heightForBmiIndex*heightForBmiIndex);
@@ -44,11 +43,6 @@ public class BodyInfoServiceImplement implements BodyInfoService {
         Double bmiReult = bodyInfoEntity.getBmiIndex();
 
         try {
-            // 존재하지않는 유저코드
-            UserEntity existeduserCode = userRepository.findByUserCode(userCode);
-            if(existeduserCode == null) {
-                return CustomResponse.notExistUserCode();
-            }
             // kg/㎡. BMI가 18.5 이하면 저체중 ／ 18.5 ~ 22.9 사이면 정상 ／ 23.0 ~ 24.9 사이면 과체중 ／ 25.0 / 비만 
 
             if(bmiReult <= 18.5 ) {
@@ -63,7 +57,7 @@ public class BodyInfoServiceImplement implements BodyInfoService {
             else{
                 bodyInfoEntity.setBmiResult("비만");
             }
-           
+                bodyInfoEntity.setUserCode(userCode);
                 bodyInfoRepository.save(bodyInfoEntity);
 
             body = new ResponseDto("SU", "Success");

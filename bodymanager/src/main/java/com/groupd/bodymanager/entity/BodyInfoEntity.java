@@ -48,7 +48,6 @@ public class BodyInfoEntity {
             new SimpleDateFormat("yyyy-MM-dd");
         String recordDate = simpleDateFormat.format(now);
 
-        this.userCode = dto.getUserCode();
         this.height = dto.getHeight();
         this.weight = dto.getWeight();
         this.muscleMass = dto.getMuscleMass();
