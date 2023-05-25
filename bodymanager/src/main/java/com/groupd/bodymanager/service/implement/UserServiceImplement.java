@@ -215,7 +215,7 @@ public class UserServiceImplement implements UserService {
         String userPhoneNumber = dto.getUserPhoneNumber();
         String userAddress = dto.getUserAddress();
         String userGender = dto.getUserGender();
-        int userAge = dto.getUserAge();
+        Integer userAge = dto.getUserAge();
 
         Pattern phoneNumberPattern = Pattern.compile("^\\d{2,3}-\\d{3,4}-\\d{4}$");
 
@@ -269,10 +269,16 @@ public class UserServiceImplement implements UserService {
                 }
                 userEntity.setUserPhoneNumber(userPhoneNumber);        // 휴대전화번호 변경 // 패턴 맞으면
             }
-
+            if(userAddress != null){
             userEntity.setUserAddress(userAddress);
+            }
+            if(userGender != null){
             userEntity.setUserGender(userGender);
+            }
+            if(userAge != null){
             userEntity.setUserAge(userAge);
+        }
+        
 
             userRepository.save(userEntity); // 변경된 유저 정보 저장
 
