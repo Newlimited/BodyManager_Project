@@ -33,27 +33,19 @@ public class BoardServiceImplement implements BoardService {
 
         // 게시물 작성
         String boardWriterEmail = email;
-        String boardWriterNickname = dto.getBoardWriterNickname();
         UserEntity userEntity;
        
         try {
-            // TODO 존재하지 않는 유저 오류 반환
-            boolean existedUserEmail = userRepository.existsByUserEmail(boardWriterEmail);
-            if (!existedUserEmail) {
-                ResponseDto errorbody = new ResponseDto("NU", "Non-Existent User Email");
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorbody);
-            }
+            // TODO 관리자 확인 
             boolean isManager = managerRepository.existsByManagerEmail(boardWriterEmail);
             if(!isManager){
                 return CustomResponse.noPermission();
             }
             userEntity = userRepository.findByUserEmail(boardWriterEmail);
-            boolean isMatchedNickname = boardWriterNickname.equals(userEntity.getUserNickname());
-            if(!isMatchedNickname){ 
-                return CustomResponse.notExistUserNickname(); 
-            }
-            
+            String userNickname = userEntity.getUserNickname();
+
             BoardEntity boardEntity = new BoardEntity(email, dto);
+            boardEntity.setBoardWriterNickname(userNickname);
             boardRepository.save(boardEntity);
 
         } catch (Exception exception) {
@@ -80,9 +72,7 @@ public class BoardServiceImplement implements BoardService {
             int viewCount = boardEntity.getViewCount();
             boardEntity.setViewCount(++viewCount);
             boardRepository.save(boardEntity);
-            String boardWriterEmail = boardEntity.getBoardWriterEmail();
-            UserEntity userEntity = userRepository.findByUserEmail(boardWriterEmail);
-            body = new GetBoardResponseDto(boardEntity, userEntity);
+            body = new GetBoardResponseDto(boardEntity);
 
         } catch (Exception exception) {
             exception.printStackTrace();

@@ -22,7 +22,8 @@ public class GetBoardResponseDto extends ResponseDto{
     private String boardWriterNickname;
    
 
-    public GetBoardResponseDto(BoardEntity boardEntity, UserEntity userEntity
+    public GetBoardResponseDto(
+        BoardEntity boardEntity
     ){
         super("SU","Success");
         this.boardNumber = boardEntity.getBoardNumber();
@@ -30,8 +31,8 @@ public class GetBoardResponseDto extends ResponseDto{
         this.boardImageUrl = boardEntity.getBoardImageUrl();
         this.boardWriteDatetime = boardEntity.getBoardWriteDatetime();
         this.viewCount = boardEntity.getViewCount();
-        this.boardWriterEmail = userEntity.getUserEmail();
-        this.boardWriterNickname = userEntity.getUserNickname();
+        this.boardWriterEmail = boardEntity.getBoardWriterEmail();
+        this.boardWriterNickname = boardEntity.getBoardWriterNickname();
         
     }
 }
