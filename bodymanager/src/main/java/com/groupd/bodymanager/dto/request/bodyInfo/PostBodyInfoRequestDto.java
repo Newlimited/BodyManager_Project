@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostBodyInfoRequestDto {
-    @NotNull
-    private Integer userCode;
+   
     @NotNull
     private Double height;
     @NotNull
