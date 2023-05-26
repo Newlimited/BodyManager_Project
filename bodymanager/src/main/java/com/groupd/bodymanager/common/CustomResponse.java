@@ -98,7 +98,10 @@ public class CustomResponse {
         ResponseDto errorBody = new ResponseDto("AT", "Already Attended Today");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
     }
-
+    public static ResponseEntity<ResponseDto> hasNoBoardWithWord(){
+        ResponseDto errorBody = new ResponseDto("NW","Has No BoardList With the Word");
+        return ResponseEntity.status(HttpStatus.NON_AUTHORITATIVE_INFORMATION).body(errorBody);
+    }
 
     public static ResponseEntity<ResponseDto> noPermission() {
 

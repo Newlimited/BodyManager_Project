@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.groupd.bodymanager.dto.response.board.GetBoardResponseDto;
 import com.groupd.bodymanager.dto.response.board.GetBoardListResponseDto;
+import com.groupd.bodymanager.dto.request.board.GetBoardListWithWord;
 import com.groupd.bodymanager.dto.request.board.PatchBoardRequestDto;
 import com.groupd.bodymanager.dto.request.board.PostBoardRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
@@ -42,6 +43,13 @@ public class BoardController {
     public ResponseEntity<? super GetBoardResponseDto> getBoard(
             @PathVariable("boardNumber") Integer boardNumber) {
         ResponseEntity<? super GetBoardResponseDto> response = boardService.getBoard(boardNumber);
+        return response;
+    }
+    // 2 - 1 특정단어 포함된 게시물 리스트 조회
+    @PostMapping("/search")
+    public ResponseEntity<? super GetBoardListResponseDto> getBoardWithWords(
+        @Valid @RequestBody GetBoardListWithWord requesetBody){
+        ResponseEntity<? super GetBoardListResponseDto> response = boardService.getBoardWithWords(requesetBody);
         return response;
     }
 
