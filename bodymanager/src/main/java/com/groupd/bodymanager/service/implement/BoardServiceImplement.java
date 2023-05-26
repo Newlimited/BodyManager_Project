@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.groupd.bodymanager.common.CustomResponse;
+import com.groupd.bodymanager.dto.request.board.GetBoardListWithWord;
 import com.groupd.bodymanager.dto.request.board.PatchBoardRequestDto;
 import com.groupd.bodymanager.dto.request.board.PostBoardRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
@@ -85,8 +86,8 @@ public class BoardServiceImplement implements BoardService {
     public ResponseEntity<? super GetBoardListResponseDto> getBoardList() { 
         GetBoardListResponseDto body = null;
         try {
+             
             List<BoardListResultSet> resultSet = boardRepository.getList();
-            System.out.println(resultSet.size());
             body = new GetBoardListResponseDto(resultSet);
 
         } catch (Exception exception) {
@@ -97,6 +98,32 @@ public class BoardServiceImplement implements BoardService {
         }
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
+
+    @Override // 특정 단어 포함된 게시물 목록보기
+    public ResponseEntity<? super GetBoardListResponseDto> getBoardWithWords(GetBoardListWithWord dto){
+        GetBoardListResponseDto body = null;
+        String words = dto.getWords();
+        words = '%'+words+'%';
+        System.out.println(words);
+        try {
+
+            List<BoardEntity> resultSet = boardRepository.getSearchWord(words);
+            if(resultSet == null){
+                return CustomResponse.hasNoBoardWithWord();
+            }
+            body = new GetBoardListResponseDto(resultSet);
+            
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+
+            return CustomResponse.databaseError();
+
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(body);
+        
+    }
+
 
     @Override //게시물 수정
     public ResponseEntity<ResponseDto> patchBoard(String managerEmail, PatchBoardRequestDto dto) {
