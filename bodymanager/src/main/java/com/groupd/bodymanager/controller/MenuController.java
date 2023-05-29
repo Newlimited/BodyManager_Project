@@ -31,7 +31,7 @@ public class MenuController {
 
     
     
-    //*1.유저코드와 메뉴코드를 등록 */
+    //*1.유저코드와 메뉴코드를 등록  및 수정 */
     @PostMapping("")
     public ResponseEntity<ResponseDto> postMenuCodeAndUserCode(
         @AuthenticationPrincipal String email,
@@ -58,13 +58,13 @@ public class MenuController {
     }
 
     //*4.유저의 메뉴코드 변경 */
-    @PatchMapping("")
-    public ResponseEntity<ResponseDto> patchMenuCode(
-        @AuthenticationPrincipal String email,
-        @Valid @RequestBody MenuRequestDto requestBody
-    ) {
-        ResponseEntity<ResponseDto> response = menuService.patchMenuCode(email, requestBody);
-        return response;
+    // @PatchMapping("")
+    // public ResponseEntity<ResponseDto> patchMenuCode(
+    //     @AuthenticationPrincipal String email,
+    //     @Valid @RequestBody MenuRequestDto requestBody
+    // ) {
+    //     ResponseEntity<ResponseDto> response = menuService.patchMenuCode(email, requestBody);
+    //     return response;
     }
 
-}
+
