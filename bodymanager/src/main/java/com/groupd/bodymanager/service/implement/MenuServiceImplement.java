@@ -57,12 +57,17 @@ public class MenuServiceImplement implements MenuService {
             // *존재하지 않는 메뉴코드 반환 */
             boolean existedByMenuCode = menuRepository.existsByMenuCode(correctMenuCode);
             if (!existedByMenuCode) return CustomResponse.notExistMenuCode();
-            //* 이미 등록한 유저 정보*/
+            //* 이미 등록한 유저 경우 수정*/
             boolean existsByUserCode = userMenuSelectRepository.existsByUserCode(userCode);
-            if (existsByUserCode) return CustomResponse.existUserCode();
+            if (!existsByUserCode) {
+                UserMenuSelect userMenuPatch = userMenuSelectRepository.findByUserCode(userCode);
+                userMenuPatch.setMenuCode(correctMenuCode);
+                userMenuSelectRepository.save(userMenuPatch);
+            }else{
             // *Response 데이터를 레포지토리에 저장 */
             UserMenuSelect userMenuSelect = new UserMenuSelect(userCode, correctMenuCode);
             userMenuSelectRepository.save(userMenuSelect);
+        }
         } catch (Exception exceptione) {
             exceptione.printStackTrace();
             // *데이터베이스 오류 */
@@ -115,32 +120,32 @@ public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode) 
 
 
 
-    @Override // 메뉴 코드를 수정
-    public ResponseEntity<ResponseDto> patchMenuCode(String email, MenuRequestDto dto) {
-        PatchMenuResponseDto body = null;
-        UserEntity userEntity = userRepository.findByUserEmail(email);
-        Integer userCode = userEntity.getUserCode();
-        String menuCode = dto.getMenuCode();
-        String correctMenuCode = menuCode.toUpperCase();
+    // @Override // 메뉴 코드를 수정
+    // public ResponseEntity<ResponseDto> patchMenuCode(String email, MenuRequestDto dto) {
+    //     PatchMenuResponseDto body = null;
+    //     UserEntity userEntity = userRepository.findByUserEmail(email);
+    //     Integer userCode = userEntity.getUserCode();
+    //     String menuCode = dto.getMenuCode();
+    //     String correctMenuCode = menuCode.toUpperCase();
 
-        try {
-            if((email == null) || (dto == null)) return CustomResponse.validationFaild();
-            UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
-            //*메뉴코드가 존재하지 않을시 반환 */
-            if(!menuRepository.existsByMenuCode(menuCode)) return CustomResponse.notExistMenuCode();
-            //*회원코드가 존재하지 않을 시 반환 */
-            if(userMenuSelect == null) return CustomResponse.notExistUserCode();
-            //* 수정된 메뉴코드와 현재 메뉴코드가 같을 시 반환 */
-            if(userMenuSelect.getMenuCode().equals(correctMenuCode)) return CustomResponse.equalMenuCode();
-            userMenuSelectRepository.patchMenuCode(correctMenuCode, userCode);
-            body = new PatchMenuResponseDto(userCode,correctMenuCode);
+    //     try {
+    //         if((email == null) || (dto == null)) return CustomResponse.validationFaild();
+    //         UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
+    //         //*메뉴코드가 존재하지 않을시 반환 */
+    //         if(!menuRepository.existsByMenuCode(menuCode)) return CustomResponse.notExistMenuCode();
+    //         //*회원코드가 존재하지 않을 시 반환 */
+    //         if(userMenuSelect == null) return CustomResponse.notExistUserCode();
+    //         //* 수정된 메뉴코드와 현재 메뉴코드가 같을 시 반환 */
+    //         if(userMenuSelect.getMenuCode().equals(correctMenuCode)) return CustomResponse.equalMenuCode();
+    //         userMenuSelectRepository.patchMenuCode(correctMenuCode, userCode);
+    //         body = new PatchMenuResponseDto(userCode,correctMenuCode);
                         
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            CustomResponse.databaseError();
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(body);
-    }
+    //     } catch (Exception exception) {
+    //         exception.printStackTrace();
+    //         CustomResponse.databaseError();
+    //     }
+    //     return ResponseEntity.status(HttpStatus.OK).body(body);
+    // }
 
 
 
