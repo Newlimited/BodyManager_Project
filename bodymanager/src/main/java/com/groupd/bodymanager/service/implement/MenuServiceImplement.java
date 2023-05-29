@@ -36,7 +36,8 @@ public class MenuServiceImplement implements MenuService {
 
     @Autowired
     MenuServiceImplement(
-        MenuRepository menuRepository, UserRepository userRepository, MenuDetailRepository menuDetailRepository,UserMenuSelectRepository userMenuSelectRepository){
+        MenuRepository menuRepository, UserRepository userRepository, 
+        MenuDetailRepository menuDetailRepository,UserMenuSelectRepository userMenuSelectRepository){
         this.menuRepository = menuRepository;
         this.userRepository = userRepository;
         this.menuDetailRepository = menuDetailRepository;
@@ -59,7 +60,7 @@ public class MenuServiceImplement implements MenuService {
             if (!existedByMenuCode) return CustomResponse.notExistMenuCode();
             //* 이미 등록한 유저 경우 수정*/
             boolean existsByUserCode = userMenuSelectRepository.existsByUserCode(userCode);
-            if (!existsByUserCode) {
+            if (existsByUserCode) {
                 UserMenuSelect userMenuPatch = userMenuSelectRepository.findByUserCode(userCode);
                 userMenuPatch.setMenuCode(correctMenuCode);
                 userMenuSelectRepository.save(userMenuPatch);
