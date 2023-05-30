@@ -9,12 +9,14 @@ import org.springframework.stereotype.Repository;
 
 import com.groupd.bodymanager.entity.UserMenuSelect;
 import com.groupd.bodymanager.entity.primaryKey.SelectPK;
+import com.groupd.bodymanager.entity.primaryKey.UserPK;
 
 
 @Repository
 public interface UserMenuSelectRepository extends JpaRepository<UserMenuSelect,SelectPK>{
     public boolean existsByUserCode(int userCode);
-    public UserMenuSelect findByUserCode(int userCode);
+    
+    public UserMenuSelect findByUserCode(Integer userCode);
 
     @Query(
         value=
