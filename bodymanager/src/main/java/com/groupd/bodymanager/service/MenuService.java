@@ -13,6 +13,6 @@ public interface MenuService {
     public ResponseEntity<ResponseDto> postMenuCodeAndUserCode(String email, MenuRequestDto dto);
     public ResponseEntity<? super GetMenuDetailListResponseDto> getMenuList();
     public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode);
-    // public ResponseEntity<ResponseDto> patchMenuCode(String email, MenuRequestDto dto);
+    public ResponseEntity<ResponseDto> patchMenuCode(String email, MenuRequestDto dto);
 
 }

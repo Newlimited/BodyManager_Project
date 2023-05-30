@@ -20,6 +20,8 @@ import com.groupd.bodymanager.entity.MenuDetailEntity;
 import com.groupd.bodymanager.entity.MenuEntity;
 import com.groupd.bodymanager.entity.UserEntity;
 import com.groupd.bodymanager.entity.UserMenuSelect;
+import com.groupd.bodymanager.entity.primaryKey.SelectPK;
+import com.groupd.bodymanager.entity.primaryKey.UserPK;
 import com.groupd.bodymanager.entity.resultSet.MenuListResultSet;
 import com.groupd.bodymanager.repository.MenuDetailRepository;
 import com.groupd.bodymanager.repository.MenuRepository;
@@ -62,9 +64,7 @@ public class MenuServiceImplement implements MenuService {
             //* 이미 등록한 유저 경우 수정*/
             boolean existsByUserCode = userMenuSelectRepository.existsByUserCode(userCode);
             if (existsByUserCode) {
-                UserMenuSelect userMenuPatch = userMenuSelectRepository.findByUserCode(userCode);
-                userMenuPatch.setMenuCode(correctMenuCode);
-                userMenuSelectRepository.save(userMenuPatch);
+                patchMenuCode(email, dto);
             }else{
             // *Response 데이터를 레포지토리에 저장 */
             UserMenuSelect userMenuSelect = new UserMenuSelect(userCode, correctMenuCode);
@@ -122,32 +122,32 @@ public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode) 
 
 
 
-    // @Override // 메뉴 코드를 수정
-    // public ResponseEntity<ResponseDto> patchMenuCode(String email, MenuRequestDto dto) {
-    //     PatchMenuResponseDto body = null;
-    //     UserEntity userEntity = userRepository.findByUserEmail(email);
-    //     Integer userCode = userEntity.getUserCode();
-    //     String menuCode = dto.getMenuCode();
-    //     String correctMenuCode = menuCode.toUpperCase();
+    @Override // 메뉴 코드를 수정
+    public ResponseEntity<ResponseDto> patchMenuCode(String email, MenuRequestDto dto) {
+        PatchMenuResponseDto body = null;
+        UserEntity userEntity = userRepository.findByUserEmail(email);
+        Integer userCode = userEntity.getUserCode();
+        String menuCode = dto.getMenuCode();
+        String correctMenuCode = menuCode.toUpperCase();
 
-    //     try {
-    //         if((email == null) || (dto == null)) return CustomResponse.validationFaild();
-    //         UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
-    //         //*메뉴코드가 존재하지 않을시 반환 */
-    //         if(!menuRepository.existsByMenuCode(menuCode)) return CustomResponse.notExistMenuCode();
-    //         //*회원코드가 존재하지 않을 시 반환 */
-    //         if(userMenuSelect == null) return CustomResponse.notExistUserCode();
-    //         //* 수정된 메뉴코드와 현재 메뉴코드가 같을 시 반환 */
-    //         if(userMenuSelect.getMenuCode().equals(correctMenuCode)) return CustomResponse.equalMenuCode();
-    //         userMenuSelectRepository.patchMenuCode(correctMenuCode, userCode);
-    //         body = new PatchMenuResponseDto(userCode,correctMenuCode);
+        try {
+            if((email == null) || (dto == null)) return CustomResponse.validationFaild();
+            UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
+            //*메뉴코드가 존재하지 않을시 반환 */
+            if(!menuRepository.existsByMenuCode(menuCode)) return CustomResponse.notExistMenuCode();
+            //*회원코드가 존재하지 않을 시 반환 */
+            if(userMenuSelect == null) return CustomResponse.notExistUserCode();
+            //* 수정된 메뉴코드와 현재 메뉴코드가 같을 시 반환 */
+            if(userMenuSelect.getMenuCode().equals(correctMenuCode)) return CustomResponse.equalMenuCode();
+            userMenuSelectRepository.patchMenuCode(correctMenuCode, userCode);
+            body = new PatchMenuResponseDto(userCode,correctMenuCode);
                         
-    //     } catch (Exception exception) {
-    //         exception.printStackTrace();
-    //         CustomResponse.databaseError();
-    //     }
-    //     return ResponseEntity.status(HttpStatus.OK).body(body);
-    // }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            CustomResponse.databaseError();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(body);
+    }
 
 
 

@@ -6,6 +6,7 @@ import java.util.List;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.entity.MenuDetailEntity;
 import com.groupd.bodymanager.entity.UserMenuSelect;
+import com.groupd.bodymanager.entity.primaryKey.SelectPK;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +19,7 @@ public class GetUserMenuResponseDto extends ResponseDto{
     private String menuCode;
     private List<SelectMenuDetail> menuDetailList;
 
-    public GetUserMenuResponseDto(UserMenuSelect userMenuSelect,
+    public GetUserMenuResponseDto(UserMenuSelect  userMenuSelect,
             List<MenuDetailEntity> menuDetailEntities) {
         super("SU", "Success");
         this.userCode = userMenuSelect.getUserCode();
