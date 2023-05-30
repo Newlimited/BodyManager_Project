@@ -41,6 +41,11 @@ public class CustomResponse {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
     }
 
+    public static ResponseEntity<ResponseDto> notExistEquipmnetNumber() {
+        ResponseDto errorBody = new ResponseDto("NE", "Non-Existent Equipmnet Number");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
+    }
+
 
     public static ResponseEntity<ResponseDto> notExistMenuCode() {
         ResponseDto errorBody = new ResponseDto("NMC", "Non-Existent Menu Code");
