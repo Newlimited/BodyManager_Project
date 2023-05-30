@@ -52,6 +52,7 @@ public class MenuServiceImplement implements MenuService {
         String correctMenuCode = menuCode.toUpperCase();
         UserEntity userEntity = userRepository.findByUserEmail(email);
         Integer userCode = userEntity.getUserCode();
+        menuCode = menuCode.toUpperCase();
         try {
             //*필수 값을 입력 */
             if (menuCode == null)  return CustomResponse.validationFaild();
