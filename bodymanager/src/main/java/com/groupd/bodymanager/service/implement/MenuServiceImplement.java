@@ -133,12 +133,9 @@ public ResponseEntity<? super GetUserMenuResponseDto> getMenu(Integer userCode) 
         try {
             if((email == null) || (dto == null)) return CustomResponse.validationFaild();
             UserMenuSelect userMenuSelect = userMenuSelectRepository.findByUserCode(userCode);
-            //*메뉴코드가 존재하지 않을시 반환 */
-            if(!menuRepository.existsByMenuCode(menuCode)) return CustomResponse.notExistMenuCode();
-            //*회원코드가 존재하지 않을 시 반환 */
-            if(userMenuSelect == null) return CustomResponse.notExistUserCode();
             //* 수정된 메뉴코드와 현재 메뉴코드가 같을 시 반환 */
-            if(userMenuSelect.getMenuCode().equals(correctMenuCode)) return CustomResponse.equalMenuCode();
+            boolean isSameMenuCode = userMenuSelect.getMenuCode().equals(correctMenuCode);
+            if(isSameMenuCode) return CustomResponse.equalMenuCode();
             userMenuSelectRepository.patchMenuCode(correctMenuCode, userCode);
             body = new PatchMenuResponseDto(userCode,correctMenuCode);
                         
