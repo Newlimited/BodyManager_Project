@@ -61,25 +61,6 @@ CREATE TABLE IF NOT EXISTS `bodymanager`.`Manager` (
 ENGINE = InnoDB
 COMMENT = '관리자 ';
 
-#Trainner
-CREATE TABLE IF NOT EXISTS `bodymanager`.`Trainner` (
-  `trainner_email` VARCHAR(45) NOT NULL,
-  `user_nickname` VARCHAR(6) NOT NULL COMMENT '회원닉네임',
-  `user_phone_number` VARCHAR(45) NOT NULL COMMENT '회원전화번호',
-  `user_gender` VARCHAR(4) NULL COMMENT '회원성별',
-  `user_age` INT NULL COMMENT '회원나이',
-  UNIQUE INDEX `user_nickname_UNIQUE` (`user_nickname` ASC) VISIBLE,
-  UNIQUE INDEX `user_phone_number_UNIQUE` (`user_phone_number` ASC) VISIBLE,
-  INDEX `fk_Trainner_User1_idx` (`trainner_email` ASC) VISIBLE,
-  CONSTRAINT `fk_Trainner_User1`
-    FOREIGN KEY (`trainner_email`)
-    REFERENCES `bodymanager`.`User` (`user_email`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-COMMENT = '트레이너';
-
-
 # BODYINFO
 CREATE TABLE IF NOT EXISTS `bodymanager`.`Body_info` (
   `user_code` INT NOT NULL AUTO_INCREMENT COMMENT '회원번호',
