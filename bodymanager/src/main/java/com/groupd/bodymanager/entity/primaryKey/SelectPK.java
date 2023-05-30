@@ -7,8 +7,10 @@ import javax.persistence.Column;
 import com.groupd.bodymanager.entity.UserMenuSelect;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class SelectPK implements Serializable{
     @Column(name ="user_code")
     private Integer userCode;
