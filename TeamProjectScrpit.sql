@@ -175,6 +175,15 @@ ENGINE = InnoDB
 COMMENT = '마일리지';
 
 #Equipment
+CREATE TABLE IF NOT EXISTS `bodymanager`.`Equipment` (
+  `equipment_number` INT NOT NULL AUTO_INCREMENT COMMENT '운동기구 번호',
+  `equipment_name` VARCHAR(45) NOT NULL COMMENT '운동기구 이름',
+  `equipment_usage` TEXT NOT NULL COMMENT '운동기구 사용법',
+  `equipment_image_url` VARCHAR(511) NOT NULL COMMENT '운동기구 이미지',
+  PRIMARY KEY (`equipment_number`))
+ENGINE = InnoDB
+COMMENT = '운동기구 관련 테이블';
+
 Insert into equipment(equipment_name, equipment_usage, equipment_image_url) 
 values ("랫 풀다운",
 "앉아서 랫 풀다운 기계에 앉고 발을 고정합니다.
@@ -195,15 +204,6 @@ values ("힙 레이즈 ",
 다리를 천천히 내리면서 복근을 계속해서 수축시킵니다.
 다리를 들어올리고 내리는 동작을 반복하여 복근을 강화합니다.",
 "힙 레기즈 기구 이미지");
-
-truncate table equipment;
-
-SELECT 
-E.equipment_number AS EquipmentNumber,
-E.equipment_name AS EquipmentName,
-E.equipment_usage AS EquipmentUsage,
-E.equipment_image_url AS EquipmentImageUrl
-FROM equipment E;
 
 #VIEW
 CREATE VIEW user_Select_menu AS
