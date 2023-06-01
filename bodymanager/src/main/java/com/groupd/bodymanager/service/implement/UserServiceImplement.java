@@ -144,37 +144,7 @@ public class UserServiceImplement implements UserService {
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
-    @Override
-    public ResponseEntity<? super GetUserResponseDto> addManager(PostManagerRequestDto dto) {
-        GetUserResponseDto body = null;
-        String addEmail = dto.getManagerEmail();
-        int addCode;
-
-        try {
-            // 이메일 일치 확인 - 유저이메일에서 확인하는거고...
-            boolean isExistEmail = userRepository.existsByUserEmail(addEmail);
-            if (!isExistEmail) {
-                return CustomResponse.notExistUserEmail();
-            } // 오류 반환 <이메일 없숨!>
-              // 이메일 중복 확인 - 매니저이메일 리스트 안에서 확인하는것..
-            boolean isAlreadyAdded = managerRepository.existsByManagerEmail(addEmail);
-            if (isAlreadyAdded) {
-                return CustomResponse.existUserEmail();// 오류반환 <이메일 중복>
-            }
-            UserEntity userEntity = userRepository.findByUserEmail(addEmail);
-
-            addCode = userEntity.getUserCode();
-            ManagerEntity managerEntity = new ManagerEntity(addEmail);
-            managerRepository.save(managerEntity);
-
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return CustomResponse.databaseError();
-        }
-
-        return CustomResponse.successs();
-    }
-
+    
     // 사용자 조회
     @Override
     public ResponseEntity<? super GetUserResponseDto> getUser(Integer userCode) {
