@@ -19,6 +19,7 @@ import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetUserResponseDto;
+import com.groupd.bodymanager.service.ManagerSerivce;
 import com.groupd.bodymanager.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,12 +30,13 @@ import lombok.RequiredArgsConstructor;
 public class UserController{
     
     private final UserService userService;
+    private final ManagerSerivce managerService;
     
     @PostMapping("add-manager")
     public ResponseEntity<? super GetUserResponseDto> addManager(
         @Valid @RequestBody PostManagerRequestDto requestBody
     ){
-        ResponseEntity<? super GetUserResponseDto> response = userService.addManager(requestBody);
+        ResponseEntity<? super GetUserResponseDto> response = managerService.addManager(requestBody);
         return response;
     }
 
