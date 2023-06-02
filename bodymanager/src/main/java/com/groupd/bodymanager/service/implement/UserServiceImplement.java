@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,18 +49,20 @@ public class UserServiceImplement implements UserService {
     private PasswordEncoder passwordEncoder;
     private BodyInfoRepository bodyInfoRepository;
     private UserMenuSelectRepository userMenuSelectRepository;
+    private HttpSession httpSession;
 
     @Autowired
     public UserServiceImplement(
             UserRepository userRepository,
             JwtProvider jwtProvider, ManagerRepository managerRepository, MileageRepository mileageRepository, 
-            UserMenuSelectRepository userMenuSelectRepository) {
+            UserMenuSelectRepository userMenuSelectRepository,HttpSession httpSession) {
         this.userRepository = userRepository;
         this.passwordEncoder = new BCryptPasswordEncoder();
         this.jwtProvider = jwtProvider;
         this.managerRepository = managerRepository;
         this.mileageRepository = mileageRepository;
         this.userMenuSelectRepository = userMenuSelectRepository;
+        this.httpSession = httpSession;
     }
 
     // 회원가입
@@ -142,6 +146,19 @@ public class UserServiceImplement implements UserService {
             return CustomResponse.databaseError();
         }
         return ResponseEntity.status(HttpStatus.OK).body(body);
+    }
+
+    //로그아웃
+    @Override
+    public ResponseEntity<ResponseDto> logout(String email,HttpSession httpSession) {
+        try {
+            // 사용자 세션 무효화
+            httpSession.invalidate();
+            return CustomResponse.successs();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return CustomResponse.logoutFailed();
+        }
     }
 
     
@@ -294,4 +311,6 @@ public class UserServiceImplement implements UserService {
         }
         return CustomResponse.successs();
     }
+
+    
 }
