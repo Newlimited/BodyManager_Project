@@ -1,7 +1,10 @@
 package com.groupd.bodymanager.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.boot.autoconfigure.web.ServerProperties.Reactive.Session;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +34,7 @@ public class UserController{
     
     private final UserService userService;
     private final ManagerSerivce managerService;
+    private HttpSession httpSession;
     
     @PostMapping("add-manager")
     public ResponseEntity<? super GetUserResponseDto> addManager(
@@ -54,6 +58,13 @@ public class UserController{
         @Valid @RequestBody SignInRequestDto requsetBody
     ){
         ResponseEntity<? super GetAuthResponseDto> response = userService.signIn(requsetBody);
+        return response;
+    }
+
+    @GetMapping("/logout")
+    public ResponseEntity<? super GetAuthResponseDto> logout(
+        @AuthenticationPrincipal String email, @Valid HttpSession httpSession) {
+        ResponseEntity<? super GetAuthResponseDto> response = userService.logout(email, httpSession);
         return response;
     }
 

@@ -1,5 +1,7 @@
 package com.groupd.bodymanager.service;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.http.ResponseEntity;
 
 
@@ -16,6 +18,7 @@ public interface UserService {
     
     public ResponseEntity<? super GetAuthResponseDto> signIn(SignInRequestDto dto);
     public ResponseEntity<? super GetAuthResponseDto> signUp(SignUpRequestDto dto);
+    public ResponseEntity<? super GetAuthResponseDto> logout(String email, HttpSession httpSession);
     public ResponseEntity<? super GetUserResponseDto> getUser(Integer userCode);
     
     public ResponseEntity<ResponseDto> patchUser(String email, PatchUserRequestDto dto);
