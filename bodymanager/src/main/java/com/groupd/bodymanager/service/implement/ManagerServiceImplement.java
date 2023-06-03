@@ -12,6 +12,7 @@ import com.groupd.bodymanager.dto.request.user.PostManagerRequestDto;
 import com.groupd.bodymanager.dto.response.user.GetTrainnerProfileResponse;
 import com.groupd.bodymanager.entity.ManagerEntity;
 import com.groupd.bodymanager.entity.UserEntity;
+
 import com.groupd.bodymanager.entity.resultSet.ManagerEmailResultSet;
 import com.groupd.bodymanager.repository.ManagerRepository;
 import com.groupd.bodymanager.repository.UserRepository;
@@ -41,9 +42,11 @@ public class ManagerServiceImplement implements ManagerSerivce{
                 return CustomResponse.existUserEmail();// 오류반환 <이메일 중복>
             }
             UserEntity userEntity = userRepository.findByUserEmail(addEmail);
-
-            
+          
             ManagerEntity managerEntity = new ManagerEntity(addEmail, userEntity);
+            Integer managerCode = managerEntity.getManagerCode();
+            managerEntity.setManagerCode(managerCode);
+            
             managerRepository.save(managerEntity);
 
         } catch (Exception exception) {
