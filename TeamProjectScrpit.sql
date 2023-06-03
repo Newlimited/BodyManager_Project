@@ -51,8 +51,13 @@ truncate table exercise_routine;
 
 # MANAGER
 CREATE TABLE IF NOT EXISTS `bodymanager`.`Manager` (
+  `manager_code` INT NOT NULL AUTO_INCREMENT,
   `manager_email` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`manager_email`),
+  `manager_nickname` VARCHAR(6) NOT NULL,
+  `manager_phone_number` VARCHAR(45) NOT NULL,
+  `manager_gender` VARCHAR(4) NULL,
+  `manager_age` INT NULL,
+  PRIMARY KEY (`manager_code`, `manager_email`),
   CONSTRAINT `fk_Manager_User1`
     FOREIGN KEY (`manager_email`)
     REFERENCES `bodymanager`.`User` (`user_email`)
@@ -60,6 +65,7 @@ CREATE TABLE IF NOT EXISTS `bodymanager`.`Manager` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 COMMENT = '관리자 ';
+
 
 # BODYINFO
 CREATE TABLE IF NOT EXISTS `bodymanager`.`Body_info` (
@@ -205,12 +211,8 @@ values ("힙 레이즈 ",
 상체를 고정하고 복근을 사용하여 다리를 들어올립니다.
 다리를 천천히 내리면서 복근을 계속해서 수축시킵니다. 
 다리를 들어올리고 내리는 동작을 반복하여 복근을 강화합니다.",
-<<<<<<< HEAD
+
 "힙 레이즈 기구 이미지");
-=======
-"힙 레기즈 기구 이미지"
-);
->>>>>>> ae1929aa577f4cb103e0d1148f14923fb6db5433
 
 commit ;
 #VIEW
