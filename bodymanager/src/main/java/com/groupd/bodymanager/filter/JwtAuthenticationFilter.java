@@ -45,7 +45,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter  { // 확장�
                     String email = jwtProvider.validate(jwt);
 
                     boolean comparedResult = userService.validateStoredToken(email, jwt);
-                    System.out.println(comparedResult);
+                    
                     if (!comparedResult) {
                         filterChain.doFilter(request, response);
                         return ;
