@@ -136,6 +136,9 @@ public class UserServiceImplement implements UserService {
 
             String jwt = jwtProvider.create(userEmail);
             int userCode = userEntity.getUserCode();
+            String encordJwt = passwordEncoder.encode(jwt);
+            userEntitiy.settoken(encordJwt);
+            userRepository.save(userEntitiy);
             body = new GetAuthResponseDto(jwt, userCode);
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -144,6 +147,10 @@ public class UserServiceImplement implements UserService {
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
+    //logout
+
+    userEntitiy.setToken(null);
+    save
     
     // 사용자 조회
     @Override
@@ -293,5 +300,16 @@ public class UserServiceImplement implements UserService {
             return CustomResponse.databaseError();
         }
         return CustomResponse.successs();
+    }
+
+    public boolean validateStoredToken(String email, String token) {
+
+        if (email.isBlank()) return false;
+
+        UserEntity userEntity = userRepository.findByUserEmail(email);
+        String storedToken = userEntity.getToken();
+        boolean comparedResult = passwordEncoder.matches(token, storedToken);
+        return comparedResult;
+
     }
 }

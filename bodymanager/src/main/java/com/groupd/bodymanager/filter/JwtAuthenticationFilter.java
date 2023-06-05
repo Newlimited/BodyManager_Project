@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.groupd.bodymanager.provider.JwtProvider;
+import com.groupd.bodymanager.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class JwtAuthenticationFilter extends OncePerRequestFilter  { // 확장해준다.
     
     private final JwtProvider jwtProvider;
+    private final UserService userService;
 
    
     @Override
@@ -41,6 +43,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter  { // 확장�
                         return;
                     }
                     String email = jwtProvider.validate(jwt);
+
+                    boolean comparedResult = userService.validateStoredToken(email, jwt);
+                    if (!comparedResult) {
+                        filterChain.doFilter(request, response);
+                        return;
+                    }
 
                     AbstractAuthenticationToken authenticationToken = 
                     new UsernamePasswordAuthenticationToken(email, null, AuthorityUtils.NO_AUTHORITIES);

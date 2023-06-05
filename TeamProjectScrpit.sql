@@ -51,8 +51,14 @@ truncate table exercise_routine;
 
 # MANAGER
 CREATE TABLE IF NOT EXISTS `bodymanager`.`Manager` (
+  `manager_code` INT NOT NULL AUTO_INCREMENT,
   `manager_email` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`manager_email`),
+  `manager_nickname` VARCHAR(6) NOT NULL,
+  `manager_gender` VARCHAR(4) NULL,
+  `manager_age` INT NULL,
+  `manager_phone_number` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`manager_code`, `manager_email`),
+  UNIQUE INDEX `manager_phone_number_UNIQUE` (`manager_phone_number` ASC) VISIBLE,
   CONSTRAINT `fk_Manager_User1`
     FOREIGN KEY (`manager_email`)
     REFERENCES `bodymanager`.`User` (`user_email`)

@@ -11,6 +11,7 @@ import com.groupd.bodymanager.dto.request.user.SignUpRequestDto;
 import com.groupd.bodymanager.dto.response.ResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetAuthResponseDto;
 import com.groupd.bodymanager.dto.response.user.GetUserResponseDto;
+import com.groupd.bodymanager.entity.UserEntity;
 
 public interface UserService {
     
@@ -20,4 +21,6 @@ public interface UserService {
     
     public ResponseEntity<ResponseDto> patchUser(String email, PatchUserRequestDto dto);
     public ResponseEntity<ResponseDto> deleteUser(String userEmail, DeleteUserRequestDto dto);
+
+    public boolean validateStoredToken(String email, String token);
 }
