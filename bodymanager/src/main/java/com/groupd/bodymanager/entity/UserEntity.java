@@ -33,7 +33,7 @@ public class UserEntity {
     private String userAddress;
     private String userGender;
     private Integer userAge;
-    
+    private String jwtoken;
 
     
 

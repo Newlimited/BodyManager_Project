@@ -4,23 +4,23 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
-import com.groupd.bodymanager.entity.primaryKey.ManagerPK;
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity(name = "Manager")
 @Table(name = "Manager")
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
-@IdClass(ManagerPK.class)
+// @IdClass(ManagerPK.class)
 public class ManagerEntity {
 
-    @Id
+   
     @Email
     String managerEmail;
     @Id
@@ -34,8 +34,9 @@ public class ManagerEntity {
 
 
     public ManagerEntity(String email, UserEntity userEntity) {
-        
+   
         this.managerEmail = email;
+       
         this.managerPhoneNumber = userEntity.getUserPhoneNumber();
         this.managerGender = userEntity.getUserGender();
         this.managerAge = userEntity.getUserAge();

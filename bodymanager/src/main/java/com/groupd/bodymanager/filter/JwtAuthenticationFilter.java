@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.groupd.bodymanager.common.CustomResponse;
 import com.groupd.bodymanager.provider.JwtProvider;
 import com.groupd.bodymanager.service.UserService;
 
@@ -45,9 +46,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter  { // 확장�
                     String email = jwtProvider.validate(jwt);
 
                     boolean comparedResult = userService.validateStoredToken(email, jwt);
+                    System.out.println(comparedResult);
                     if (!comparedResult) {
                         filterChain.doFilter(request, response);
-                        return;
+                        return ;
                     }
 
                     AbstractAuthenticationToken authenticationToken = 

@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS `bodymanager`.`User` (
   `user_address` VARCHAR(45) NULL COMMENT '회원주소',
   `user_gender` VARCHAR(4) NULL COMMENT '회원성별',
   `user_age` INT NULL COMMENT '회원나이',
+  `jwtoken` TEXT NULL COMMENT '토큰',
   PRIMARY KEY (`user_code`, `user_email`),
   UNIQUE INDEX `user_nickname_UNIQUE` (`user_nickname` ASC) VISIBLE,
   UNIQUE INDEX `user_phone_number_UNIQUE` (`user_phone_number` ASC) VISIBLE,
@@ -54,18 +55,17 @@ CREATE TABLE IF NOT EXISTS `bodymanager`.`Manager` (
   `manager_code` INT NOT NULL AUTO_INCREMENT,
   `manager_email` VARCHAR(45) NOT NULL,
   `manager_nickname` VARCHAR(6) NOT NULL,
+  `manager_phone_number` VARCHAR(45) NOT NULL,
   `manager_gender` VARCHAR(4) NULL,
   `manager_age` INT NULL,
-  `manager_phone_number` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`manager_code`, `manager_email`),
-  UNIQUE INDEX `manager_phone_number_UNIQUE` (`manager_phone_number` ASC) VISIBLE,
-  CONSTRAINT `fk_Manager_User1`
     FOREIGN KEY (`manager_email`)
     REFERENCES `bodymanager`.`User` (`user_email`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 COMMENT = '관리자 ';
+
 
 # BODYINFO
 CREATE TABLE IF NOT EXISTS `bodymanager`.`Body_info` (
@@ -211,8 +211,8 @@ values ("힙 레이즈 ",
 상체를 고정하고 복근을 사용하여 다리를 들어올립니다.
 다리를 천천히 내리면서 복근을 계속해서 수축시킵니다. 
 다리를 들어올리고 내리는 동작을 반복하여 복근을 강화합니다.",
-"힙 레기즈 기구 이미지"
-);
+
+"힙 레이즈 기구 이미지");
 
 commit ;
 #VIEW
@@ -276,6 +276,7 @@ ADD CONSTRAINT `fk_body_info_user`
   REFERENCES `bodymanager`.`user` (`user_code`)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
+
 
   
 

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,18 +49,20 @@ public class UserServiceImplement implements UserService {
     private PasswordEncoder passwordEncoder;
     private BodyInfoRepository bodyInfoRepository;
     private UserMenuSelectRepository userMenuSelectRepository;
+    private HttpSession httpSession;
 
     @Autowired
     public UserServiceImplement(
             UserRepository userRepository,
             JwtProvider jwtProvider, ManagerRepository managerRepository, MileageRepository mileageRepository, 
-            UserMenuSelectRepository userMenuSelectRepository) {
+            UserMenuSelectRepository userMenuSelectRepository,HttpSession httpSession) {
         this.userRepository = userRepository;
         this.passwordEncoder = new BCryptPasswordEncoder();
         this.jwtProvider = jwtProvider;
         this.managerRepository = managerRepository;
         this.mileageRepository = mileageRepository;
         this.userMenuSelectRepository = userMenuSelectRepository;
+        this.httpSession = httpSession;
     }
 
     // 회원가입
@@ -130,15 +134,16 @@ public class UserServiceImplement implements UserService {
             // 로그인 실패 (패스워드 x)
             String encordedPassword = userEntity.getUserPassword();
             boolean equaledPassword = passwordEncoder.matches(userPassword, encordedPassword);
-            ;
+            
             if (!equaledPassword)
                 return CustomResponse.signInFailed();
 
             String jwt = jwtProvider.create(userEmail);
             int userCode = userEntity.getUserCode();
-            String encordJwt = passwordEncoder.encode(jwt);
-            userEntitiy.settoken(encordJwt);
-            userRepository.save(userEntitiy);
+            String jwtSecret = jwt.split("\\.")[2];
+            String encordJwt = passwordEncoder.encode(jwtSecret);
+            userEntity.setJwtoken(encordJwt);
+            userRepository.save(userEntity);
             body = new GetAuthResponseDto(jwt, userCode);
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -147,10 +152,20 @@ public class UserServiceImplement implements UserService {
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
-    //logout
+    //로그아웃
+    @Override
+    public ResponseEntity<ResponseDto> logout(String email,HttpSession httpSession) {
+        UserEntity userEntity = userRepository.findByUserEmail(email);
+        try {
+            userEntity.setJwtoken(null);
+           userRepository.save(userEntity);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return CustomResponse.logoutFailed();
+        }
+        return CustomResponse.successs();
+    }
 
-    userEntitiy.setToken(null);
-    save
     
     // 사용자 조회
     @Override
@@ -302,13 +317,15 @@ public class UserServiceImplement implements UserService {
         return CustomResponse.successs();
     }
 
+    @Override // 이전의 토큰과 현재의 토큰을 비교
     public boolean validateStoredToken(String email, String token) {
 
         if (email.isBlank()) return false;
 
         UserEntity userEntity = userRepository.findByUserEmail(email);
-        String storedToken = userEntity.getToken();
-        boolean comparedResult = passwordEncoder.matches(token, storedToken);
+        String storedToken = userEntity.getJwtoken();
+        String jwtSecret = token.split("\\.")[2];
+        boolean comparedResult = passwordEncoder.matches(jwtSecret, storedToken);
         return comparedResult;
 
     }
