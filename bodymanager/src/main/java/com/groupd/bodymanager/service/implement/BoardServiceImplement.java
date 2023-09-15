@@ -48,7 +48,7 @@ public class BoardServiceImplement implements BoardService {
             BoardEntity boardEntity = new BoardEntity(email, dto);
             boardEntity.setBoardWriterNickname(userNickname);
             boardRepository.save(boardEntity);
-           
+           System.out.println("test");
 
         } catch (Exception exception) {
             // TODO : 데이터 베이스 오류반환
